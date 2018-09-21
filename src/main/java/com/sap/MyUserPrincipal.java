@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class MyUserPrincipal implements UserDetails {
+
     private User user;
 
     public MyUserPrincipal(User user) {
@@ -21,6 +22,10 @@ public class MyUserPrincipal implements UserDetails {
         List<SimpleGrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority(user.getRole().getName()));
         return roles;
+    }
+
+    public User getUser() {
+        return this.user;
     }
 
     @Override

@@ -28,6 +28,9 @@
     <h1>Team owner page - Logged as <security:authentication property="principal.username" /> </h1>
 </div>
 <div>
+    <h1>You are the owner of Team ${teamId}</h1>
+</div>
+<div>
     <form action="/logout" method="get">
         <input type="submit" value="Logout"/>
     </form>

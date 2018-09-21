@@ -21,6 +21,9 @@ public class User {
     @JoinColumn(name = "ROLE_ID")
     private Role role;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade =  CascadeType.ALL, mappedBy = "owner")
+    private Team team;
+
     public Role getRole() {
         return role;
     }
@@ -59,5 +62,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

@@ -2,6 +2,7 @@ package com.sap.service.impl;
 
 import com.sap.Dao.UserDao;
 import com.sap.models.Role;
+import com.sap.models.Team;
 import com.sap.models.User;
 import com.sap.service.UserService;
 
@@ -27,6 +28,11 @@ public class UserServiceImp implements UserService {
             Role role = new Role();
             role.setName("ROLE_ADMIN");
             user.setRole(role);
+
+            Team team = new Team();
+            team.setOwner(user);
+            user.setTeam(team);
+
             userDao.create(user);
         }else{
             throw new IllegalArgumentException("Already registered email!");

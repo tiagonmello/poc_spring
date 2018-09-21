@@ -22,6 +22,7 @@ public class UserDaoImp extends HibernateDaoSupport implements UserDao {
 
     @Override
     public User getUserByUsername(String username){
+
         List<User> userList = this.getAll();
         for(int i=0;i<userList.size();i++){
             if(userList.get(i).getUserName().equals(username)){
