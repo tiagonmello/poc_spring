@@ -36,7 +36,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/registrationForm")
-    public String register(WebRequest request, Model model) {
+    public String register(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "registrationForm";
@@ -45,7 +45,7 @@ public class HomeController {
     @RequestMapping(value = "/register")
     public String processRegistrationForm(Model model, User user) {
         try{
-            userService.create(user);
+            userService.createOwner(user);
             model.addAttribute("registrationMessage","Registration Successful!");
         }catch (IllegalArgumentException e){
             model.addAttribute("registrationMessage",e.getMessage());
@@ -74,9 +74,3 @@ public class HomeController {
     }
 
 }
-
-
-
-
-
-

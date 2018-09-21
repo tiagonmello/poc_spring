@@ -21,11 +21,30 @@ import java.security.Principal;
 @Controller
 public class OwnerController {
 
+    @Resource
+    private UserService userService;
+
     @RequestMapping(value = "/owner/homepage")
-    public String ownerHomepage(Model model){
+    public String ownerHomepage(Model model, User user){
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = principal.getUser();
-        model.addAttribute("teamId",user.getTeam().getId());
+        User loggedUser = principal.getUser();
+        model.addAttribute("teamId",loggedUser.getTeam().getId());
+        model.addAttribute("user",user);
+        return "ownerPage";
+    }
+
+    @RequestMapping(value = "/owner/addMember")
+    public String ownerAddMember(Model model, User user){
+        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User teamOwner = principal.getUser();
+
+        try{
+            userService.createMember(user, teamOwner);
+            model.addAttribute("registrationMessage","Registration Successful!");
+        }catch (IllegalArgumentException e){
+            model.addAttribute("registrationMessage",e.getMessage());
+        }
+
         return "ownerPage";
     }
 }

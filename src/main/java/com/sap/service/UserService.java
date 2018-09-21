@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface UserService {
 
-    void create(User user);
+    void createOwner(User user);
+
+    void createMember(User user, User teamOwner);
 
     List<User> getAll();
 

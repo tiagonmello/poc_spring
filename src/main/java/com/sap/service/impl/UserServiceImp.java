@@ -16,27 +16,33 @@ public class UserServiceImp implements UserService {
     private UserDao userDao;
 
     @Override
-    public void create(User user) {
-        boolean duplicatedEmail = false;
-        List<User> userList = this.getAll();
-        for(int i=0;i<userList.size() && !duplicatedEmail;i++){
-            if(userList.get(i).getEmail().equals(user.getEmail())){
-                duplicatedEmail = true;
-            }
-        }
-        if(!duplicatedEmail){
-            Role role = new Role();
-            role.setName("ROLE_OWNER");
-            user.setRole(role);
-
-            Team team = new Team();
-            team.setOwner(user);
-            user.setTeam(team);
-
-            userDao.create(user);
-        }else{
+    public void createOwner(User user) {
+        if(emailAlreadyExists(user))
             throw new IllegalArgumentException("Already registered email!");
-        }
+
+        Role role = new Role();
+        role.setName("ROLE_OWNER");
+        user.setRole(role);
+
+        Team team = new Team();
+        team.setOwner(user);
+        user.setTeam(team);
+
+        userDao.create(user);
+    }
+
+    @Override
+    public void createMember(User user, User teamOwner) {
+        if(emailAlreadyExists(user))
+            throw new IllegalArgumentException("Already registered email!");
+
+        Role role = new Role();
+        role.setName("ROLE_MEMBER");
+        user.setRole(role);
+
+        user.setTeam(teamOwner.getTeam());
+
+        userDao.create(user);
     }
 
     @Override
@@ -44,4 +50,14 @@ public class UserServiceImp implements UserService {
         return userDao.getAll();
     }
 
+    private boolean emailAlreadyExists(User user){
+        boolean duplicatedEmail = false;
+        List<User> userList = this.getAll();
+        for(int i=0;i<userList.size() && !duplicatedEmail;i++){
+            if(userList.get(i).getEmail().equals(user.getEmail())){
+                duplicatedEmail = true;
+            }
+        }
+        return duplicatedEmail;
+    }
 }

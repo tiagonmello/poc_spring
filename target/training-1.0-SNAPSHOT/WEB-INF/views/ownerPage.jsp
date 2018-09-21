@@ -31,6 +31,22 @@
     <h1>You are the owner of Team ${teamId}</h1>
 </div>
 <div>
+    <b>Add new members to your team:</b>
+</div>
+<div>
+    <form:form id="addMember" modelAttribute="user" action="/owner/addMember" name="addMember" method="post">
+        <label for="userName">Username:</label>
+        <input id="userName" type="text" name="userName">
+        <label for="email">Email:</label>
+        <input id="email" type="email" name="email">
+        <label for="password">Password:</label>
+        <input id="password" type="password" name="password">
+        <label for="matchingPassword">Confirm password:</label>
+        <input id="matchingPassword" type="password" name="matchingPassword">
+        <button id="add" type="submit">Register</button>
+    </form:form>
+</div>
+<div>
     <form action="/logout" method="get">
         <input type="submit" value="Logout"/>
     </form>
