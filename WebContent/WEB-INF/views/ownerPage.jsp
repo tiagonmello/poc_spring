@@ -21,16 +21,16 @@
 </style>
 <html>
 <head>
-    <title>Homepage</title>
+    <title>Owner page</title>
 </head>
 <body>
-    <div>
-        <h1>Default homepage</h1>
-    </div>
-    <div>
-        <form action="/logout" method="get">
-            <input type="submit" value="Logout"/>
-        </form>
-    </div>
+<div>
+    <h1>Team owner page - Logged as <security:authentication property="principal.username" /> </h1>
+</div>
+<div>
+    <form action="/logout" method="get">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
 </body>
 </html>

@@ -23,7 +23,10 @@ public class HomeController {
     private UserService userService;
 
     @RequestMapping(value = "/homepage")
-    public String homepage(){
+    public String homepage(HttpServletRequest request){
+        if(request.isUserInRole("ROLE_ADMIN")){
+            return "redirect:/owner/homepage";
+        }
         return "homepage";
     }
 

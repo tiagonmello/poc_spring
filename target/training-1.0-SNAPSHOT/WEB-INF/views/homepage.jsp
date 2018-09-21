@@ -25,7 +25,7 @@
 </head>
 <body>
     <div>
-        <h1>Team owner page - Logged as <security:authentication property="principal.username" /> </h1>
+        <h1>Default homepage</h1>
     </div>
     <div>
         <form action="/logout" method="get">
