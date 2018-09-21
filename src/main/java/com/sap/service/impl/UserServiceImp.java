@@ -26,7 +26,7 @@ public class UserServiceImp implements UserService {
         }
         if(!duplicatedEmail){
             Role role = new Role();
-            role.setName("ROLE_ADMIN");
+            role.setName("ROLE_OWNER");
             user.setRole(role);
 
             Team team = new Team();

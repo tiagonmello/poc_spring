@@ -24,7 +24,7 @@ public class HomeController {
 
     @RequestMapping(value = "/homepage")
     public String homepage(HttpServletRequest request){
-        if(request.isUserInRole("ROLE_ADMIN")){
+        if(request.isUserInRole("ROLE_OWNER")){
             return "redirect:/owner/homepage";
         }
         return "homepage";
