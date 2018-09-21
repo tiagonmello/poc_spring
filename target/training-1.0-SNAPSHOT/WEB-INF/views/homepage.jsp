@@ -25,27 +25,7 @@
 </head>
 <body>
     <div>
-        <h1>Users and Courses management - Logged as <security:authentication property="principal.username" /> </h1>
-    </div>
-    <div>
-        <form action="/admin/editUsers" method="get">
-            <input type="submit" value="Edit users"/>
-        </form>
-    </div>
-    <div>
-        <form action="/admin/editCourses" method="get">
-            <input type="submit" value="Edit courses"/>
-        </form>
-    </div>
-    <div>
-        <form action="/user/showAllUsers" method="get">
-            <input type="submit" value="Show users"/>
-        </form>
-    </div>
-    <div>
-        <form action="/user/showAllCourses" method="get">
-            <input type="submit" value="Show courses"/>
-        </form>
+        <h1>Team owner page - Logged as <security:authentication property="principal.username" /> </h1>
     </div>
     <div>
         <form action="/logout" method="get">

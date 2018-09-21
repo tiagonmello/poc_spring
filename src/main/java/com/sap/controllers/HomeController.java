@@ -43,12 +43,11 @@ public class HomeController {
     public String processRegistrationForm(Model model, User user) {
         try{
             userService.create(user);
+            model.addAttribute("registrationMessage","Registration Successful!");
         }catch (IllegalArgumentException e){
-            model.addAttribute("error",e.getMessage());
-            return "addError";
+            model.addAttribute("registrationMessage",e.getMessage());
         }
-        model.addAttribute("user",user);
-        return "register";
+        return "registrationForm";
     }
 
     @RequestMapping(value = "/error")

@@ -28,6 +28,8 @@ public class UserServiceImp implements UserService {
             role.setName("ROLE_ADMIN");
             user.setRole(role);
             userDao.create(user);
+        }else{
+            throw new IllegalArgumentException("Already registered email!");
         }
     }
 

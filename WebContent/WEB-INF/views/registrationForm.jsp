@@ -22,7 +22,12 @@
 <html>
 <body>
 <h1>Registration form</h1>
-
+<br>
+    <c:if test="${not empty registrationMessage}">
+        <div style="color:red">${registrationMessage}</div>
+        <br>
+    </c:if>
+<br>
 <form:form method="post" modelAttribute="user" action="/register" name="user">
     <label for="userName">Username:</label>
     <input id="userName" type="text" name="userName">
