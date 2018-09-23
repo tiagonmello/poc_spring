@@ -27,6 +27,7 @@ public class UserServiceImp implements UserService {
         Team team = new Team();
         team.setOwner(user);
         user.setTeam(team);
+        user.setTeamOwned(team);
 
         userDao.create(user);
     }
@@ -48,6 +49,16 @@ public class UserServiceImp implements UserService {
     @Override
     public List<User> getAll() {
         return userDao.getAll();
+    }
+
+    @Override
+    public List<User> getUsersByRole(String role) {
+        return userDao.getUsersByRole(role);
+    }
+
+    @Override
+    public List<User> getUsersByTeam(Team team) {
+        return userDao.getUsersByTeam(team);
     }
 
     private boolean emailAlreadyExists(User user){

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class OwnerController {
@@ -28,8 +29,10 @@ public class OwnerController {
     public String ownerHomepage(Model model, User user){
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User loggedUser = principal.getUser();
+
         model.addAttribute("teamId",loggedUser.getTeam().getId());
         model.addAttribute("user",user);
+        model.addAttribute("userList",userService.getUsersByTeam(loggedUser.getTeam()));
         return "ownerPage";
     }
 
@@ -44,8 +47,7 @@ public class OwnerController {
         }catch (IllegalArgumentException e){
             model.addAttribute("registrationMessage",e.getMessage());
         }
-
-        return "ownerPage";
+        return "redirect:/owner/homepage";
     }
 }
 

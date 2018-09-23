@@ -51,5 +51,40 @@
         <input type="submit" value="Logout"/>
     </form>
 </div>
+<div>
+    <h1>
+        Username<br>
+        <c:forEach items="${userList}" var="user">
+            ${user.userName}<br>
+        </c:forEach>
+    </h1>
+    <h1>
+        &nbsp;
+    </h1>
+    <h1>
+        Password<br>
+        <c:forEach items="${userList}" var="user">
+            ${user.password}<br>
+        </c:forEach>
+    </h1>
+    <h1>
+        &nbsp;
+    </h1>
+    <h1>
+        Email<br>
+        <c:forEach items="${userList}" var="user">
+            ${user.email}<br>
+        </c:forEach>
+    </h1>
+    <h1>
+        &nbsp;
+    </h1>
+    <h1>
+        Role<br>
+        <c:forEach items="${userList}" var="user">
+            ${user.role.name}<br>
+        </c:forEach>
+    </h1>
+</div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.sap.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="TEAM")
@@ -8,12 +9,23 @@ public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ROLE_ID")
+    @Column(name = "TEAM_ID")
     private Integer id;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_USERNAME")
     private User owner;
+
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<User> members;
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
+    }
 
     public Integer getId() {
         return id;

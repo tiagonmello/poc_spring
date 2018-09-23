@@ -1,5 +1,6 @@
 package com.sap.service;
 
+import com.sap.models.Team;
 import com.sap.models.User;
 
 import java.util.List;
@@ -11,5 +12,9 @@ public interface UserService {
     void createMember(User user, User teamOwner);
 
     List<User> getAll();
+
+    List<User> getUsersByTeam (Team team);
+
+    List<User> getUsersByRole(String role);
 
 }

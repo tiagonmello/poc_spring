@@ -22,7 +22,19 @@ public class User {
     private Role role;
 
     @OneToOne(fetch = FetchType.EAGER, cascade =  CascadeType.ALL, mappedBy = "owner")
+    private Team teamOwned;
+
+    @ManyToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    public Team getTeamOwned() {
+        return teamOwned;
+    }
+
+    public void setTeamOwned(Team teamOwned) {
+        this.teamOwned = teamOwned;
+    }
 
     public Role getRole() {
         return role;
