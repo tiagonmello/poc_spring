@@ -27,6 +27,9 @@ public class HomeController {
         if(request.isUserInRole("ROLE_OWNER")){
             return "redirect:/owner/homepage";
         }
+        if(request.isUserInRole("ROLE_MEMBER")){
+            return "redirect:/member/homepage";
+        }
         return "homepage";
     }
 

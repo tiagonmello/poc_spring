@@ -52,6 +52,9 @@
     </form>
 </div>
 <div>
+    <h1>Members of your team:</h1>
+</div>
+<div>
     <h1>
         Username<br>
         <c:forEach items="${userList}" var="user">
