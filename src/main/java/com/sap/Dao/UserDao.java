@@ -9,6 +9,10 @@ public interface UserDao {
 
     void  create(User user);
 
+    void  update(User user);
+
+    void  delete(User user);
+
     List<User> getAll();
 
     List<User> getUsersByRole(String role);

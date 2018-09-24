@@ -56,37 +56,32 @@
 </div>
 <div>
     <h1>
-        Username<br>
-        <c:forEach items="${userList}" var="user">
-            ${user.userName}<br>
-        </c:forEach>
-    </h1>
-    <h1>
-        &nbsp;
-    </h1>
-    <h1>
-        Password<br>
-        <c:forEach items="${userList}" var="user">
-            ${user.password}<br>
-        </c:forEach>
-    </h1>
-    <h1>
-        &nbsp;
-    </h1>
-    <h1>
-        Email<br>
-        <c:forEach items="${userList}" var="user">
-            ${user.email}<br>
-        </c:forEach>
-    </h1>
-    <h1>
-        &nbsp;
-    </h1>
-    <h1>
-        Role<br>
-        <c:forEach items="${userList}" var="user">
-            ${user.role.name}<br>
-        </c:forEach>
+        <table style="width:100%" >
+            <tr>
+                <td><b>Username</b></td>
+                <td><b>Password</b></td>
+                <td><b>Email</b></td>
+                <td><b>Role</b></td>
+                <td><b>Delete</b></td>
+            </tr>
+            <c:forEach items="${userList}" var="user">
+                <tr>
+                    <td>${user.userName}</td>
+                    <td>${user.password}</td>
+                    <td>${user.email}</td>
+                    <td>${user.role.name}</td>
+                        <c:if test="${user.role.name == 'ROLE_MEMBER'}">
+                            <td>
+                                <form modelAttribute="user" action="/owner/deleteMember" name="deleteUser" method="post">
+                                    <input type="hidden" value="${user.userName}" name="userName" />
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </c:if>
+                </tr>
+            </c:forEach>
+        </table>
     </h1>
 </div>
 </body>

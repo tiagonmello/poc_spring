@@ -37,5 +37,10 @@
 <div>
     <b>This page is a work in progress...</b>
 </div>
+<div>
+    <form action="/logout" method="get">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
 </body>
 </html>

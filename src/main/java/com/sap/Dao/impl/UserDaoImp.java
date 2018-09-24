@@ -18,6 +18,18 @@ public class UserDaoImp extends HibernateDaoSupport implements UserDao {
     }
 
     @Override
+    @Transactional
+    public void update(User user){
+        getHibernateTemplate().update(user);
+    }
+
+    @Override
+    @Transactional
+    public void delete(User user){
+        getHibernateTemplate().delete(user);
+    }
+
+    @Override
     public List<User> getAll() {
         return (List<User>) getHibernateTemplate().find("from com.sap.models.User");
     }

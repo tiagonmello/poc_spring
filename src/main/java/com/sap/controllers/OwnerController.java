@@ -49,6 +49,12 @@ public class OwnerController {
         }
         return "redirect:/owner/homepage";
     }
+
+    @RequestMapping(value = "/owner/deleteMember")
+    public String ownerDeleteMember(User user){
+        userService.deleteMember(user);
+        return "redirect:/owner/homepage";
+    }
 }
 
 

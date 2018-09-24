@@ -11,6 +11,10 @@ public interface UserService {
 
     void createMember(User user, User teamOwner);
 
+    void updateMember(User user);
+
+    void deleteMember(User user);
+
     List<User> getAll();
 
     List<User> getUsersByTeam (Team team);
