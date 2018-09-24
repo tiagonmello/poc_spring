@@ -70,6 +70,11 @@ public class UserServiceImp implements UserService {
         return userDao.getUsersByTeam(team);
     }
 
+    @Override
+    public User getUserByUsername(String username) {
+        return userDao.getUserByUsername(username);
+    }
+
     private boolean emailAlreadyExists(User user){
         boolean duplicatedEmail = false;
         List<User> userList = this.getAll();

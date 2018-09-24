@@ -26,9 +26,18 @@ public class OwnerController {
         return "ownerPage";
     }
 
+    @RequestMapping(value = "/owner/editMember")
+    public String ownerEditMember(Model model, User user){
+        model.addAttribute("user",user);
+        return "editMember";
+    }
+
     @RequestMapping(value = "/owner/updateMember")
     public String ownerUpdateMember(User user){
-        userService.updateMember(user);
+        User updatedUser = userService.getUserByUsername(user.getUserName());
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setPassword(user.getPassword());
+        userService.updateMember(updatedUser);
         return "redirect:/owner/homepage";
     }
 
@@ -39,9 +48,3 @@ public class OwnerController {
     }
 
 }
-
-
-
-
-
-

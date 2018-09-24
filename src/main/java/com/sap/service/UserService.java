@@ -21,4 +21,6 @@ public interface UserService {
 
     List<User> getUsersByRole(String role);
 
+    User getUserByUsername(String username);
+
 }
