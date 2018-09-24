@@ -3,21 +3,11 @@ package com.sap.controllers;
 import com.sap.MyUserPrincipal;
 import com.sap.models.User;
 import com.sap.service.UserService;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.security.Principal;
-import java.util.List;
 
 @Controller
 public class OwnerController {
@@ -36,17 +26,9 @@ public class OwnerController {
         return "ownerPage";
     }
 
-    @RequestMapping(value = "/owner/addMember")
-    public String ownerAddMember(Model model, User user){
-        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User teamOwner = principal.getUser();
-
-        try{
-            userService.createMember(user, teamOwner);
-            model.addAttribute("registrationMessage","Registration Successful!");
-        }catch (IllegalArgumentException e){
-            model.addAttribute("registrationMessage",e.getMessage());
-        }
+    @RequestMapping(value = "/owner/updateMember")
+    public String ownerUpdateMember(User user){
+        userService.updateMember(user);
         return "redirect:/owner/homepage";
     }
 
@@ -55,6 +37,7 @@ public class OwnerController {
         userService.deleteMember(user);
         return "redirect:/owner/homepage";
     }
+
 }
 
 

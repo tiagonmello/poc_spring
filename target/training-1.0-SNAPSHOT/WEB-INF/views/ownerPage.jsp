@@ -34,7 +34,7 @@
     <b>Add new members to your team:</b>
 </div>
 <div>
-    <form:form id="addMember" modelAttribute="user" action="/owner/addMember" name="addMember" method="post">
+    <form id="addMember" modelAttribute="user" name="addMember" method="post">
         <label for="userName">Username:</label>
         <input id="userName" type="text" name="userName">
         <label for="email">Email:</label>
@@ -44,7 +44,8 @@
         <label for="matchingPassword">Confirm password:</label>
         <input id="matchingPassword" type="password" name="matchingPassword">
         <button id="add" type="submit">Register</button>
-    </form:form>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+    </form>
 </div>
 <div>
     <form action="/logout" method="get">
@@ -84,5 +85,10 @@
         </table>
     </h1>
 </div>
+<script
+        src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="<c:url value="/resources/js/AddMember.js" />"></script>
 </body>
 </html>

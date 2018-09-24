@@ -7,7 +7,6 @@ import com.sap.models.User;
 import com.sap.service.UserService;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserServiceImp implements UserService {
@@ -48,7 +47,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void updateMember(User user) {
-        return;
+        userDao.update(user);
     }
 
     @Override
