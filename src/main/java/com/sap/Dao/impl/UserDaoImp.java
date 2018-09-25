@@ -3,10 +3,10 @@ package com.sap.Dao.impl;
 import com.sap.Dao.UserDao;
 import com.sap.models.Team;
 import com.sap.models.User;
+import com.sap.models.Role;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImp extends HibernateDaoSupport implements UserDao {
@@ -35,45 +35,18 @@ public class UserDaoImp extends HibernateDaoSupport implements UserDao {
     }
 
     @Override
-    public List<User> getUsersByRole(String role){
-        List<User> users = new ArrayList<>();
-
-        List<User> userList = this.getAll();
-        for(int i=0;i<userList.size();i++){
-            if(userList.get(i).getRole().getName().equals(role)){
-                users.add(userList.get(i));
-            }
-        }
-        return users;
+    public List<User> getUsersByRole(Role role){
+        return (List<User>) getHibernateTemplate().find("from com.sap.models.User as u where u.role.id='"+role.getId().toString()+"'");
     }
 
     @Override
     public List<User> getUsersByTeam(Team team){
-        List<User> users = new ArrayList<>();
-
-        List<User> userList = this.getAll();
-        for(int i=0;i<userList.size();i++){
-            if(userList.get(i).getTeam().getId().equals(team.getId())){
-                users.add(userList.get(i));
-            }
-        }
-        return users;
+        return (List<User>) getHibernateTemplate().find("from com.sap.models.User as u where u.team.id='"+team.getId().toString()+"'");
     }
 
     @Override
     public User getUserByUsername(String username){
-
-        List<User> userList = this.getAll();
-        for(int i=0;i<userList.size();i++){
-            if(userList.get(i).getUserName().equals(username)){
-                return userList.get(i);
-            }
-        }
-        return null;
-
-//        User user = new User();
-//        user.setUserName(username);
-//        return (User) getHibernateTemplate().find("from com.sap.models.User as u where u.userName=" + username).get(0);
+        return (User) getHibernateTemplate().find("from com.sap.models.User as u where u.userName='" + username + "'").get(0);
     }
 
 }

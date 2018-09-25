@@ -1,5 +1,6 @@
 package com.sap.Dao;
 
+import com.sap.models.Role;
 import com.sap.models.Team;
 import com.sap.models.User;
 
@@ -15,7 +16,7 @@ public interface UserDao {
 
     List<User> getAll();
 
-    List<User> getUsersByRole(String role);
+    List<User> getUsersByRole(Role role);
 
     List<User> getUsersByTeam(Team team);
 

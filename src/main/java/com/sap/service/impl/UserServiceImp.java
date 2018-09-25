@@ -61,7 +61,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public List<User> getUsersByRole(String role) {
+    public List<User> getUsersByRole(Role role) {
         return userDao.getUsersByRole(role);
     }
 

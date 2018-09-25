@@ -1,5 +1,6 @@
 package com.sap.service;
 
+import com.sap.models.Role;
 import com.sap.models.Team;
 import com.sap.models.User;
 
@@ -19,7 +20,7 @@ public interface UserService {
 
     List<User> getUsersByTeam (Team team);
 
-    List<User> getUsersByRole(String role);
+    List<User> getUsersByRole(Role role);
 
     User getUserByUsername(String username);
 
