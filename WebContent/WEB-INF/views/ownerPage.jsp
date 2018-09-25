@@ -18,6 +18,50 @@
         display: flex;
         justify-content: center;
     }
+    caption {
+        font-weight: bold;
+        font-size: 18px;
+        text-align:left;
+    }
+    .dataTable td, .dataTable th {
+        padding: .625em;
+        line-height: 1.5em;
+        border-bottom: 1px dashed #ccc;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .dataTable th {
+        text-align: left;
+        background: rgba(0, 0, 0, 0.14);
+        border-bottom: 1px dashed #aaa;
+    }
+
+    .dataTable tr:nth-child(odd) {
+        background: rgba(0, 0, 0, 0.07);
+    }
+
+    .dataTable tr:nth-child(even) {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .dataTable thead {
+        display: table-header-group;
+        float: none;
+    }
+
+    .dataTable tbody {
+        display: table-row-group;
+    }
+
+    .dataTable thead tr, .dataTable tbody tr {
+        display: table-row;
+    }
+
+    .dataTable th, .dataTable tbody td {
+        display: table-cell;
+    }
 </style>
 <html>
 <head>
@@ -31,43 +75,53 @@
     <h1>You are the owner of Team ${teamId}</h1>
 </div>
 <div>
-    <b>Add new members to your team:</b>
-</div>
-<div>
-    <form id="addMember" modelAttribute="user" name="addMember" method="post">
-        <label for="userName">Username:</label>
-        <input id="userName" type="text" name="userName" required>
-        <label for="email">Email:</label>
-        <input id="email" type="email" name="email" required>
-        <label for="password">Password:</label>
-        <input id="password" type="password" name="password" required>
-        <label for="matchingPassword">Confirm password:</label>
-        <input id="matchingPassword" type="password" name="matchingPassword" required>
-        <button id="add" type="submit">Register</button>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    </form>
-</div>
-<div>
     <form action="/logout" method="get">
         <input type="submit" value="Logout"/>
     </form>
 </div>
 <div>
-    <h1>Members of your team:</h1>
-</div>
-<div>
-    <h1>
-        <table style="width:100%" >
+    <form id="addMember" modelAttribute="user" name="addMember" method="post">
+        <table>
+            <caption>Add new members to your team:</caption>
             <tr>
-                <td><b>Username</b></td>
-                <td><b>Password</b></td>
-                <td><b>Email</b></td>
-                <td><b>Role</b></td>
-                <td><b>Delete</b></td>
-                <td><b>Edit</b></td>
+                <td align="right">Username:</td>
+                <td align="left"><input id="userName" type="text" name="userName" required></td>
             </tr>
-            <c:forEach items="${userList}" var="user">
+            <tr>
+                <td align="right">Email:</td>
+                <td align="left"><input id="email" type="email" name="email" required></td>
+            </tr>
+            <tr>
+                <td align="right">Password:</td>
+                <td align="left"><input id="password" type="password" name="password" required></td>
+            </tr>
+            <tr>
+                <td align="right">Confirm password:</td>
+                <td align="left"><input id="matchingPassword" type="password" name="matchingPassword" required></td>
+            </tr>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <tr><td></td><td align="right"><button id="add" type="submit">Register</button></td></tr>
+        </table>
+    </form>
+</div>
+<br>
+<br>
+<div>
+        <table class="dataTable" >
+            <caption>Team members:</caption>
+            <thead>
                 <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Delete</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${userList}" var="user">
+                </tr>
                     <td>${user.userName}</td>
                     <td>${user.password}</td>
                     <td>${user.email}</td>
@@ -88,10 +142,14 @@
                             </form>
                         </td>
                     </c:if>
+                    <c:if test="${user.role.name != 'ROLE_MEMBER'}">
+                        <td></td>
+                        <td></td>
+                    </c:if>
                 </tr>
             </c:forEach>
+            </tbody>
         </table>
-    </h1>
 </div>
 <script
         src="http://code.jquery.com/jquery-3.3.1.min.js"
