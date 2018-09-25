@@ -36,13 +36,13 @@
 <div>
     <form id="addMember" modelAttribute="user" name="addMember" method="post">
         <label for="userName">Username:</label>
-        <input id="userName" type="text" name="userName">
+        <input id="userName" type="text" name="userName" required>
         <label for="email">Email:</label>
-        <input id="email" type="email" name="email">
+        <input id="email" type="email" name="email" required>
         <label for="password">Password:</label>
-        <input id="password" type="password" name="password">
+        <input id="password" type="password" name="password" required>
         <label for="matchingPassword">Confirm password:</label>
-        <input id="matchingPassword" type="password" name="matchingPassword">
+        <input id="matchingPassword" type="password" name="matchingPassword" required>
         <button id="add" type="submit">Register</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form>

@@ -28,14 +28,14 @@
     <b>Enter new password and email for ${user.userName}:</b>
 </div>
 <div>
-    <form:form id="editMember" modelAttribute="user" action="/owner/updateMember" name="editMember" method="post">
+    <form:form id="register-form" modelAttribute="user" action="/owner/updateMember" name="editMember" method="post">
         <input id="username" type="hidden" value="${user.userName}" name="userName">
         <label for="password">Password:</label>
-        <input id="password" type="password" name="password">
+        <input id="password" type="password" name="password" required>
         <label for="matchingPassword">Confirm password:</label>
-        <input id="matchingPassword" type="password" name="matchingPassword">
+        <input id="matchingPassword" type="password" name="matchingPassword" required>
         <label for="email">Email:</label>
-        <input id="email" type="email" name="email">
+        <input id="email" type="email" name="email" required>
         <button id="add" type="submit">Save</button>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form:form>
@@ -45,5 +45,10 @@
         <input type="submit" value="Back"/>
     </form>
 </div>
+<script
+        src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="<c:url value="/resources/js/registrationScripts.js" />"></script>
 </body>
 </html>

@@ -118,11 +118,11 @@
 <div class="login-page">
     <h1>Team owner registration</h1>
     <div class="form">
-        <form:form class="register-form" method="post" modelAttribute="user" action="/register" name="user">
-            <input type="text" placeholder="name" name="userName"/>
-            <input type="text" placeholder="email address" name="email"/>
-            <input type="password" placeholder="password" name="password"/>
-            <input type="password" placeholder="confirm password" name="matchingPassword"/>
+        <form:form id="register-form" class="register-form" method="post" modelAttribute="user" action="/register" name="user">
+            <input type="text" placeholder="name" name="userName" required/>
+            <input type="text" placeholder="email address" name="email" required/>
+            <input id="password" type="password" placeholder="password" name="password" required/>
+            <input id="matchingPassword" type="password" placeholder="confirm password" name="matchingPassword" required/>
             <button type="submit">create</button>
             <p class="message">Already registered? <a href="/login">Sign In</a></p>
         </form:form>
@@ -131,5 +131,10 @@
         </c:if>
     </div>
 </div>
+<script
+        src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="<c:url value="/resources/js/registrationScripts.js" />"></script>
 </body>
 </html>
