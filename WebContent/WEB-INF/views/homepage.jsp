@@ -11,7 +11,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <style>
     body{
-        background-color: aquamarine;
+        background-color: #8DC26F;
         font-family: Monospace;
     }
     div{

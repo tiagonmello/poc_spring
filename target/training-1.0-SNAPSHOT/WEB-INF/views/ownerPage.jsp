@@ -11,7 +11,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <style>
     body{
-        background-color: aquamarine;
+        background-color: #8DC26F;
         font-family: Monospace;
     }
     div{
@@ -72,22 +72,22 @@
                     <td>${user.password}</td>
                     <td>${user.email}</td>
                     <td>${user.role.name}</td>
-                        <c:if test="${user.role.name == 'ROLE_MEMBER'}">
-                            <td>
-                                <form modelAttribute="user" action="/owner/deleteMember" name="deleteUser" method="post">
-                                    <input type="hidden" value="${user.userName}" name="userName" />
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                    <button type="submit">Delete</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form modelAttribute="user" action="/owner/editMember" name="editUser" method="post">
-                                    <input type="hidden" value="${user.userName}" name="userName" />
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                    <button type="submit">Edit</button>
-                                </form>
-                            </td>
-                        </c:if>
+                    <c:if test="${user.role.name == 'ROLE_MEMBER'}">
+                        <td>
+                            <form modelAttribute="user" action="/owner/deleteMember" name="deleteUser" method="post">
+                                <input type="hidden" value="${user.userName}" name="userName" />
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form modelAttribute="user" action="/owner/editMember" name="editUser" method="post">
+                                <input type="hidden" value="${user.userName}" name="userName" />
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <button type="submit">Edit</button>
+                            </form>
+                        </td>
+                    </c:if>
                 </tr>
             </c:forEach>
         </table>
