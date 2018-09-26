@@ -18,10 +18,20 @@
         display: flex;
         justify-content: center;
     }
-    caption {
+    legend {
         font-weight: bold;
         font-size: 18px;
         text-align:left;
+        background-color: #B6F1BA;
+        border: 1px solid black;
+    }
+    fieldset {
+        width: 500px;
+        margin: auto;
+        border: 1px solid black;
+        padding: 8px;
+        border-radius: 4px;
+        background-color: #B6F1BA;
     }
     .dataTable td, .dataTable th {
         padding: .625em;
@@ -69,85 +79,92 @@
 </head>
 <body>
 <div>
-    <h1>Team owner page - Logged as <security:authentication property="principal.username" /> </h1>
-</div>
-<div>
-    <h1>You are the owner of Team ${teamId}</h1>
-</div>
-<div>
-    <form action="/logout" method="get">
-        <input type="submit" value="Logout"/>
-    </form>
-</div>
-<div>
-    <form id="addMember" modelAttribute="user" name="addMember" method="post">
-        <table>
-            <caption>Add new members to your team:</caption>
-            <tr>
-                <td align="right">Username:</td>
-                <td align="left"><input id="userName" type="text" name="userName" required></td>
-            </tr>
-            <tr>
-                <td align="right">Email:</td>
-                <td align="left"><input id="email" type="email" name="email" required></td>
-            </tr>
-            <tr>
-                <td align="right">Password:</td>
-                <td align="left"><input id="password" type="password" name="password" required></td>
-            </tr>
-            <tr>
-                <td align="right">Confirm password:</td>
-                <td align="left"><input id="matchingPassword" type="password" name="matchingPassword" required></td>
-            </tr>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <tr><td></td><td align="right"><button id="add" type="submit">Register</button></td></tr>
-        </table>
-    </form>
+    <h1>
+        Team owner page - Logged as <security:authentication property="principal.username" /> - Owner of Team ${teamId}
+    </h1>
 </div>
 <br>
 <br>
-<div>
-        <table class="dataTable" >
-            <caption>Team members:</caption>
-            <thead>
+<fieldset>
+    <legend>Add new members to your team</legend>
+    <div>
+        <form id="addMember" modelAttribute="user" name="addMember" method="post">
+            <table>
                 <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Delete</th>
-                    <th>Edit</th>
+                    <td align="right">Username:</td>
+                    <td align="left"><input id="userName" type="text" name="userName" required></td>
                 </tr>
+                <tr>
+                    <td align="right">Email:</td>
+                    <td align="left"><input id="email" type="email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td align="right">Password:</td>
+                    <td align="left"><input id="password" type="password" name="password" required></td>
+                </tr>
+                <tr>
+                    <td align="right">Confirm password:</td>
+                    <td align="left"><input id="matchingPassword" type="password" name="matchingPassword" required></td>
+                </tr>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <tr><td></td><td align="right"><button id="add" type="submit">Register</button></td></tr>
+            </table>
+        </form>
+    </div>
+</fieldset>
+<br>
+<br>
+<fieldset>
+    <legend>Team members</legend>
+    <div>
+        <table class="dataTable" >
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Delete</th>
+                <th>Edit</th>
+            </tr>
             </thead>
             <tbody>
             <c:forEach items="${userList}" var="user">
                 </tr>
-                    <td>${user.userName}</td>
-                    <td>${user.email}</td>
-                    <td>${user.role.name}</td>
-                    <c:if test="${user.role.name == 'ROLE_MEMBER'}">
-                        <td>
-                            <form modelAttribute="user" action="/owner/deleteMember" name="deleteUser" method="post">
-                                <input type="hidden" value="${user.userName}" name="userName" />
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                <button type="submit">Delete</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form modelAttribute="user" action="/owner/editMember" name="editUser" method="post">
-                                <input type="hidden" value="${user.userName}" name="userName" />
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                <button type="submit">Edit</button>
-                            </form>
-                        </td>
-                    </c:if>
-                    <c:if test="${user.role.name != 'ROLE_MEMBER'}">
-                        <td></td>
-                        <td></td>
-                    </c:if>
+                <td>${user.userName}</td>
+                <td>${user.email}</td>
+                <td>${user.role.name}</td>
+                <c:if test="${user.role.name == 'ROLE_MEMBER'}">
+                    <td>
+                        <form modelAttribute="user" action="/owner/deleteMember" name="deleteUser" method="post">
+                            <input type="hidden" value="${user.userName}" name="userName" />
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form modelAttribute="user" action="/owner/editMember" name="editUser" method="post">
+                            <input type="hidden" value="${user.userName}" name="userName" />
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+                </c:if>
+                <c:if test="${user.role.name != 'ROLE_MEMBER'}">
+                    <td></td>
+                    <td></td>
+                </c:if>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
+    </div>
+</fieldset>
+<br>
+<br>
+<div>
+    <form action="/logout" method="get">
+        <input type="submit" value="Logout"/>
+    </form>
 </div>
 <script
         src="http://code.jquery.com/jquery-3.3.1.min.js"
