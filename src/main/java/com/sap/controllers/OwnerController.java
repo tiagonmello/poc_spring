@@ -33,12 +33,18 @@ public class OwnerController {
     }
 
     @RequestMapping(value = "/owner/updateMember")
-    public String ownerUpdateMember(User user){
+    public String ownerUpdateMember(User user, Model model){
         User updatedUser = userService.getUserByUsername(user.getUserName());
         updatedUser.setEmail(user.getEmail());
         updatedUser.setPassword(user.getPassword());
-        userService.updateMember(updatedUser);
-        return "redirect:/owner/homepage";
+
+        try{
+            userService.updateMember(updatedUser);
+            return "redirect:/owner/homepage";
+        }catch (IllegalArgumentException e){
+            model.addAttribute("updateMessage",e.getMessage());
+            return "editMember";
+        }
     }
 
     @RequestMapping(value = "/owner/deleteMember")

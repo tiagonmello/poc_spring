@@ -45,9 +45,9 @@ public class HomeController {
     public String processRegistrationForm(Model model, User user) {
         try{
             userService.createOwner(user);
-            model.addAttribute("registrationMessage","Registration Successful!");
+            model.addAttribute("registrationSuccess","Registration Successful!");
         }catch (IllegalArgumentException e){
-            model.addAttribute("registrationMessage",e.getMessage());
+            model.addAttribute("registrationError",e.getMessage());
         }
         return "registrationForm";
     }

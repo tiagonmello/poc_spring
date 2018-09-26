@@ -17,6 +17,9 @@
     .warning {
         color: red;
     }
+    .success {
+        color: green;
+    }
     .login-page {
         width: 360px;
         padding: 8% 0 0;
@@ -126,8 +129,11 @@
             <button type="submit">create</button>
             <p class="message">Already registered? <a href="/login">Sign In</a></p>
         </form:form>
-        <c:if test="${not empty registrationMessage}">
-            <div class="warning">${registrationMessage}</div>
+        <c:if test="${not empty registrationSuccess}">
+            <div class="success">${registrationSuccess}</div>
+        </c:if>
+        <c:if test="${not empty registrationError}">
+            <div class="warning">${registrationError}</div>
         </c:if>
     </div>
 </div>

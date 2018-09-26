@@ -47,6 +47,15 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void updateMember(User user) {
+        // Retrieves all users with the same email
+        List<User> sameEmailUsers = userDao.getUsersByEmail(user.getEmail());
+        // Tests for inconsistency of the database
+        if(sameEmailUsers.size() > 1)
+            throw new IllegalArgumentException("There are 2 users with the same email!");
+        // Tests if there is already a different user registered with the desired email
+        if (sameEmailUsers.size() == 1 && !sameEmailUsers.get(0).getUserName().equals(user.getUserName()))
+            throw new IllegalArgumentException("Already registered email!");
+
         userDao.update(user);
     }
 

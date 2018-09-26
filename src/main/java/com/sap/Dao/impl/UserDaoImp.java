@@ -49,4 +49,8 @@ public class UserDaoImp extends HibernateDaoSupport implements UserDao {
         return (User) getHibernateTemplate().find("from com.sap.models.User as u where u.userName='" + username + "'").get(0);
     }
 
+    @Override
+    public List<User> getUsersByEmail(String email){
+        return (List<User>) getHibernateTemplate().find("from com.sap.models.User as u where u.email='" + email + "'");
+    }
 }

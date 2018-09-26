@@ -10,6 +10,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <style>
+    .warning{
+        color: red;
+    }
     body{
         background-color: #8DC26F;
         font-family: Monospace;
@@ -40,6 +43,10 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </form:form>
 </div>
+<c:if test="${not empty updateMessage}">
+    <div class="warning">${updateMessage}</div>
+    <br>
+</c:if>
 <div>
     <form action="/owner/homepage" method="get">
         <input type="submit" value="Back"/>
