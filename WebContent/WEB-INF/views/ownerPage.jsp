@@ -112,7 +112,6 @@
             <thead>
                 <tr>
                     <th>Username</th>
-                    <th>Password</th>
                     <th>Email</th>
                     <th>Role</th>
                     <th>Delete</th>
@@ -123,7 +122,6 @@
             <c:forEach items="${userList}" var="user">
                 </tr>
                     <td>${user.userName}</td>
-                    <td>${user.password}</td>
                     <td>${user.email}</td>
                     <td>${user.role.name}</td>
                     <c:if test="${user.role.name == 'ROLE_MEMBER'}">

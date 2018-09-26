@@ -19,4 +19,7 @@
     <bean name="myUserDetailsService" class="com.sap.UserDetailsServiceImp">
     </bean>
 
+    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </bean>
+
 </beans>

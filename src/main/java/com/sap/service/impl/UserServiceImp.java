@@ -5,6 +5,7 @@ import com.sap.models.Role;
 import com.sap.models.Team;
 import com.sap.models.User;
 import com.sap.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -13,6 +14,9 @@ public class UserServiceImp implements UserService {
 
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public void createOwner(User user) {
@@ -28,6 +32,9 @@ public class UserServiceImp implements UserService {
         user.setTeam(team);
         user.setTeamOwned(team);
 
+        // Encrypts the user password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         userDao.create(user);
     }
 
@@ -42,6 +49,9 @@ public class UserServiceImp implements UserService {
 
         user.setTeam(teamOwner.getTeam());
 
+        // Encrypts the user password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         userDao.create(user);
     }
 
@@ -55,6 +65,9 @@ public class UserServiceImp implements UserService {
         // Tests if there is already a different user registered with the desired email
         if (sameEmailUsers.size() == 1 && !sameEmailUsers.get(0).getUserName().equals(user.getUserName()))
             throw new IllegalArgumentException("Already registered email!");
+
+        // Encrypts the user password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userDao.update(user);
     }
