@@ -51,8 +51,6 @@
             padding: 15px;
             color: #FFFFFF;
             font-size: 14px;
-            -webkit-transition: all 0.3 ease;
-            transition: all 0.3 ease;
             cursor: pointer;
         }
         .form button:hover,.form button:active,.form button:focus {
@@ -120,8 +118,10 @@
     <h1>Team management login</h1>
     <div class="form">
         <form:form class="login-form" action="/login">
-            <input type="text" placeholder="username" name="username"/>
-            <input type="password" placeholder="password" name="password"/>
+            <label for="username">Username:</label>
+            <input id="username" type="text" placeholder="username" name="username"/>
+            <label for="password">Password:</label>
+            <input id="password" type="password" placeholder="password" name="password"/>
             <button type="submit" name="submit">login</button>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <p class="message">Not registered? <a href="/registrationForm">Create an account</a></p>

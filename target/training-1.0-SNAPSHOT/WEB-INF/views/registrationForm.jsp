@@ -122,9 +122,13 @@
     <h1>Team owner registration</h1>
     <div class="form">
         <form:form id="register-form" class="register-form" method="post" modelAttribute="user" action="/register" name="user">
-            <input type="text" placeholder="name" name="userName" required/>
-            <input type="text" placeholder="email address" name="email" required/>
+            <label for="username">Username:</label>
+            <input id="username" type="text" placeholder="name" name="userName" required/>
+            <label for="email">Email:</label>
+            <input id="email" type="text" placeholder="email address" name="email" required/>
+            <label for="password">Password:</label>
             <input id="password" type="password" placeholder="password" name="password" required/>
+            <label for="matchingPassword">Confirm password:</label>
             <input id="matchingPassword" type="password" placeholder="confirm password" name="matchingPassword" required/>
             <button type="submit">create</button>
             <p class="message">Already registered? <a href="/login">Sign In</a></p>
