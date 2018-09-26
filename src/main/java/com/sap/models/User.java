@@ -10,7 +10,6 @@ public class User {
     @Column(name = "USER_USERNAME")
     private String userName;
     private String password;
-    private String matchingPassword;
     private String email;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -43,14 +42,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getMatchingPassword() {
-        return matchingPassword;
-    }
-
-    public void setMatchingPassword(String matchingPassword) {
-        this.matchingPassword = matchingPassword;
     }
 
     public String getEmail() {
