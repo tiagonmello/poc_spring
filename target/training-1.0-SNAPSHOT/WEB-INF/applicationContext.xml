@@ -16,6 +16,12 @@
     <bean name="userService" class="com.sap.service.impl.UserServiceImp">
     </bean>
 
+    <bean name="ownerDao" class="com.sap.Dao.impl.OwnerDaoImp">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean name="ownerService" class="com.sap.service.impl.OwnerServiceImp">
+    </bean>
+
     <bean name="myUserDetailsService" class="com.sap.UserDetailsServiceImp">
     </bean>
 

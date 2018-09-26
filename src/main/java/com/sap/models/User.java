@@ -1,10 +1,6 @@
 package com.sap.models;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 @Table(name="USER")
@@ -21,20 +17,9 @@ public class User {
     @JoinColumn(name = "ROLE_ID")
     private Role role;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade =  CascadeType.ALL, mappedBy = "owner")
-    private Team teamOwned;
-
     @ManyToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
-
-    public Team getTeamOwned() {
-        return teamOwned;
-    }
-
-    public void setTeamOwned(Team teamOwned) {
-        this.teamOwned = teamOwned;
-    }
 
     public Role getRole() {
         return role;

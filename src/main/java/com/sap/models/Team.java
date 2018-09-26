@@ -14,7 +14,7 @@ public class Team {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_USERNAME")
-    private User owner;
+    private Owner owner;
 
     @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<User> members;
@@ -35,11 +35,11 @@ public class Team {
         this.id = id;
     }
 
-    public User getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 }

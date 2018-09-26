@@ -19,26 +19,6 @@ public class UserServiceImp implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public void createOwner(User user) {
-        if(userAlreadyExists(user))
-            throw new IllegalArgumentException("Already registered user!");
-
-        Role role = new Role();
-        role.setName("ROLE_OWNER");
-        user.setRole(role);
-
-        Team team = new Team();
-        team.setOwner(user);
-        user.setTeam(team);
-        user.setTeamOwned(team);
-
-        // Encrypts the user password
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        userDao.create(user);
-    }
-
-    @Override
     public void createMember(User user, User teamOwner) {
         if(userAlreadyExists(user))
             throw new IllegalArgumentException("Already registered user!");
@@ -52,7 +32,7 @@ public class UserServiceImp implements UserService {
         // Encrypts the user password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        userDao.create(user);
+        userDao.createUser(user);
     }
 
     @Override
@@ -69,12 +49,12 @@ public class UserServiceImp implements UserService {
         // Encrypts the user password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        userDao.update(user);
+        userDao.updateUser(user);
     }
 
     @Override
     public void deleteMember(User user) {
-        userDao.delete(user);
+        userDao.deleteUser(user);
     }
 
     @Override

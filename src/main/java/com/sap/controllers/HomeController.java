@@ -1,7 +1,8 @@
 package com.sap.controllers;
 
+import com.sap.models.Owner;
 import com.sap.models.User;
-import com.sap.service.UserService;
+import com.sap.service.OwnerService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class HomeController {
 
     @Resource
-    private UserService userService;
+    private OwnerService ownerService;
 
     @RequestMapping(value = "/homepage")
     public String homepage(HttpServletRequest request){
@@ -42,9 +43,9 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/register")
-    public String processRegistrationForm(Model model, User user) {
+    public String processRegistrationForm(Model model, Owner owner) {
         try{
-            userService.createOwner(user);
+            ownerService.createOwner(owner);
             model.addAttribute("registrationSuccess","Registration Successful!");
         }catch (IllegalArgumentException e){
             model.addAttribute("registrationError",e.getMessage());

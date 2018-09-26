@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface UserService {
 
-    void createOwner(User user);
-
     void createMember(User user, User teamOwner);
 
     void updateMember(User user);
