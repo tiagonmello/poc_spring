@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     @RequestMapping(value = "/member/homepage")
-    public String ownerHomepage(Model model){
+    public String memberHomepage(Model model){
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User loggedUser = principal.getUser();
         model.addAttribute("user",loggedUser);

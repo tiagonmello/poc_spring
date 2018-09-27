@@ -21,6 +21,7 @@ public class HomeController {
 
     @RequestMapping(value = "/homepage")
     public String homepage(HttpServletRequest request){
+        // Redirects to the correct homepage based on user role
         if(request.isUserInRole("ROLE_OWNER")){
             return "redirect:/owner/homepage";
         }
@@ -37,8 +38,7 @@ public class HomeController {
 
     @RequestMapping(value = "/registrationForm")
     public String register(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
+        model.addAttribute("user", new User());
         return "registrationForm";
     }
 

@@ -15,9 +15,11 @@ public class Rest {
 
     @RequestMapping("/owner/addMember")
     public boolean ownerCreateUser(User user){
+        // Retrieves logged user
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User loggedUser = principal.getUser();
 
+        // Returns true if succeeded
         try{
             userService.createMember(user, loggedUser);
             return true;

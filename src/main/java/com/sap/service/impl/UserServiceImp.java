@@ -20,13 +20,16 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void createMember(User user, User teamOwner) {
+        // Checks if user already exists
         if(userAlreadyExists(user))
             throw new IllegalArgumentException("Already registered user!");
 
+        // Sets role as member
         Role role = new Role();
         role.setName("ROLE_MEMBER");
         user.setRole(role);
 
+        // Sets the owner's team
         user.setTeam(teamOwner.getTeam());
 
         // Encrypts the user password
@@ -39,9 +42,11 @@ public class UserServiceImp implements UserService {
     public void updateMember(User user) {
         // Retrieves all users with the same email
         List<User> sameEmailUsers = userDao.getUsersByEmail(user.getEmail());
+
         // Tests for inconsistency of the database
         if(sameEmailUsers.size() > 1)
             throw new IllegalArgumentException("There are 2 users with the same email!");
+
         // Tests if there is already a different user registered with the desired email
         if (sameEmailUsers.size() == 1 && !sameEmailUsers.get(0).getUserName().equals(user.getUserName()))
             throw new IllegalArgumentException("Already registered email!");
@@ -77,6 +82,7 @@ public class UserServiceImp implements UserService {
         return userDao.getUserByUsername(username);
     }
 
+    // Sweeps all registered users looking for same username or email
     private boolean userAlreadyExists(User user){
         boolean duplicatedUser = false;
         List<User> userList = this.getAll();

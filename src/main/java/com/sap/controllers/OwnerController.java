@@ -17,9 +17,11 @@ public class OwnerController {
 
     @RequestMapping(value = "/owner/homepage")
     public String ownerHomepage(Model model, User user){
+        // Retrieves logged user
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User loggedUser = principal.getUser();
 
+        // Add data that will be displayed on the web page
         model.addAttribute("teamId",loggedUser.getTeam().getId());
         model.addAttribute("user",user);
         model.addAttribute("userList",userService.getUsersByTeam(loggedUser.getTeam()));
@@ -34,10 +36,12 @@ public class OwnerController {
 
     @RequestMapping(value = "/owner/updateMember")
     public String ownerUpdateMember(User user, Model model){
+        // Retrieves the user that will be updated by the username
         User updatedUser = userService.getUserByUsername(user.getUserName());
         updatedUser.setEmail(user.getEmail());
         updatedUser.setPassword(user.getPassword());
 
+        // Redirects back to homepage after updating only if succeeded
         try{
             userService.updateMember(updatedUser);
             return "redirect:/owner/homepage";
