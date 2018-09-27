@@ -10,68 +10,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <style>
-    body{
-        background-color: #8DC26F;
-        font-family: Monospace;
-    }
-    div{
-        display: flex;
-        justify-content: center;
-    }
-    legend {
-        font-weight: bold;
-        font-size: 18px;
-        text-align:left;
-        background-color: #B6F1BA;
-        border: 1px solid black;
-    }
-    fieldset {
-        width: 500px;
-        margin: auto;
-        border: 1px solid black;
-        padding: 8px;
-        border-radius: 4px;
-        background-color: #B6F1BA;
-    }
-    .dataTable td, .dataTable th {
-        padding: .625em;
-        line-height: 1.5em;
-        border-bottom: 1px dashed #ccc;
-        box-sizing: border-box;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-
-    .dataTable th {
-        text-align: left;
-        background: rgba(0, 0, 0, 0.14);
-        border-bottom: 1px dashed #aaa;
-    }
-
-    .dataTable tr:nth-child(odd) {
-        background: rgba(0, 0, 0, 0.07);
-    }
-
-    .dataTable tr:nth-child(even) {
-        background: rgba(255, 255, 255, 0.2);
-    }
-
-    .dataTable thead {
-        display: table-header-group;
-        float: none;
-    }
-
-    .dataTable tbody {
-        display: table-row-group;
-    }
-
-    .dataTable thead tr, .dataTable tbody tr {
-        display: table-row;
-    }
-
-    .dataTable th, .dataTable tbody td {
-        display: table-cell;
-    }
+    <%@include file="/resources/css/template.css"%>
 </style>
 <html>
 <head>

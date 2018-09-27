@@ -10,17 +10,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <style>
-    .warning{
-        color: red;
-    }
-    body{
-        background-color: #8DC26F;
-        font-family: Monospace;
-    }
-    div{
-        display: flex;
-        justify-content: center;
-    }
+    <%@include file="/resources/css/template.css"%>
 </style>
 <html>
 <head>

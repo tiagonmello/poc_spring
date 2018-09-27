@@ -8,14 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
-    body{
-        background-color: #8DC26F;
-        font-family: Monospace;
-    }
-    div{
-        display: flex;
-        justify-content: center;
-    }
+    <%@include file="/resources/css/template.css"%>
 </style>
 <html>
 <head>
