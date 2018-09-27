@@ -23,14 +23,5 @@
             <password-encoder ref="bCryptPasswordEncoder"/>
         </authentication-provider>
     </authentication-manager>
-
-<!--
-
-    <user-service>
-        <user name="member" password="member" authorities="ROLE_MEMBER" />
-        <user name="owner" password="owner" authorities="ROLE_OWNER" />
-    </user-service>
--->
-
-
+    
 </b:beans>
