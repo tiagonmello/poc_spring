@@ -18,22 +18,15 @@
 </head>
 <body>
 <div>
-    <h1>Team member page - Logged as <security:authentication property="principal.username" /> </h1>
+    <h1>Team member page - Logged as <security:authentication property="principal.username"/> - Member of Team ${user.team.id} - Your owner is ${user.team.owner.userName}</h1>
 </div>
-<div>
-    <h1>You are a member of Team ${user.team.id}</h1>
-</div>
-<div>
-    <h1>The owner of your team is ${user.team.owner.userName}</h1>
-</div>
-
-<div>
-    <b>This page is a work in progress...</b>
-</div>
-<div>
-    <form action="/logout" method="get">
-        <input type="submit" value="Logout"/>
-    </form>
-</div>
+<fieldset>
+    <legend><b>This page is a work in progress...</b></legend>
+    <div>
+        <form action="/logout" method="get">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+</fieldset>
 </body>
 </html>

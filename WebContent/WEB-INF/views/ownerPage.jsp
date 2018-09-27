@@ -17,13 +17,9 @@
     <title>Owner page</title>
 </head>
 <body>
-<div>
-    <h1>
-        Team owner page - Logged as <security:authentication property="principal.username" /> - Owner of Team ${teamId}
-    </h1>
-</div>
-<br>
-<br>
+<h1 style="text-align: center">
+    Team owner page - Logged as <security:authentication property="principal.username" /> - Owner of Team ${teamId}
+</h1>
 <fieldset>
     <legend>Add new members to your team</legend>
     <div>

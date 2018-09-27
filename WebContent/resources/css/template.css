@@ -1,4 +1,4 @@
-body{
+body {
     background-color: #8DC26F;
     font-family: Monospace;
 }
@@ -8,6 +8,17 @@ div{
 }
 .warning{
     color: red;
+}
+
+.mainContainer {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+.content{
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
 }
 legend {
     font-weight: bold;
