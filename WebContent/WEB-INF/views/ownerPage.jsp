@@ -95,10 +95,9 @@
     </div>
 </fieldset>
 <br>
-<br>
 <div>
     <form action="/logout" method="get">
-        <input type="submit" value="Logout"/>
+        <button type="submit">Logout</button>
     </form>
 </div>
 <script

@@ -48,10 +48,9 @@
             </c:if>
         </fieldset>
         <br>
-        <br>
         <div>
             <form action="/owner/homepage" method="get">
-                <input type="submit" value="Back"/>
+                <button type="submit">Back</button>
             </form>
         </div>
     </div>
