@@ -20,7 +20,7 @@ button{
     border-radius: 4px;
     cursor: pointer;
 }
-button:hover {
+button:hover, button:focus, button:active {
     background-color: #45a049;
     color: white;
 }
