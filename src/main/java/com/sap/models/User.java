@@ -20,6 +20,17 @@ public class User {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade =  CascadeType.ALL, mappedBy = "user")
+    private UserCalendar userCalendar;
+
+    public UserCalendar getUserCalendar() {
+        return userCalendar;
+    }
+
+    public void setUserCalendar(UserCalendar userCalendar) {
+        this.userCalendar = userCalendar;
+    }
+
     public Role getRole() {
         return role;
     }
