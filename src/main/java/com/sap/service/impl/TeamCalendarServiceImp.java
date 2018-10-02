@@ -5,6 +5,7 @@ import com.sap.models.Team;
 import com.sap.models.TeamCalendar;
 import com.sap.service.TeamCalendarService;
 import javax.annotation.Resource;
+import java.util.List;
 
 public class TeamCalendarServiceImp implements TeamCalendarService {
 
@@ -17,4 +18,8 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
         teamCalendarDao.createTeamCalendar(teamCalendar);
     }
 
+    @Override
+    public List<TeamCalendar> getTeamCalendarList(Team team){
+        return teamCalendarDao.getTeamCalendarList(team);
+    }
 }

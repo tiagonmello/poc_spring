@@ -9,6 +9,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
     <%@include file="/resources/css/template.css"%>
 </style>
@@ -113,7 +114,30 @@
         </form>
     </div>
 </fieldset>
-
+<br>
+<fieldset>
+    <legend>Team calendars:</legend>
+    <div>
+        <table class="dataTable" >
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${calendarList}" var="calendar">
+                </tr>
+                <td>${calendar.id}</td>
+                <td><fmt:formatDate value="${calendar.startDate}" pattern="dd-MM-yyyy"/></td>
+                <td><fmt:formatDate value="${calendar.endDate}" pattern="dd-MM-yyyy"/></td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</fieldset>
 
 <div>
     <form action="/logout" method="get">
