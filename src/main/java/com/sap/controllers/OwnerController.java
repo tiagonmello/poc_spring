@@ -1,6 +1,7 @@
 package com.sap.controllers;
 
 import com.sap.MyUserPrincipal;
+import com.sap.models.TeamCalendar;
 import com.sap.models.User;
 import com.sap.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,8 +24,9 @@ public class OwnerController {
 
         // Add data that will be displayed on the web page
         model.addAttribute("teamId",loggedUser.getTeam().getId());
-        model.addAttribute("user",user);
         model.addAttribute("userList",userService.getUsersByTeam(loggedUser.getTeam()));
+        model.addAttribute("user",user);
+        model.addAttribute("teamCalendar", new TeamCalendar());
         return "ownerPage";
     }
 

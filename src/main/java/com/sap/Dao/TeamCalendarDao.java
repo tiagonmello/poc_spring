@@ -1,4 +1,9 @@
 package com.sap.Dao;
 
-public class TeamCalendarDao {
+import com.sap.models.TeamCalendar;
+
+public interface TeamCalendarDao {
+
+    void  createTeamCalendar(TeamCalendar teamCalendar);
+
 }

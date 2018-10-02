@@ -1,7 +1,10 @@
 package com.sap.controllers;
 
 import com.sap.MyUserPrincipal;
+import com.sap.models.Team;
+import com.sap.models.TeamCalendar;
 import com.sap.models.User;
+import com.sap.service.TeamCalendarService;
 import com.sap.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,9 @@ public class Rest {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private TeamCalendarService teamCalendarService;
 
     @RequestMapping("/owner/addMember")
     public boolean ownerCreateUser(User user){
@@ -28,6 +34,19 @@ public class Rest {
         }
     }
 
+    @RequestMapping("/owner/addCalendar")
+    public boolean ownerCreateCalendar(TeamCalendar teamCalendar){
+        // Retrieves logged user team
+        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Team loggedUserTeam = principal.getUser().getTeam();
+
+        try{
+            teamCalendarService.createTeamCalendar(teamCalendar, loggedUserTeam);
+            return true;
+        }catch (IllegalArgumentException e){
+            return false;
+        }
+    }
 }
 
 

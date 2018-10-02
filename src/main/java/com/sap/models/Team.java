@@ -19,6 +19,9 @@ public class Team {
     @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<User> members;
 
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<TeamCalendar> calendars;
+
     public List<User> getMembers() {
         return members;
     }
