@@ -48,7 +48,6 @@
     </div>
 </fieldset>
 <br>
-<br>
 <fieldset>
     <legend>Team members</legend>
     <div>
@@ -95,6 +94,27 @@
     </div>
 </fieldset>
 <br>
+<fieldset>
+    <legend>Add a new team calendar</legend>
+    <div>
+        <form id="addCalendar" modelAttribute="teamCalendar" name="addCalendar" method="post">
+            <table>
+                <tr>
+                    <td align="right">Start date:</td>
+                    <td align="left"><input id="startDate" type="date" name="startDate" required></td>
+                </tr>
+                <tr>
+                    <td align="right">End date:</td>
+                    <td align="left"><input id="endDate" type="date" name="endDate" required></td>
+                </tr>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <tr><td></td><td align="right"><button id="saveCalendar" type="submit">Save</button></td></tr>
+            </table>
+        </form>
+    </div>
+</fieldset>
+
+
 <div>
     <form action="/logout" method="get">
         <button type="submit">Logout</button>
