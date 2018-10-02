@@ -14,7 +14,7 @@
             headers: {
                 'X-CSRF-Token': token
             },
-            data: form.serialize(),
+            data: add.serialize(),
             dataType: 'json',
             success: function (succeeded){
                 location.reload()
@@ -58,7 +58,7 @@
             headers: {
                 'X-CSRF-Token': token
             },
-            data: $("#addCalendar").serialize(),
+            data: calendar.serialize(),
             dataType: 'json',
             success: function (succeeded){
                 location.reload();
