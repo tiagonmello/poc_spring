@@ -1,6 +1,7 @@
 package com.sap.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="USER")
@@ -20,15 +21,15 @@ public class User {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade =  CascadeType.ALL, mappedBy = "user")
-    private UserCalendar userCalendar;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Event> events;
 
-    public UserCalendar getUserCalendar() {
-        return userCalendar;
+    public List<Event> getEvents() {
+        return events;
     }
 
-    public void setUserCalendar(UserCalendar userCalendar) {
-        this.userCalendar = userCalendar;
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 
     public Role getRole() {

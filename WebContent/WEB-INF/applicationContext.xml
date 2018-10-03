@@ -28,6 +28,12 @@
     <bean name="teamCalendarService" class="com.sap.service.impl.TeamCalendarServiceImp">
     </bean>
 
+    <bean name="eventDao" class="com.sap.Dao.impl.EventDaoImp">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean name="eventService" class="com.sap.service.impl.EventServiceImp">
+    </bean>
+
     <bean name="myUserDetailsService" class="com.sap.UserDetailsServiceImp">
     </bean>
 

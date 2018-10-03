@@ -54,15 +54,20 @@
                 <th>Date</th>
                 <th>Day</th>
                 <th>Late</th>
+                <th>Save</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach items="${dateList}" var="date">
                 </tr>
-                <td><fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/></td>
-                <td><input type="checkbox" name="shiftDay" value="day"></td>
-                <td><input type="checkbox" name="shiftLate" value="late"></td>
-                </td>
+                    <td><fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/></td>
+                    <form modelAttribute="event" action="/member/addEvent" name="addEvent" method="post">
+                        <td><input type="checkbox" name="dayShift" value="checked"></td>
+                        <td><input type="checkbox" name="lateShift" value="checked"></td>
+                        <td><button type="submit">Save</button></td>
+                        <input type="hidden" value="<fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/>" name="eventDate" />
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    </form>
                 </tr>
             </c:forEach>
             </tbody>

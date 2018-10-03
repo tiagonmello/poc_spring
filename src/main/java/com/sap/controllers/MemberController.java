@@ -1,8 +1,11 @@
 package com.sap.controllers;
 
 import com.sap.MyUserPrincipal;
+import com.sap.models.Event;
+import com.sap.models.EventDto;
 import com.sap.models.TeamCalendar;
 import com.sap.models.User;
+import com.sap.service.EventService;
 import com.sap.service.TeamCalendarService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,9 @@ public class MemberController {
 
     @Resource
     private TeamCalendarService teamCalendarService;
+
+    @Resource
+    private EventService eventService;
 
     @RequestMapping(value = "/member/homepage")
     public String memberHomepage(Model model){
@@ -53,7 +59,18 @@ public class MemberController {
         model.addAttribute("user",loggedUser);
         model.addAttribute("calendarList",calendarList);
         model.addAttribute("dateList",dateList);
+        model.addAttribute("event",new Event());
         return "memberPage";
+    }
+
+    @RequestMapping(value = "/member/addEvent")
+    public String memberAddEvent(EventDto event){
+        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedUser = principal.getUser();
+
+        eventService.createEvent(event, loggedUser);
+
+        return "redirect:/member/homepage";
     }
 
 }

@@ -1,4 +1,9 @@
 package com.sap.Dao;
 
-public class EventDao {
+import com.sap.models.Event;
+
+public interface EventDao {
+
+    void  createEvent(Event event);
+
 }
