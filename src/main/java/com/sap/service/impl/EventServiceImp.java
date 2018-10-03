@@ -5,8 +5,10 @@ import com.sap.models.*;
 import com.sap.service.EventService;
 
 import javax.annotation.Resource;
+import javax.persistence.PersistenceException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class EventServiceImp implements EventService {
@@ -16,46 +18,62 @@ public class EventServiceImp implements EventService {
 
     @Override
     public void createEvent(EventDto eventDto, User user) {
-        Event event = new Event();
-
-        // Sets event user
-        event.setUser(user);
-
-        // Sets event date
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        try{
-            event.setEventDate(formatter.parse(eventDto.getEventDate()));
-        }catch (ParseException e){
+        Date eventDate = new Date();
+
+        // Formats received date
+        try {
+            eventDate = formatter.parse(eventDto.getEventDate());
+        }catch(ParseException e){
             e.printStackTrace();
         }
 
-        // Sets day shift
-        if(eventDto.getDayShift() == null){
-            event.setDayShift(false);
-        }else{
-            event.setDayShift(true);
+        // Tries to retrieve the event for the received date and user
+        Event event = new Event();
+        try {
+            event = eventDao.getEventByDateAndUser(eventDate, user.getUserName());
+        }catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
         }
 
-        // Sets late shift
-        if(eventDto.getLateShift() == null){
-            event.setLateShift(false);
+        // If there's a already registered event for this date
+        if(event.getId() != null){
+            // Sets day shift
+            if(eventDto.getDayShift() == null){
+                event.setDayShift(false);
+            }else{
+                event.setDayShift(true);
+            }
+            // Sets late shift
+            if(eventDto.getLateShift() == null){
+                event.setLateShift(false);
+            }else{
+                event.setLateShift(true);
+            }
+            eventDao.updateEvent(event);
         }else{
-            event.setLateShift(true);
+            // Sets day shift
+            if(eventDto.getDayShift() == null){
+                event.setDayShift(false);
+            }else{
+                event.setDayShift(true);
+            }
+            // Sets late shift
+            if(eventDto.getLateShift() == null){
+                event.setLateShift(false);
+            }else{
+                event.setLateShift(true);
+            }
+            // Sets event date
+            event.setEventDate(eventDate);
+            // Sets event user
+            event.setUser(user);
+            // Creates event
+            eventDao.createEvent(event);
         }
-
-        // Creates event
-        eventDao.createEvent(event);
     }
 
     public List<Event> getEventsByUser(String username){
-        /*List<Event> eventList = new ArrayList<>();
-        try{
-            eventList = eventDao.getEventsByUser(username);
-        }catch(PersistenceException e){
-            return null;
-        }
-        return eventList;
-        */
         return eventDao.getEventsByUser(username);
     }
 
