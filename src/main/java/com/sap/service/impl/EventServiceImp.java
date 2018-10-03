@@ -7,6 +7,7 @@ import com.sap.service.EventService;
 import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class EventServiceImp implements EventService {
 
@@ -44,6 +45,18 @@ public class EventServiceImp implements EventService {
 
         // Creates event
         eventDao.createEvent(event);
+    }
+
+    public List<Event> getEventsByUser(String username){
+        /*List<Event> eventList = new ArrayList<>();
+        try{
+            eventList = eventDao.getEventsByUser(username);
+        }catch(PersistenceException e){
+            return null;
+        }
+        return eventList;
+        */
+        return eventDao.getEventsByUser(username);
     }
 
 }

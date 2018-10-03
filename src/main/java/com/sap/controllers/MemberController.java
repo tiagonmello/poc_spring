@@ -60,6 +60,7 @@ public class MemberController {
         model.addAttribute("calendarList",calendarList);
         model.addAttribute("dateList",dateList);
         model.addAttribute("event",new Event());
+        model.addAttribute("eventList",eventService.getEventsByUser(loggedUser.getUserName()));
         return "memberPage";
     }
 

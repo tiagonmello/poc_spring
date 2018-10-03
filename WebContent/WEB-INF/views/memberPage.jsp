@@ -75,6 +75,39 @@
     </div>
 </fieldset>
 <br>
+<fieldset>
+    <legend>Current allocated shifts:</legend>
+    <div>
+        <table class="dataTable" >
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Day</th>
+                <th>Late</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${eventList}" var="event">
+                </tr>
+                    <td>
+                        <fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/>
+                    </td>
+                    <td>
+                        <c:if test="${event.dayShift}">
+                            <div class="warning">X</div>
+                        </c:if>
+                    </td>
+                    <td>
+                        <c:if test="${event.lateShift}">
+                            <div class="warning">X</div>
+                        </c:if>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</fieldset>
 <br>
 <div>
     <form action="/logout" method="get">
