@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="TEAM_CALENDAR")
@@ -20,9 +21,31 @@ public class TeamCalendar {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
+    @ElementCollection
+    private List<Date> holidays;
+
+    @ElementCollection
+    private List<Date> weekends;
+
     @ManyToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    public List<Date> getHolidays() {
+        return holidays;
+    }
+
+    public void setHolidays(List<Date> holidays) {
+        this.holidays = holidays;
+    }
+
+    public List<Date> getWeekends() {
+        return weekends;
+    }
+
+    public void setWeekends(List<Date> weekends) {
+        this.weekends = weekends;
+    }
 
     public Integer getId() {
         return id;

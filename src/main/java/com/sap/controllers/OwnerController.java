@@ -1,6 +1,7 @@
 package com.sap.controllers;
 
 import com.sap.MyUserPrincipal;
+import com.sap.models.DayDto;
 import com.sap.models.TeamCalendar;
 import com.sap.models.User;
 import com.sap.service.EventService;
@@ -11,10 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 @Controller
 public class OwnerController {
@@ -39,6 +36,7 @@ public class OwnerController {
         model.addAttribute("userList",userService.getUsersByTeam(loggedUser.getTeam()));
         model.addAttribute("calendarList",teamCalendarService.getTeamCalendarList(loggedUser.getTeam()));
         model.addAttribute("user",user);
+        model.addAttribute("dayDto", new DayDto());
         model.addAttribute("teamCalendar", new TeamCalendar());
         return "ownerPage";
     }

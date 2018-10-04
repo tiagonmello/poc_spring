@@ -34,6 +34,9 @@
     <bean name="eventService" class="com.sap.service.impl.EventServiceImp">
     </bean>
 
+    <bean name="specialDayService" class="com.sap.service.impl.SpecialDayServiceImp">
+    </bean>
+
     <bean name="myUserDetailsService" class="com.sap.UserDetailsServiceImp">
     </bean>
 

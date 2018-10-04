@@ -17,6 +17,12 @@ public class TeamCalendarDaoImp extends HibernateDaoSupport implements TeamCalen
     }
 
     @Override
+    @Transactional
+    public void addSpecialDay(TeamCalendar teamCalendar){
+        getHibernateTemplate().update(teamCalendar);
+    }
+
+    @Override
     public List<TeamCalendar> getTeamCalendarList(Team team){
         return (List<TeamCalendar>) getHibernateTemplate().find("from com.sap.models.TeamCalendar");
     }

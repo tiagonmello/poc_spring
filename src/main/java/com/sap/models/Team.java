@@ -22,6 +22,14 @@ public class Team {
     @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TeamCalendar> calendars;
 
+    public List<TeamCalendar> getCalendars() {
+        return calendars;
+    }
+
+    public void setCalendars(List<TeamCalendar> calendars) {
+        this.calendars = calendars;
+    }
+
     public List<User> getMembers() {
         return members;
     }

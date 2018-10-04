@@ -122,6 +122,29 @@
     </div>
 </fieldset>
 <br>
+
+<fieldset>
+    <legend>Add special days</legend>
+    <div>
+        <form id="addDay" modelAttribute="dayDto" name="addDay" method="post">
+            <table>
+                <tr>
+                    <td align="right">Date:</td>
+                    <td align="left"><input id="dayDate" type="date" name="dayDate" required></td>
+                </tr>
+                <tr>
+                    <td align="right">Type:</td>
+                    <td align="left"><input type="radio" name="dayType" value="holiday" required>Holiday</td>
+                    <td align="left"><input type="radio" name="dayType" value="weekend" required>Weekend</td>
+                </tr>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <tr><td></td><td align="right"><button id="saveCalendar" type="submit">Save</button></td></tr>
+            </table>
+        </form>
+    </div>
+</fieldset>
+
+<br>
 <fieldset>
     <legend>Team calendars:</legend>
     <div>

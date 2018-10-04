@@ -9,6 +9,8 @@ public interface TeamCalendarDao {
 
     void  createTeamCalendar(TeamCalendar teamCalendar);
 
+    void  addSpecialDay(TeamCalendar teamCalendar);
+
     List<TeamCalendar> getTeamCalendarList(Team team);
 
 }
