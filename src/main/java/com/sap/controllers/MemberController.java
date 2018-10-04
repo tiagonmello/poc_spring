@@ -32,34 +32,10 @@ public class MemberController {
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User loggedUser = principal.getUser();
 
-        Calendar c = Calendar.getInstance();
-        List<TeamCalendar> calendarList = teamCalendarService.getTeamCalendarList(loggedUser.getTeam());
-        List<Date> dateList = new ArrayList<>();
-
-        // For every calendar registered
-        for(TeamCalendar calendar : calendarList){
-
-        // Initialize loop date
-            Date iterationDate = calendar.getStartDate();
-            dateList.add(iterationDate);
-
-        // While the loop date doesn't reach the end date
-            while(calendar.getEndDate().compareTo(iterationDate) != 0){
-
-        // Increments loop date
-                c.setTime(iterationDate);
-                c.add(Calendar.DATE,1);
-                iterationDate = c.getTime();
-
-        // Adds loop date to the date list
-                dateList.add(iterationDate);
-            }
-        }
-
         model.addAttribute("user",loggedUser);
-        model.addAttribute("calendarList",calendarList);
-        model.addAttribute("dateList",dateList);
         model.addAttribute("event",new Event());
+        model.addAttribute("calendarList",teamCalendarService.getTeamCalendarList(loggedUser.getTeam()));
+        model.addAttribute("dateList",teamCalendarService.getDateList(loggedUser.getTeam()));
         model.addAttribute("eventList",eventService.getEventsByUser(loggedUser.getUserName()));
         return "memberPage";
     }
