@@ -71,4 +71,27 @@
         });
     });
 
+    var day = $("#addDay");
+    day.on('submit', function(e){
+        e.preventDefault();
+
+        $.ajax({
+            url: '/owner/addDay',
+            type: 'post',
+            headers: {
+                'X-CSRF-Token': token
+            },
+            data: day.serialize(),
+            dataType: 'json',
+            success: function (succeeded){
+                location.reload();
+                if (succeeded){
+                    alert("Day registered!");
+                }else {
+                    alert("Day registration failed!");
+                }
+            }
+        });
+    });
+
 })();
