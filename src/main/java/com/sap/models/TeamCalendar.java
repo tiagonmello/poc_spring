@@ -21,7 +21,7 @@ public class TeamCalendar {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
-    @ElementCollection
+    @ElementCollection(fetch=FetchType.EAGER)
     private List<Date> holidays;
 
     @ElementCollection

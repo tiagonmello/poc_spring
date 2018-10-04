@@ -27,6 +27,17 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
     }
 
     @Override
+    public List<Date> getHolidayList(Team team){
+        List<Date> holidayList = new ArrayList<>();
+        List<TeamCalendar> calendarList = this.getTeamCalendarList(team);
+
+        for(TeamCalendar calendar : calendarList){
+            holidayList.addAll(calendar.getHolidays());
+        }
+        return holidayList;
+    }
+
+    @Override
     public List<Date> getDateList(Team team){
         Calendar c = Calendar.getInstance();
         List<TeamCalendar> calendarList = this.getTeamCalendarList(team);
@@ -53,6 +64,5 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
         }
         return dateList;
     }
-
 
 }

@@ -1,7 +1,7 @@
 package com.sap.service.impl;
 
 import com.sap.Dao.TeamCalendarDao;
-import com.sap.models.DayDto;
+import com.sap.dtos.DayDto;
 import com.sap.models.Team;
 import com.sap.models.TeamCalendar;
 import com.sap.service.SpecialDayService;

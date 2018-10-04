@@ -1,10 +1,6 @@
-package com.sap.models;
-
-import org.springframework.format.annotation.DateTimeFormat;
+package com.sap.dtos;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name="EVENT_DTO")

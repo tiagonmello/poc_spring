@@ -1,4 +1,4 @@
-package com.sap.models;
+package com.sap.dtos;
 
 import javax.persistence.*;
 

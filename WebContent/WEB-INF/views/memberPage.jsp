@@ -55,6 +55,7 @@
                 <th>Day</th>
                 <th>Late</th>
                 <th>Save</th>
+                <th>Holiday</th>
             </tr>
             </thead>
             <tbody>
@@ -65,6 +66,15 @@
                         <td><input type="checkbox" name="dayShift" value="checked"></td>
                         <td><input type="checkbox" name="lateShift" value="checked"></td>
                         <td><button type="submit">Save</button></td>
+                        <td>
+                            <c:forEach items="${holidayList}" var="holiday">
+                                <fmt:formatDate var="currentDate" value="${date}" pattern="yyyy-MM-dd" />
+                                <fmt:formatDate var="holidayDate" value="${holiday}" pattern="yyyy-MM-dd" />
+                                <c:if test="${currentDate == holidayDate}">
+                                    <div class="warning">X</div>
+                                </c:if>
+                            </c:forEach>
+                        </td>
                         <input type="hidden" value="<fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/>" name="eventDate" />
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     </form>

@@ -1,6 +1,6 @@
 package com.sap.service;
 
-import com.sap.models.DayDto;
+import com.sap.dtos.DayDto;
 import com.sap.models.Team;
 
 public interface SpecialDayService {

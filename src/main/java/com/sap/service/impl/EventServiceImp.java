@@ -1,11 +1,11 @@
 package com.sap.service.impl;
 
 import com.sap.Dao.EventDao;
+import com.sap.dtos.EventDto;
 import com.sap.models.*;
 import com.sap.service.EventService;
 
 import javax.annotation.Resource;
-import javax.persistence.PersistenceException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

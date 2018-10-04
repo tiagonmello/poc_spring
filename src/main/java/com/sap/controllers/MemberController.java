@@ -2,8 +2,7 @@ package com.sap.controllers;
 
 import com.sap.MyUserPrincipal;
 import com.sap.models.Event;
-import com.sap.models.EventDto;
-import com.sap.models.TeamCalendar;
+import com.sap.dtos.EventDto;
 import com.sap.models.User;
 import com.sap.service.EventService;
 import com.sap.service.TeamCalendarService;
@@ -13,10 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 @Controller
 public class MemberController {
@@ -35,6 +30,9 @@ public class MemberController {
         model.addAttribute("user",loggedUser);
         model.addAttribute("event",new Event());
         model.addAttribute("calendarList",teamCalendarService.getTeamCalendarList(loggedUser.getTeam()));
+
+        model.addAttribute("holidayList",teamCalendarService.getHolidayList(loggedUser.getTeam()));
+
         model.addAttribute("dateList",teamCalendarService.getDateList(loggedUser.getTeam()));
         model.addAttribute("eventList",eventService.getEventsByUser(loggedUser.getUserName()));
         return "memberPage";
