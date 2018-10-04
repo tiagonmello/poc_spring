@@ -60,6 +60,7 @@
                 <th>Role</th>
                 <th>Delete</th>
                 <th>Edit</th>
+                <th>Shifts</th>
             </tr>
             </thead>
             <tbody>
@@ -83,8 +84,14 @@
                             <button type="submit">Edit</button>
                         </form>
                     </td>
+                    <td>
+                        <form action="/owner/calendar/${user.userName}" method="get">
+                            <button type="submit">Calendar</button>
+                        </form>
+                    </td>
                 </c:if>
                 <c:if test="${user.role.name != 'ROLE_MEMBER'}">
+                    <td></td>
                     <td></td>
                     <td></td>
                 </c:if>
