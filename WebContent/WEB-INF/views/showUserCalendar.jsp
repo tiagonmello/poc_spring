@@ -20,6 +20,8 @@
 <body>
 <fieldset>
     <legend>${user.userName}'s allocated shifts</legend>
+    <div style="background-color: lightblue">Holiday</div>
+    <div style="background-color:lightcoral">Weekend</div>
     <div>
         <table class="dataTable" >
             <thead>
@@ -31,20 +33,39 @@
             </thead>
             <tbody>
             <c:forEach items="${eventList}" var="event">
-                </tr>
-                <td>
-                    <fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/>
-                </td>
-                <td>
-                    <c:if test="${event.dayShift}">
-                        <div class="warning">X</div>
+                <fmt:formatDate var="currentDate" value="${event.eventDate}" pattern="yyyy-MM-dd" />
+                <c:set var="holiday" value=""/>
+                <c:set var="weekend" value=""/>
+                <c:forEach items="${specialDayList}" var="specialDay">
+                    <fmt:formatDate var="specialDate" value="${specialDay.dayDate}" pattern="yyyy-MM-dd" />
+                    <c:if test="${currentDate == specialDate && specialDay.dayType == 'holiday'}">
+                        <c:set var="holiday" value="yes"/>
                     </c:if>
-                </td>
-                <td>
-                    <c:if test="${event.lateShift}">
-                        <div class="warning">X</div>
+                    <c:if test="${currentDate == specialDate && specialDay.dayType == 'weekend'}">
+                        <c:set var="weekend" value="yes"/>
                     </c:if>
-                </td>
+                </c:forEach>
+
+                <tr>
+                    <c:if test="${holiday == 'yes'}">
+                        <td style="background-color: lightblue"><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/></td>
+                    </c:if>
+                    <c:if test="${weekend == 'yes'}">
+                        <td style="background-color: lightcoral"><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/></td>
+                    </c:if>
+                    <c:if test="${holiday != 'yes' && weekend != 'yes'}">
+                        <td><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/></td>
+                    </c:if>
+                    <td>
+                        <c:if test="${event.dayShift}">
+                            <div class="warning">X</div>
+                        </c:if>
+                    </td>
+                    <td>
+                        <c:if test="${event.lateShift}">
+                            <div class="warning">X</div>
+                        </c:if>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>

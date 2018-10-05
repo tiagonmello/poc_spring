@@ -5,6 +5,7 @@ import com.sap.dtos.DayDto;
 import com.sap.models.TeamCalendar;
 import com.sap.models.User;
 import com.sap.service.EventService;
+import com.sap.service.SpecialDayService;
 import com.sap.service.TeamCalendarService;
 import com.sap.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +24,9 @@ public class OwnerController {
     private TeamCalendarService teamCalendarService;
 
     @Resource
+    private SpecialDayService specialDayService;
+
+    @Resource
     private EventService eventService;
 
     @RequestMapping(value = "/owner/homepage")
@@ -35,6 +39,7 @@ public class OwnerController {
         model.addAttribute("teamId",loggedUser.getTeam().getId());
         model.addAttribute("userList",userService.getUsersByTeam(loggedUser.getTeam()));
         model.addAttribute("calendarList",teamCalendarService.getTeamCalendarList(loggedUser.getTeam()));
+        model.addAttribute("specialDayList",specialDayService.getSpecialDayList(loggedUser.getTeam()));
         model.addAttribute("user",user);
         model.addAttribute("dayDto", new DayDto());
         model.addAttribute("teamCalendar", new TeamCalendar());
