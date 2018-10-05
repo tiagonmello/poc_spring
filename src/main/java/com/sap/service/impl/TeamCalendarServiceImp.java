@@ -17,6 +17,16 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
 
     @Override
     public void createTeamCalendar(TeamCalendar teamCalendar, Team team){
+        // Checks if the new calendar will not overlap any already registered calendar
+        for(TeamCalendar registeredCalendar : this.getTeamCalendarList(team)){
+            if(!(teamCalendar.getStartDate().before(registeredCalendar.getStartDate()) || teamCalendar.getStartDate().after(registeredCalendar.getEndDate())))
+                throw new IllegalArgumentException("Calendar dates overlapping with another calendar!");
+            if(!(teamCalendar.getEndDate().before(registeredCalendar.getStartDate()) || teamCalendar.getEndDate().after(registeredCalendar.getEndDate())))
+                throw new IllegalArgumentException("Calendar dates overlapping with another calendar!");
+            if(!(teamCalendar.getStartDate().after(registeredCalendar.getStartDate()) || teamCalendar.getEndDate().before(registeredCalendar.getEndDate())))
+                throw new IllegalArgumentException("Calendar dates overlapping with another calendar!");
+        }
+        // Sets the team and creates the calendar
         teamCalendar.setTeam(team);
         teamCalendarDao.createTeamCalendar(teamCalendar);
     }
