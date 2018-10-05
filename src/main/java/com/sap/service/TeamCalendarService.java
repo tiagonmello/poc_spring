@@ -14,6 +14,4 @@ public interface TeamCalendarService {
 
     List<Date> getDateList(Team team);
 
-    List<Date> getHolidayList(Team team);
-
 }

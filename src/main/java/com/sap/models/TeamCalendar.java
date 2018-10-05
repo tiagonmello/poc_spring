@@ -21,30 +21,19 @@ public class TeamCalendar {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
-    @ElementCollection(fetch=FetchType.EAGER)
-    private List<Date> holidays;
-
-    @ElementCollection
-    private List<Date> weekends;
+    @OneToMany(mappedBy = "calendar", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<SpecialDay> specialDays;
 
     @ManyToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    public List<Date> getHolidays() {
-        return holidays;
+    public List<SpecialDay> getSpecialDays() {
+        return specialDays;
     }
 
-    public void setHolidays(List<Date> holidays) {
-        this.holidays = holidays;
-    }
-
-    public List<Date> getWeekends() {
-        return weekends;
-    }
-
-    public void setWeekends(List<Date> weekends) {
-        this.weekends = weekends;
+    public void setSpecialDays(List<SpecialDay> specialDays) {
+        this.specialDays = specialDays;
     }
 
     public Integer getId() {

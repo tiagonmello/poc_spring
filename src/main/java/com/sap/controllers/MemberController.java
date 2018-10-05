@@ -3,8 +3,10 @@ package com.sap.controllers;
 import com.sap.MyUserPrincipal;
 import com.sap.models.Event;
 import com.sap.dtos.EventDto;
+import com.sap.models.SpecialDay;
 import com.sap.models.User;
 import com.sap.service.EventService;
+import com.sap.service.SpecialDayService;
 import com.sap.service.TeamCalendarService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,9 @@ public class MemberController {
     @Resource
     private EventService eventService;
 
+    @Resource
+    private SpecialDayService specialDayService;
+
     @RequestMapping(value = "/member/homepage")
     public String memberHomepage(Model model){
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -31,7 +36,7 @@ public class MemberController {
         model.addAttribute("event",new Event());
         model.addAttribute("calendarList",teamCalendarService.getTeamCalendarList(loggedUser.getTeam()));
 
-        model.addAttribute("holidayList",teamCalendarService.getHolidayList(loggedUser.getTeam()));
+        model.addAttribute("specialDayList",specialDayService.getSpecialDayList(loggedUser.getTeam()));
 
         model.addAttribute("dateList",teamCalendarService.getDateList(loggedUser.getTeam()));
         model.addAttribute("eventList",eventService.getEventsByUser(loggedUser.getUserName()));
