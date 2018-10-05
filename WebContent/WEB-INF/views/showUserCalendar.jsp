@@ -20,8 +20,6 @@
 <body>
 <fieldset>
     <legend>${user.userName}'s allocated shifts</legend>
-    <div style="background-color: lightblue">Holiday</div>
-    <div style="background-color:lightcoral">Weekend</div>
     <div>
         <table class="dataTable" >
             <thead>
