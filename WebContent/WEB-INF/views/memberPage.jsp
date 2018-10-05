@@ -56,6 +56,7 @@
                 <th>Late</th>
                 <th>Save</th>
                 <th>Holiday</th>
+                <th>Weekend</th>
             </tr>
             </thead>
             <tbody>
@@ -67,10 +68,19 @@
                         <td><input type="checkbox" name="lateShift" value="checked"></td>
                         <td><button type="submit">Save</button></td>
                         <td>
-                            <c:forEach items="${holidayList}" var="holiday">
+                            <c:forEach items="${specialDayList}" var="specialDay">
                                 <fmt:formatDate var="currentDate" value="${date}" pattern="yyyy-MM-dd" />
-                                <fmt:formatDate var="holidayDate" value="${holiday}" pattern="yyyy-MM-dd" />
-                                <c:if test="${currentDate == holidayDate}">
+                                <fmt:formatDate var="specialDate" value="${specialDay.dayDate}" pattern="yyyy-MM-dd" />
+                                <c:if test="${currentDate == specialDate && specialDay.dayType == 'holiday'}">
+                                    <div class="warning">X</div>
+                                </c:if>
+                            </c:forEach>
+                        </td>
+                        <td>
+                            <c:forEach items="${specialDayList}" var="specialDay">
+                                <fmt:formatDate var="currentDate" value="${date}" pattern="yyyy-MM-dd" />
+                                <fmt:formatDate var="specialDate" value="${specialDay.dayDate}" pattern="yyyy-MM-dd" />
+                                <c:if test="${currentDate == specialDate && specialDay.dayType == 'weekend'}">
                                     <div class="warning">X</div>
                                 </c:if>
                             </c:forEach>
