@@ -25,6 +25,16 @@ public class Event {
 
     private boolean dayShift;
 
+    private boolean dayAvailability;
+
+    public boolean isDayAvailability() {
+        return dayAvailability;
+    }
+
+    public void setDayAvailability(boolean dayAvailability) {
+        this.dayAvailability = dayAvailability;
+    }
+
     public Integer getId() {
         return id;
     }

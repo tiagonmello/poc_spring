@@ -13,6 +13,16 @@ public class EventDto {
 
     private String dayShift;
 
+    private String dayAvailability;
+
+    public String getDayAvailability() {
+        return dayAvailability;
+    }
+
+    public void setDayAvailability(String dayAvailability) {
+        this.dayAvailability = dayAvailability;
+    }
+
     public String getEventDate() {
         return eventDate;
     }

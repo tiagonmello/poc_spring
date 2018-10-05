@@ -48,10 +48,16 @@
 
                 <tr>
                     <c:if test="${holiday == 'yes'}">
-                        <td style="background-color: lightblue"><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/></td>
+                        <td style="background-color: lightblue">
+                            <fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/>
+                            <br>Holiday
+                        </td>
                     </c:if>
                     <c:if test="${weekend == 'yes'}">
-                        <td style="background-color: lightcoral"><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/></td>
+                        <td style="background-color: lightcoral">
+                            <fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/>
+                            <br>Weekend
+                        </td>
                     </c:if>
                     <c:if test="${holiday != 'yes' && weekend != 'yes'}">
                         <td><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/></td>

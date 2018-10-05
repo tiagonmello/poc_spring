@@ -39,7 +39,6 @@ public class OwnerController {
         model.addAttribute("teamId",loggedUser.getTeam().getId());
         model.addAttribute("userList",userService.getUsersByTeam(loggedUser.getTeam()));
         model.addAttribute("calendarList",teamCalendarService.getTeamCalendarList(loggedUser.getTeam()));
-        model.addAttribute("specialDayList",specialDayService.getSpecialDayList(loggedUser.getTeam()));
         model.addAttribute("user",user);
         model.addAttribute("dayDto", new DayDto());
         model.addAttribute("teamCalendar", new TeamCalendar());
@@ -81,6 +80,7 @@ public class OwnerController {
 
         model.addAttribute("user",user);
         model.addAttribute("dateList",teamCalendarService.getDateList(user.getTeam()));
+        model.addAttribute("specialDayList",specialDayService.getSpecialDayList(user.getTeam()));
         model.addAttribute("eventList",eventService.getEventsByUser(username));
         return "showUserCalendar";
     }

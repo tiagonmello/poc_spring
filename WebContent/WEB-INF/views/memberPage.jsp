@@ -47,8 +47,6 @@
 <br>
 <fieldset>
     <legend><b>Shift allocation:</b></legend>
-    <div style="background-color: lightblue">Holiday</div>
-    <div style="background-color:lightcoral">Weekend</div>
     <div>
         <table class="dataTable" >
             <thead>
@@ -56,6 +54,7 @@
                 <th>Date</th>
                 <th>Day</th>
                 <th>Late</th>
+                <th>Available?</th>
                 <th>Save</th>
             </tr>
             </thead>
@@ -75,10 +74,16 @@
                 </c:forEach>
                 </tr>
                     <c:if test="${holiday == 'yes'}">
-                        <td style="background-color: lightblue;"><fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/></td>
+                        <td style="background-color: lightblue;">
+                            <fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/>
+                            <br>Holiday
+                        </td>
                     </c:if>
                     <c:if test="${weekend == 'yes'}">
-                        <td style="background-color: lightcoral;"><fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/></td>
+                        <td style="background-color: lightcoral;">
+                            <fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/>
+                            <br>Weekend
+                        </td>
                     </c:if>
                     <c:if test="${holiday != 'yes' && weekend != 'yes'}">
                         <td><fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/></td>
@@ -86,6 +91,14 @@
                     <form modelAttribute="event" action="/member/addEvent" name="addEvent" method="post">
                         <td><input type="checkbox" name="dayShift" value="checked"></td>
                         <td><input type="checkbox" name="lateShift" value="checked"></td>
+
+                        <c:if test="${holiday == 'yes' || weekend == 'yes'}">
+                            <td><input type="checkbox" name="dayAvailability" value="checked"/></td>
+                        </c:if>
+                        <c:if test="${holiday != 'yes' && weekend != 'yes'}">
+                            <td><input type="checkbox" name="dayAvailability" value="checked" disabled checked/></td>
+                        </c:if>
+
                         <td><button type="submit">Save</button></td>
                         <input type="hidden" value="<fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/>" name="eventDate" />
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -99,8 +112,6 @@
 <br>
 <fieldset>
     <legend>Current allocated shifts:</legend>
-    <div style="background-color: lightblue">Holiday</div>
-    <div style="background-color:lightcoral">Weekend</div>
     <div>
         <table class="dataTable" >
             <thead>
@@ -127,10 +138,16 @@
 
                 <tr>
                     <c:if test="${holiday == 'yes'}">
-                        <td style="background-color: lightblue"><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/></td>
+                        <td style="background-color: lightblue">
+                            <fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/>
+                            <br>Holiday
+                        </td>
                     </c:if>
                     <c:if test="${weekend == 'yes'}">
-                        <td style="background-color: lightcoral"><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/></td>
+                        <td style="background-color: lightcoral">
+                            <fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/>
+                            <br>Weekend
+                        </td>
                     </c:if>
                     <c:if test="${holiday != 'yes' && weekend != 'yes'}">
                         <td><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/></td>
