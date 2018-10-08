@@ -37,10 +37,6 @@ public class EventServiceImp implements EventService {
             e.printStackTrace();
         }
 
-        if(dayNotAvailable(eventDto))
-            throw new IllegalArgumentException("User must be available to register shift");
-
-
         // If there's a already registered event for this date
         if(event.getId() != null){
             // Sets shifts and availability
@@ -57,14 +53,6 @@ public class EventServiceImp implements EventService {
             // Creates event
             eventDao.createEvent(event);
         }
-    }
-
-    private boolean dayNotAvailable(@NotNull EventDto eventDto) {
-        if (eventDto.getDayAvailability() == null)
-            if(eventDto.getShift() != "any")
-                return true;
-
-        return false;
     }
 
     private void setEventShifts(@NotNull EventDto eventDto, Event event){

@@ -19,13 +19,14 @@
 </head>
 <body>
 <fieldset>
-    <legend>Current allocated shifts:</legend>
+    <legend>${user.userName}'s allocated shifts:</legend>
     <div>
         <table class="dataTable" >
             <thead>
             <tr>
                 <th>Date</th>
                 <th>Shift</th>
+                <th>Available?</th>
             </tr>
             </thead>
             <tbody>
@@ -61,13 +62,21 @@
                     </c:if>
                     <td>
                         <c:if test="${event.shift eq 'ANY'}">
-                            <div class="warning">Any</div>
+                            <div>Any</div>
                         </c:if>
                         <c:if test="${event.shift eq 'DAY'}">
-                            <div class="warning">Day</div>
+                            <div style="color: darkgoldenrod">Day</div>
                         </c:if>
                         <c:if test="${event.shift eq 'LATE'}">
-                            <div class="warning">Late</div>
+                            <div style="color: darkblue">Late</div>
+                        </c:if>
+                    </td>
+                    <td>
+                        <c:if test="${event.dayAvailability}">
+                            <div>Yes</div>
+                        </c:if>
+                        <c:if test="${not event.dayAvailability}">
+                            <div style="color: red">No</div>
                         </c:if>
                     </td>
                 </tr>
