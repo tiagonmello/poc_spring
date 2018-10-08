@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="POC_Security" />
         <module name="training" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="POC_Security" target="1.8" />
       <module name="training" target="1.8" />
     </bytecodeTargetLevel>
   </component>
