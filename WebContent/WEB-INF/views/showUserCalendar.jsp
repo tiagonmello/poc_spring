@@ -19,14 +19,13 @@
 </head>
 <body>
 <fieldset>
-    <legend>${user.userName}'s allocated shifts</legend>
+    <legend>Current allocated shifts:</legend>
     <div>
         <table class="dataTable" >
             <thead>
             <tr>
                 <th>Date</th>
-                <th>Day</th>
-                <th>Late</th>
+                <th>Shift</th>
             </tr>
             </thead>
             <tbody>
@@ -61,13 +60,14 @@
                         <td><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/></td>
                     </c:if>
                     <td>
-                        <c:if test="${event.dayShift}">
-                            <div class="warning">X</div>
+                        <c:if test="${event.shift eq 'ANY'}">
+                            <div class="warning">Any</div>
                         </c:if>
-                    </td>
-                    <td>
-                        <c:if test="${event.lateShift}">
-                            <div class="warning">X</div>
+                        <c:if test="${event.shift eq 'DAY'}">
+                            <div class="warning">Day</div>
+                        </c:if>
+                        <c:if test="${event.shift eq 'LATE'}">
+                            <div class="warning">Late</div>
                         </c:if>
                     </td>
                 </tr>
@@ -76,7 +76,6 @@
         </table>
     </div>
 </fieldset>
-<br>
 <div>
     <form action="/owner/homepage" method="get">
         <button type="submit">Back</button>

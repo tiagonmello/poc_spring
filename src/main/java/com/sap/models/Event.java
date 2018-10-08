@@ -21,9 +21,7 @@ public class Event {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date eventDate;
 
-    private boolean lateShift;
-
-    private boolean dayShift;
+    private Shift shift;
 
     private boolean dayAvailability;
 
@@ -59,20 +57,12 @@ public class Event {
         this.user = user;
     }
 
-    public boolean isLateShift() {
-        return lateShift;
+    public Shift getShift() {
+        return shift;
     }
 
-    public void setLateShift(boolean lateShift) {
-        this.lateShift = lateShift;
-    }
-
-    public boolean isDayShift() {
-        return dayShift;
-    }
-
-    public void setDayShift(boolean dayShift) {
-        this.dayShift = dayShift;
+    public void setShift(Shift shift) {
+        this.shift = shift;
     }
 }
 

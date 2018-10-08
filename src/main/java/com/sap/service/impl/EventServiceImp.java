@@ -61,24 +61,24 @@ public class EventServiceImp implements EventService {
 
     private boolean dayNotAvailable(@NotNull EventDto eventDto) {
         if (eventDto.getDayAvailability() == null)
-            if (eventDto.getDayShift() != null || eventDto.getLateShift() != null)
+            if(eventDto.getShift() != "any")
                 return true;
 
         return false;
     }
 
     private void setEventShifts(@NotNull EventDto eventDto, Event event){
-        // Sets day shift
-        if(eventDto.getDayShift() == null){
-            event.setDayShift(false);
-        }else{
-            event.setDayShift(true);
-        }
-        // Sets late shift
-        if(eventDto.getLateShift() == null){
-            event.setLateShift(false);
-        }else{
-            event.setLateShift(true);
+        // Sets shift
+        switch(eventDto.getShift()){
+            case "day":
+                event.setShift(Shift.DAY);
+                break;
+            case "late":
+                event.setShift(Shift.LATE);
+                break;
+            case "any":
+                event.setShift(Shift.ANY);
+                break;
         }
         // Sets day availability
         if(eventDto.getDayAvailability() == null){

@@ -9,9 +9,7 @@ public class EventDto {
     @Id
     private String eventDate;
 
-    private String lateShift;
-
-    private String dayShift;
+    private String shift;
 
     private String dayAvailability;
 
@@ -31,20 +29,12 @@ public class EventDto {
         this.eventDate = eventDate;
     }
 
-    public String getLateShift() {
-        return lateShift;
+    public String getShift() {
+        return shift;
     }
 
-    public void setLateShift(String lateShift) {
-        this.lateShift = lateShift;
-    }
-
-    public String getDayShift() {
-        return dayShift;
-    }
-
-    public void setDayShift(String dayShift) {
-        this.dayShift = dayShift;
+    public void setShift(String shift) {
+        this.shift = shift;
     }
 }
 
