@@ -43,8 +43,15 @@ public class SpecialDayServiceImp implements SpecialDayService {
             // If it is the correct calendar
             if(!(calendar.getStartDate().after(dayDate) || calendar.getEndDate().before(dayDate))){
                 calendarFound = true;
-                SpecialDay specialDay = new SpecialDay();
 
+                // Checks if there's already a special day registered to the received date
+                for(SpecialDay specialDay : calendar.getSpecialDays()){
+                    if(specialDay.getDayDate().compareTo(dayDate) == 0){
+                        throw new IllegalArgumentException("Already registered special day on this date");
+                    }
+                }
+
+                SpecialDay specialDay = new SpecialDay();
                 // Sets day's calendar
                 specialDay.setCalendar(calendar);
 
