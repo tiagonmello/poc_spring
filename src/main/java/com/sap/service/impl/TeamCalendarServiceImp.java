@@ -1,8 +1,8 @@
 package com.sap.service.impl;
 
+import com.sap.Dao.EventDao;
 import com.sap.Dao.TeamCalendarDao;
-import com.sap.models.Team;
-import com.sap.models.TeamCalendar;
+import com.sap.models.*;
 import com.sap.service.TeamCalendarService;
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -14,6 +14,12 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
 
     @Resource
     private TeamCalendarDao teamCalendarDao;
+
+    @Resource
+    private EventDao eventDao;
+
+    @Resource
+    private UserServiceImp userServiceImp;
 
     @Override
     public void createTeamCalendar(TeamCalendar teamCalendar, Team team){
@@ -29,11 +35,21 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
         // Sets the team and creates the calendar
         teamCalendar.setTeam(team);
         teamCalendarDao.createTeamCalendar(teamCalendar);
-    }
 
-    @Override
-    public List<TeamCalendar> getTeamCalendarList(Team team){
-        return teamCalendarDao.getTeamCalendarList(team);
+        // Creates default event for every date of the calendar, for every member of the team
+        for(Date eventDate : this.getDateList(teamCalendar)){
+            for(User user : userServiceImp.getUsersByTeam(team)){
+                if(user.getRole().getName().equals("ROLE_OWNER"))
+                    continue;
+                
+                Event event = new Event();
+                event.setShift(Shift.ANY);
+                event.setEventDate(eventDate);
+                event.setDayAvailability(true);
+                event.setUser(user);
+                eventDao.createEvent(event);
+            }
+        }
     }
 
     @Override
@@ -64,4 +80,31 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
         return dateList;
     }
 
+    @Override
+    public List<Date> getDateList(TeamCalendar teamCalendar){
+        Calendar c = Calendar.getInstance();
+        List<Date> dateList = new ArrayList<>();
+
+        // Initialize loop date
+        Date iterationDate = teamCalendar.getStartDate();
+        dateList.add(iterationDate);
+
+        // While the loop date doesn't reach the end date
+        while(teamCalendar.getEndDate().compareTo(iterationDate) != 0){
+
+            // Increments loop date
+            c.setTime(iterationDate);
+            c.add(Calendar.DATE,1);
+            iterationDate = c.getTime();
+
+            // Adds loop date to the date list
+            dateList.add(iterationDate);
+        }
+        return dateList;
+    }
+
+    @Override
+    public List<TeamCalendar> getTeamCalendarList(Team team){
+        return teamCalendarDao.getTeamCalendarList(team);
+    }
 }
