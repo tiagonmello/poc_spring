@@ -45,8 +45,11 @@ public class MemberController {
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User loggedUser = principal.getUser();
 
-        eventService.createEvent(event, loggedUser);
-
+        try{
+            eventService.createEvent(event, loggedUser);
+        }catch(IllegalArgumentException e){
+            e.printStackTrace();
+        }
         return "redirect:/member/homepage";
     }
 
