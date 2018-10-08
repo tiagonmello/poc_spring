@@ -45,6 +45,9 @@
     </div>
 </fieldset>
 <br>
+<div class="columns">
+    <div class="left">
+
 <fieldset>
     <legend><b>Shift allocation:</b></legend>
     <div>
@@ -97,6 +100,7 @@
                         </c:if>
                         <c:if test="${holiday != 'yes' && weekend != 'yes'}">
                             <td><input type="checkbox" name="dayAvailability" value="checked" disabled checked/></td>
+                            <input type="hidden" name="dayAvailability" value="checked"/>
                         </c:if>
 
                         <td><button type="submit">Save</button></td>
@@ -109,7 +113,10 @@
         </table>
     </div>
 </fieldset>
-<br>
+</div>
+    <div class="right">
+
+
 <fieldset>
     <legend>Current allocated shifts:</legend>
     <div>
@@ -168,6 +175,8 @@
         </table>
     </div>
 </fieldset>
+    </div>
+</div>
 <br>
 <div>
     <form action="/logout" method="get">
