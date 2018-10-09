@@ -79,7 +79,6 @@ public class OwnerController {
         User user = userService.getUserByUsername(username);
 
         model.addAttribute("user",user);
-        model.addAttribute("dateList",teamCalendarService.getDateList(user.getTeam()));
         model.addAttribute("specialDayList",specialDayService.getSpecialDayList(user.getTeam()));
         model.addAttribute("eventList",eventService.getEventsByUser(username));
         return "showUserCalendar";

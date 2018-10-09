@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -77,7 +78,10 @@ public class EventServiceImp implements EventService {
     }
 
     public List<Event> getEventsByUser(String username){
-        return eventDao.getEventsByUser(username);
+        // Returns event list sorted by date
+        List<Event> eventList = eventDao.getEventsByUser(username);
+        eventList.sort(Comparator.comparing(Event::getEventDate));
+        return eventList;
     }
 
 }
