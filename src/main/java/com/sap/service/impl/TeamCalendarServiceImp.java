@@ -3,6 +3,7 @@ package com.sap.service.impl;
 import com.sap.Dao.EventDao;
 import com.sap.Dao.TeamCalendarDao;
 import com.sap.models.*;
+import com.sap.service.EventService;
 import com.sap.service.TeamCalendarService;
 import com.sap.service.UserService;
 
@@ -23,6 +24,9 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
     @Resource
     private UserService userService;
 
+    @Resource
+    private EventService eventService;
+
     @Override
     public void createTeamCalendar(TeamCalendar teamCalendar, Team team){
         // Checks if the new calendar will not overlap any already registered calendar
@@ -39,19 +43,9 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
         teamCalendarDao.createTeamCalendar(teamCalendar);
 
         // Creates default event for every date of the calendar, for every member of the team
-        for(Date eventDate : this.getDateList(teamCalendar)){
-            for(User user : userService.getUsersByTeam(team)){
-                if(user.getRole().getName().equals("ROLE_OWNER"))
-                    continue;
-
-                Event event = new Event();
-                event.setShift(Shift.ANY);
-                event.setEventDate(eventDate);
-                event.setDayAvailability(true);
-                event.setUser(user);
-                eventDao.createEvent(event);
-            }
-        }
+        for(Date eventDate : this.getDateList(teamCalendar))
+            for(User user : userService.getUsersByTeam(team))
+                eventService.createDefaultEvent(user, eventDate);
     }
 
     @Override

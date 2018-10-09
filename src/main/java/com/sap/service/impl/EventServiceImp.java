@@ -56,6 +56,19 @@ public class EventServiceImp implements EventService {
         }
     }
 
+    @Override
+    public void createDefaultEvent(User user, Date eventDate){
+        if(user.getRole().getName().equals("ROLE_OWNER"))
+            return;
+
+        Event event = new Event();
+        event.setShift(Shift.ANY);
+        event.setEventDate(eventDate);
+        event.setDayAvailability(true);
+        event.setUser(user);
+        eventDao.createEvent(event);
+    }
+
     private void setEventShifts(@NotNull EventDto eventDto, Event event){
         // Sets shift
         switch(eventDto.getShift()){
