@@ -4,6 +4,8 @@ import com.sap.Dao.EventDao;
 import com.sap.Dao.TeamCalendarDao;
 import com.sap.models.*;
 import com.sap.service.TeamCalendarService;
+import com.sap.service.UserService;
+
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,7 +21,7 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
     private EventDao eventDao;
 
     @Resource
-    private UserServiceImp userServiceImp;
+    private UserService userService;
 
     @Override
     public void createTeamCalendar(TeamCalendar teamCalendar, Team team){
@@ -38,10 +40,10 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
 
         // Creates default event for every date of the calendar, for every member of the team
         for(Date eventDate : this.getDateList(teamCalendar)){
-            for(User user : userServiceImp.getUsersByTeam(team)){
+            for(User user : userService.getUsersByTeam(team)){
                 if(user.getRole().getName().equals("ROLE_OWNER"))
                     continue;
-                
+
                 Event event = new Event();
                 event.setShift(Shift.ANY);
                 event.setEventDate(eventDate);

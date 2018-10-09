@@ -1,19 +1,26 @@
 package com.sap.service.impl;
 
+import com.sap.Dao.EventDao;
 import com.sap.Dao.UserDao;
-import com.sap.models.Role;
-import com.sap.models.Team;
-import com.sap.models.User;
+import com.sap.models.*;
+import com.sap.service.TeamCalendarService;
 import com.sap.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 public class UserServiceImp implements UserService {
 
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private TeamCalendarService teamCalendarService;
+
+    @Resource
+    private EventDao eventDao;
 
     @Resource
     private PasswordEncoder passwordEncoder;
@@ -36,6 +43,18 @@ public class UserServiceImp implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userDao.createUser(user);
+
+        for(Date eventDate : teamCalendarService.getDateList(user.getTeam())){
+            if(user.getRole().getName().equals("ROLE_OWNER"))
+                continue;
+
+            Event event = new Event();
+            event.setShift(Shift.ANY);
+            event.setEventDate(eventDate);
+            event.setDayAvailability(true);
+            event.setUser(user);
+            eventDao.createEvent(event);
+        }
     }
 
     @Override
