@@ -1,7 +1,9 @@
 package com.sap.service.impl;
 
 import com.sap.Dao.UserDao;
-import com.sap.models.*;
+import com.sap.models.Role;
+import com.sap.models.Team;
+import com.sap.models.User;
 import com.sap.service.EventService;
 import com.sap.service.TeamCalendarService;
 import com.sap.service.UserService;
@@ -44,6 +46,7 @@ public class UserServiceImp implements UserService {
 
         userDao.createUser(user);
 
+        // For every registered date of the user's team, creates default events for the user
         for(Date eventDate : teamCalendarService.getDateList(user.getTeam()))
             eventService.createDefaultEvent(user, eventDate);
     }
@@ -92,9 +95,10 @@ public class UserServiceImp implements UserService {
         return userDao.getUserByUsername(username);
     }
 
-    // Sweeps all registered users looking for same username or email
     private boolean userAlreadyExists(User user){
         boolean duplicatedUser = false;
+
+        // Sweeps all registered users looking for same username or email
         List<User> userList = this.getAll();
         for(int i=0;i<userList.size() && !duplicatedUser;i++){
             if(userList.get(i).getEmail().equals(user.getEmail()) || userList.get(i).getUserName().equals(user.getUserName())){

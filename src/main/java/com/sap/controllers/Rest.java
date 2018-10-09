@@ -9,7 +9,9 @@ import com.sap.service.SpecialDayService;
 import com.sap.service.TeamCalendarService;
 import com.sap.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
 
 @RestController

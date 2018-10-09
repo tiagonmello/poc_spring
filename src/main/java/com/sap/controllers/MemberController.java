@@ -1,8 +1,8 @@
 package com.sap.controllers;
 
 import com.sap.MyUserPrincipal;
-import com.sap.models.Event;
 import com.sap.dtos.EventDto;
+import com.sap.models.Event;
 import com.sap.models.User;
 import com.sap.service.EventService;
 import com.sap.service.SpecialDayService;
@@ -10,7 +10,7 @@ import com.sap.service.TeamCalendarService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 

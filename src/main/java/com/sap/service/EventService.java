@@ -1,7 +1,7 @@
 package com.sap.service;
 
-import com.sap.models.Event;
 import com.sap.dtos.EventDto;
+import com.sap.models.Event;
 import com.sap.models.User;
 
 import java.util.Date;
@@ -13,6 +13,6 @@ public interface EventService {
 
     void createDefaultEvent(User user, Date eventDate);
 
-    public List<Event> getEventsByUser(String username);
+    List<Event> getEventsByUser(String username);
 
 }

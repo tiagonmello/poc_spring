@@ -2,7 +2,9 @@ package com.sap.service.impl;
 
 import com.sap.Dao.EventDao;
 import com.sap.dtos.EventDto;
-import com.sap.models.*;
+import com.sap.models.Event;
+import com.sap.models.Shift;
+import com.sap.models.User;
 import com.sap.service.EventService;
 import org.jetbrains.annotations.NotNull;
 
