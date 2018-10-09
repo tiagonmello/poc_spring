@@ -3,6 +3,7 @@ package com.sap.service.impl;
 import com.sap.Dao.SpecialDayDao;
 import com.sap.dtos.DayDto;
 import com.sap.models.SpecialDay;
+import com.sap.models.SpecialType;
 import com.sap.models.Team;
 import com.sap.models.TeamCalendar;
 import com.sap.service.SpecialDayService;
@@ -60,9 +61,9 @@ public class SpecialDayServiceImp implements SpecialDayService {
 
                 // Sets day's type
                 if(dayDto.getDayType().equals("holiday")){
-                    specialDay.setDayType("holiday");
+                    specialDay.setType(SpecialType.HOLIDAY);
                 }else{
-                    specialDay.setDayType("weekend");
+                    specialDay.setType(SpecialType.WEEKEND);
                 }
                 specialDayDao.createSpecialDay(specialDay);
             }

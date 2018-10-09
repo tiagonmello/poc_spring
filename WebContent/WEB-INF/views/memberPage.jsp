@@ -67,10 +67,10 @@
                         <c:set var="weekend" value=""/>
                         <c:forEach items="${specialDayList}" var="specialDay">
                             <fmt:formatDate var="specialDate" value="${specialDay.dayDate}" pattern="yyyy-MM-dd" />
-                            <c:if test="${currentDate == specialDate && specialDay.dayType == 'holiday'}">
+                            <c:if test="${currentDate == specialDate && specialDay.type eq 'HOLIDAY'}">
                                 <c:set var="holiday" value="yes"/>
                             </c:if>
-                            <c:if test="${currentDate == specialDate && specialDay.dayType == 'weekend'}">
+                            <c:if test="${currentDate == specialDate && specialDay.type eq 'WEEKEND'}">
                                 <c:set var="weekend" value="yes"/>
                             </c:if>
                         </c:forEach>
@@ -137,10 +137,10 @@
                         <c:set var="weekend" value=""/>
                         <c:forEach items="${specialDayList}" var="specialDay">
                             <fmt:formatDate var="specialDate" value="${specialDay.dayDate}" pattern="yyyy-MM-dd" />
-                            <c:if test="${currentDate == specialDate && specialDay.dayType == 'holiday'}">
+                            <c:if test="${currentDate == specialDate && specialDay.type eq 'HOLIDAY'}">
                                 <c:set var="holiday" value="yes"/>
                             </c:if>
-                            <c:if test="${currentDate == specialDate && specialDay.dayType == 'weekend'}">
+                            <c:if test="${currentDate == specialDate && specialDay.type eq 'WEEKEND'}">
                                 <c:set var="weekend" value="yes"/>
                             </c:if>
                         </c:forEach>

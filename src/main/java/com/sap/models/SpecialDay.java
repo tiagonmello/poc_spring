@@ -17,7 +17,7 @@ public class SpecialDay {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dayDate;
 
-    private String dayType;
+    private SpecialType type;
 
     @ManyToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "TEAM_CALENDAR_ID")
@@ -39,12 +39,12 @@ public class SpecialDay {
         this.dayDate = dayDate;
     }
 
-    public String getDayType() {
-        return dayType;
+    public SpecialType getType() {
+        return type;
     }
 
-    public void setDayType(String dayType) {
-        this.dayType = dayType;
+    public void setType(SpecialType type) {
+        this.type = type;
     }
 
     public Integer getId() {
