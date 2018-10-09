@@ -24,7 +24,7 @@ public class TeamCalendarDaoImp extends HibernateDaoSupport implements TeamCalen
 
     @Override
     public List<TeamCalendar> getTeamCalendarList(Team team){
-        return (List<TeamCalendar>) getHibernateTemplate().find("from com.sap.models.TeamCalendar");
+        return (List<TeamCalendar>) getHibernateTemplate().find("from com.sap.models.TeamCalendar as t where t.team.id='"+team.getId()+"'");
     }
 
 }
