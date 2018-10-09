@@ -56,29 +56,13 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
 
     @Override
     public List<Date> getDateList(Team team){
-        Calendar c = Calendar.getInstance();
-        List<TeamCalendar> calendarList = this.getTeamCalendarList(team);
         List<Date> dateList = new ArrayList<>();
 
-        // For every calendar registered
-        for(TeamCalendar calendar : calendarList){
-
-            // Initialize loop date
-            Date iterationDate = calendar.getStartDate();
-            dateList.add(iterationDate);
-
-            // While the loop date doesn't reach the end date
-            while(calendar.getEndDate().compareTo(iterationDate) != 0){
-
-                // Increments loop date
-                c.setTime(iterationDate);
-                c.add(Calendar.DATE,1);
-                iterationDate = c.getTime();
-
-                // Adds loop date to the date list
-                dateList.add(iterationDate);
-            }
+        // For every calendar registered, adds the respective list of dates
+        for(TeamCalendar calendar : this.getTeamCalendarList(team)){
+            dateList.addAll(getDateList(calendar));
         }
+
         return dateList;
     }
 
