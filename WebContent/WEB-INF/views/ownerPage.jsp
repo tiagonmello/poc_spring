@@ -118,6 +118,22 @@
                             <td align="right">End date:</td>
                             <td align="left"><input id="endDate" type="date" name="endDate" required></td>
                         </tr>
+                        <tr>
+                            <td align="right">People per day:</td>
+                            <td align="left"><input id="peopleDay" type="number" name="dayLimit" required></td>
+                        </tr>
+                        <tr>
+                            <td align="right">People per late:</td>
+                            <td align="left"><input id="peopleLate" type="number" name="lateLimit" required></td>
+                        </tr>
+                        <tr>
+                            <td align="right">People per special day:</td>
+                            <td align="left"><input id="peopleSpecialDay" type="number" name="specialDayLimit" required></td>
+                        </tr>
+                        <tr>
+                            <td align="right">People per special late:</td>
+                            <td align="left"><input id="peopleSpecialLate" type="number" name="specialLateLimit" required></td>
+                        </tr>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         <tr><td></td><td align="right"><button id="saveCalendar" type="submit">Save</button></td></tr>
                     </table>
@@ -140,14 +156,14 @@
                             <td align="left"><input type="radio" name="dayType" value="weekend" required>Weekend</td>
                         </tr>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                        <tr><td></td><td align="right"><button id="saveCalendar" type="submit">Save</button></td></tr>
+                        <tr><td></td><td align="right"><button id="saveDay" type="submit">Save</button></td></tr>
                     </table>
                 </form>
             </div>
         </fieldset>
         <br>
         <fieldset>
-            <legend>Team calendars:</legend>
+            <legend>Team calendars</legend>
             <div>
                 <table class="dataTable" >
                     <thead>
@@ -155,6 +171,8 @@
                         <th>ID</th>
                         <th>Start Date</th>
                         <th>End Date</th>
+                        <th>People/day</th>
+                        <th>People/late</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -163,6 +181,8 @@
                         <td>${calendar.id}</td>
                         <td><fmt:formatDate value="${calendar.startDate}" pattern="dd-MM-yyyy"/></td>
                         <td><fmt:formatDate value="${calendar.endDate}" pattern="dd-MM-yyyy"/></td>
+                        <td>${calendar.dayLimit}</td>
+                        <td>${calendar.lateLimit}</td>
                         </tr>
                     </c:forEach>
                     </tbody>

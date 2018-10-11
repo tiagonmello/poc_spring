@@ -21,6 +21,14 @@ public class TeamCalendar {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
+    private Integer dayLimit;
+
+    private Integer lateLimit;
+
+    private Integer specialDayLimit;
+
+    private Integer specialLateLimit;
+
     @OneToMany(mappedBy = "calendar", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<SpecialDay> specialDays;
 
@@ -66,6 +74,38 @@ public class TeamCalendar {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Integer getDayLimit() {
+        return dayLimit;
+    }
+
+    public void setDayLimit(Integer dayLimit) {
+        this.dayLimit = dayLimit;
+    }
+
+    public Integer getLateLimit() {
+        return lateLimit;
+    }
+
+    public void setLateLimit(Integer lateLimit) {
+        this.lateLimit = lateLimit;
+    }
+
+    public Integer getSpecialDayLimit() {
+        return specialDayLimit;
+    }
+
+    public void setSpecialDayLimit(Integer specialDayLimit) {
+        this.specialDayLimit = specialDayLimit;
+    }
+
+    public Integer getSpecialLateLimit() {
+        return specialLateLimit;
+    }
+
+    public void setSpecialLateLimit(Integer specialLateLimit) {
+        this.specialLateLimit = specialLateLimit;
     }
 
 }
