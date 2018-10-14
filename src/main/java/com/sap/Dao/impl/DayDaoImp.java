@@ -1,24 +1,30 @@
 package com.sap.Dao.impl;
 
-import com.sap.Dao.SpecialDayDao;
-import com.sap.models.SpecialDay;
+import com.sap.Dao.DayDao;
+import com.sap.models.Day;
 import com.sap.models.Team;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class SpecialDayDaoImp extends HibernateDaoSupport implements SpecialDayDao {
+public class DayDaoImp extends HibernateDaoSupport implements DayDao {
 
     @Override
     @Transactional
-    public void createSpecialDay(SpecialDay specialDay){
-        getHibernateTemplate().save(specialDay);
+    public void createDay(Day day){
+        getHibernateTemplate().save(day);
     }
 
     @Override
-    public List<SpecialDay> getSpecialDayList(Team team){
-        return (List<SpecialDay>) getHibernateTemplate().find("from com.sap.models.SpecialDay as s where s.calendar.team.id='"+team.getId().toString()+"'");
+    @Transactional
+    public void updateDay(Day day){
+        getHibernateTemplate().update(day);
+    }
+
+    @Override
+    public List<Day> getDayList(Team team){
+        return (List<Day>) getHibernateTemplate().find("from com.sap.models.Day as day where day.calendar.team.id='"+team.getId().toString()+"'");
     }
 
 }

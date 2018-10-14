@@ -32,6 +32,6 @@ public class EventDaoImp extends HibernateDaoSupport implements EventDao {
     public Event getEventByDateAndUser(Date date, String username) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = formatter.format(date);
-        return (Event) getHibernateTemplate().find("from com.sap.models.Event as e where e.user.userName='"+username+"' and e.eventDate like '"+formattedDate+"%'").get(0);
+        return (Event) getHibernateTemplate().find("from com.sap.models.Event as e where e.user.userName='"+username+"' and e.day.dayDate like '"+formattedDate+"%'").get(0);
     }
 }

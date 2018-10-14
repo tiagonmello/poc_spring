@@ -1,13 +1,15 @@
 package com.sap.Dao;
 
-import com.sap.models.SpecialDay;
+import com.sap.models.Day;
 import com.sap.models.Team;
 
 import java.util.List;
 
-public interface SpecialDayDao {
+public interface DayDao {
 
-    void  createSpecialDay(SpecialDay specialDay);
+    void  createDay(Day day);
 
-    List<SpecialDay> getSpecialDayList(Team team);
+    void  updateDay(Day day);
+
+    List<Day> getDayList(Team team);
 }

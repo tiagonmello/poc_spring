@@ -1,7 +1,9 @@
 package com.sap.service.impl;
 
+import com.sap.Dao.DayDao;
 import com.sap.Dao.EventDao;
 import com.sap.dtos.EventDto;
+import com.sap.models.Day;
 import com.sap.models.Event;
 import com.sap.models.Shift;
 import com.sap.models.User;
@@ -19,6 +21,9 @@ public class EventServiceImp implements EventService {
 
     @Resource
     private EventDao eventDao;
+
+    @Resource
+    private DayDao dayDao;
 
     @Override
     public void createEvent(EventDto eventDto, User user) {
@@ -49,8 +54,15 @@ public class EventServiceImp implements EventService {
         }else{
             // Sets shifts and availability
             setEventShifts(eventDto, event);
-            // Sets event date
-            event.setEventDate(eventDate);
+
+            // Sets the day with the same date of the event
+            List<Day> dayList = dayDao.getDayList(user.getTeam());
+            for(Day day : dayList){
+                if(day.getDayDate().compareTo(eventDate) == 0){
+                    event.setDay(day);
+                    break;
+                }
+            }
             // Sets event user
             event.setUser(user);
             // Creates event
@@ -65,7 +77,16 @@ public class EventServiceImp implements EventService {
 
         Event event = new Event();
         event.setShift(Shift.ANY);
-        event.setEventDate(eventDate);
+
+        // Sets the day with the same date of the event
+        List<Day> dayList = dayDao.getDayList(user.getTeam());
+        for(Day day : dayList){
+            if(day.getDayDate().compareTo(eventDate) == 0){
+                event.setDay(day);
+                break;
+            }
+        }
+
         event.setDayAvailability(true);
         event.setUser(user);
         eventDao.createEvent(event);
