@@ -5,7 +5,6 @@ import com.sap.dtos.EventDto;
 import com.sap.models.Event;
 import com.sap.models.User;
 import com.sap.service.EventService;
-import com.sap.service.SpecialDayService;
 import com.sap.service.TeamCalendarService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,9 +21,6 @@ public class MemberController {
 
     @Resource
     private EventService eventService;
-
-    @Resource
-    private SpecialDayService specialDayService;
 
     @RequestMapping(value = "/member/homepage")
     public String memberHomepage(Model model){

@@ -13,4 +13,5 @@ public interface TeamCalendarDao {
 
     List<TeamCalendar> getTeamCalendarList(Team team);
 
+    TeamCalendar getCalendarById(Integer calendarId);
 }

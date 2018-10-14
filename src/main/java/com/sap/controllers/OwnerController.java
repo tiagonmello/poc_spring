@@ -3,9 +3,9 @@ package com.sap.controllers;
 import com.sap.MyUserPrincipal;
 import com.sap.dtos.DayDto;
 import com.sap.dtos.TeamCalendarDto;
+import com.sap.models.Day;
 import com.sap.models.User;
 import com.sap.service.EventService;
-import com.sap.service.SpecialDayService;
 import com.sap.service.TeamCalendarService;
 import com.sap.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -80,5 +80,13 @@ public class OwnerController {
         model.addAttribute("user",user);
         model.addAttribute("eventList",eventService.getEventsByUser(username));
         return "showUserCalendar";
+    }
+
+    @RequestMapping(value = "/owner/teamCalendar/{calendarId}")
+    public String showUserCalendar(@PathVariable Integer calendarId, Model model){
+
+        model.addAttribute("day", new Day());
+        model.addAttribute("teamCalendar",teamCalendarService.getCalendarById(calendarId));
+        return "editTeamCalendar";
     }
 }
