@@ -18,8 +18,9 @@ public class Event {
     @JoinColumn(name = "USER_USERNAME")
     private User user;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date eventDate;
+    @ManyToOne
+    @JoinColumn(name = "DAY_ID")
+    private Day day;
 
     private Shift shift;
 
@@ -41,12 +42,16 @@ public class Event {
         this.id = id;
     }
 
-    public Date getEventDate() {
-        return eventDate;
+    public Day getDay() {
+        return day;
     }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
+    public Date getEventDate() {
+        return this.day.getDayDate();
+    }
+
+    public void setDay(Day day) {
+        this.day = day;
     }
 
     public User getUser() {

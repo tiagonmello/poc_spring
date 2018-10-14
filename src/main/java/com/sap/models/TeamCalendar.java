@@ -3,6 +3,7 @@ package com.sap.models;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -15,11 +16,8 @@ public class TeamCalendar {
     @Column(name = "TEAM_CALENDAR_ID")
     private Integer id;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date startDate;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date endDate;
+    @OneToMany(mappedBy = "calendar", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Day> days;
 
     private Integer dayLimit;
 
@@ -29,20 +27,9 @@ public class TeamCalendar {
 
     private Integer specialLateLimit;
 
-    @OneToMany(mappedBy = "calendar", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<SpecialDay> specialDays;
-
     @ManyToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
-
-    public List<SpecialDay> getSpecialDays() {
-        return specialDays;
-    }
-
-    public void setSpecialDays(List<SpecialDay> specialDays) {
-        this.specialDays = specialDays;
-    }
 
     public Integer getId() {
         return id;
@@ -50,22 +37,6 @@ public class TeamCalendar {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
     }
 
     public Team getTeam() {
@@ -108,4 +79,21 @@ public class TeamCalendar {
         this.specialLateLimit = specialLateLimit;
     }
 
+    public Date getStartDate() {
+        this.days.sort(Comparator.comparing(Day::getDayDate));
+        return days.get(0).getDayDate();
+    }
+
+    public Date getEndDate() {
+        this.days.sort(Comparator.comparing(Day::getDayDate));
+        return days.get(days.size() - 1).getDayDate();
+    }
+
+    public List<Day> getDays() {
+        return days;
+    }
+
+    public void setDays(List<Day> days) {
+        this.days = days;
+    }
 }

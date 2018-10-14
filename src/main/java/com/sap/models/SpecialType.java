@@ -1,5 +1,5 @@
 package com.sap.models;
 
 public enum SpecialType {
-    WEEKEND, HOLIDAY;
+    NORMAL, WEEKEND, HOLIDAY;
 }
