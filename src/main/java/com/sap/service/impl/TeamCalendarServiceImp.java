@@ -1,10 +1,9 @@
 package com.sap.service.impl;
 
-import com.sap.Dao.EventDao;
+import com.sap.Dao.DayDao;
 import com.sap.Dao.TeamCalendarDao;
-import com.sap.models.Team;
-import com.sap.models.TeamCalendar;
-import com.sap.models.User;
+import com.sap.dtos.TeamCalendarDto;
+import com.sap.models.*;
 import com.sap.service.EventService;
 import com.sap.service.TeamCalendarService;
 import com.sap.service.UserService;
@@ -21,7 +20,7 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
     private TeamCalendarDao teamCalendarDao;
 
     @Resource
-    private EventDao eventDao;
+    private DayDao dayDao;
 
     @Resource
     private UserService userService;
@@ -30,49 +29,53 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
     private EventService eventService;
 
     @Override
-    public void createTeamCalendar(TeamCalendar teamCalendar, Team team){
+    public void createTeamCalendar(TeamCalendarDto teamCalendarDto, Team team){
+
         // Checks if the new calendar will not overlap any already registered calendar
         for(TeamCalendar registeredCalendar : this.getTeamCalendarList(team)){
-            if(!(teamCalendar.getStartDate().before(registeredCalendar.getStartDate()) || teamCalendar.getStartDate().after(registeredCalendar.getEndDate())))
+            if(!(teamCalendarDto.getStartDate().before(registeredCalendar.getStartDate()) || teamCalendarDto.getStartDate().after(registeredCalendar.getEndDate())))
                 throw new IllegalArgumentException("Calendar dates overlapping with another calendar!");
-            if(!(teamCalendar.getEndDate().before(registeredCalendar.getStartDate()) || teamCalendar.getEndDate().after(registeredCalendar.getEndDate())))
+            if(!(teamCalendarDto.getEndDate().before(registeredCalendar.getStartDate()) || teamCalendarDto.getEndDate().after(registeredCalendar.getEndDate())))
                 throw new IllegalArgumentException("Calendar dates overlapping with another calendar!");
-            if(!(teamCalendar.getStartDate().after(registeredCalendar.getStartDate()) || teamCalendar.getEndDate().before(registeredCalendar.getEndDate())))
+            if(!(teamCalendarDto.getStartDate().after(registeredCalendar.getStartDate()) || teamCalendarDto.getEndDate().before(registeredCalendar.getEndDate())))
                 throw new IllegalArgumentException("Calendar dates overlapping with another calendar!");
         }
-        // Sets the team and creates the calendar
+
+        // Sets team calendar data and creates the calendar
+        TeamCalendar teamCalendar = new TeamCalendar();
+        teamCalendar.setDayLimit(teamCalendarDto.getDayLimit());
+        teamCalendar.setLateLimit(teamCalendarDto.getLateLimit());
+        teamCalendar.setSpecialDayLimit(teamCalendarDto.getSpecialDayLimit());
+        teamCalendar.setSpecialLateLimit(teamCalendarDto.getSpecialLateLimit());
         teamCalendar.setTeam(team);
         teamCalendarDao.createTeamCalendar(teamCalendar);
 
+        // Creates normal days for every date of the calendar
+        for(Date dayDate : this.getDateList(teamCalendarDto)){
+            Day day = new Day();
+            day.setDayDate(dayDate);
+            day.setType(SpecialType.NORMAL);
+            day.setCalendar(teamCalendar);
+            dayDao.createDay(day);
+        }
+
         // Creates default event for every date of the calendar, for every member of the team
-        for(Date eventDate : this.getDateList(teamCalendar))
+        for(Date eventDate : this.getDateList(teamCalendarDto))
             for(User user : userService.getUsersByTeam(team))
                 eventService.createDefaultEvent(user, eventDate);
     }
 
     @Override
-    public List<Date> getDateList(Team team){
-        List<Date> dateList = new ArrayList<>();
-
-        // For every calendar registered, adds the respective list of dates
-        for(TeamCalendar calendar : this.getTeamCalendarList(team)){
-            dateList.addAll(getDateList(calendar));
-        }
-
-        return dateList;
-    }
-
-    @Override
-    public List<Date> getDateList(TeamCalendar teamCalendar){
+    public List<Date> getDateList(TeamCalendarDto teamCalendarDto){
         Calendar c = Calendar.getInstance();
         List<Date> dateList = new ArrayList<>();
 
         // Initialize loop date
-        Date iterationDate = teamCalendar.getStartDate();
+        Date iterationDate = teamCalendarDto.getStartDate();
         dateList.add(iterationDate);
 
         // While the loop date doesn't reach the end date
-        while(teamCalendar.getEndDate().compareTo(iterationDate) != 0){
+        while(teamCalendarDto.getEndDate().compareTo(iterationDate) != 0){
 
             // Increments loop date
             c.setTime(iterationDate);
@@ -83,6 +86,13 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
             dateList.add(iterationDate);
         }
         return dateList;
+    }
+
+    @Override
+    public List<Day> getAllDays(Team team){
+
+        // Returns all dates of the days of all calendars of the received team
+        return dayDao.getDayList(team);
     }
 
     @Override

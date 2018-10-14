@@ -1,11 +1,8 @@
 package com.sap.service.impl;
 
-import com.sap.Dao.SpecialDayDao;
+import com.sap.Dao.DayDao;
 import com.sap.dtos.DayDto;
-import com.sap.models.SpecialDay;
-import com.sap.models.SpecialType;
-import com.sap.models.Team;
-import com.sap.models.TeamCalendar;
+import com.sap.models.*;
 import com.sap.service.SpecialDayService;
 import com.sap.service.TeamCalendarService;
 
@@ -21,7 +18,7 @@ public class SpecialDayServiceImp implements SpecialDayService {
     private TeamCalendarService teamCalendarService;
 
     @Resource
-    private SpecialDayDao specialDayDao;
+    private DayDao dayDao;
 
     @Override
     public void addSpecialDay(DayDto dayDto, Team team){
@@ -45,27 +42,21 @@ public class SpecialDayServiceImp implements SpecialDayService {
             if(!(calendar.getStartDate().after(dayDate) || calendar.getEndDate().before(dayDate))){
                 calendarFound = true;
 
-                // Checks if there's already a special day registered to the received date
-                for(SpecialDay specialDay : calendar.getSpecialDays()){
-                    if(specialDay.getDayDate().compareTo(dayDate) == 0){
-                        throw new IllegalArgumentException("Already registered special day on this date");
+                // Checks if there's already a not normal day registered at the received date
+                for(Day day : calendar.getDays()){
+                    if(day.getDayDate().compareTo(dayDate) == 0){
+
+                        if(!day.getType().equals(SpecialType.NORMAL))
+                            throw new IllegalArgumentException("Already registered special day on this date");
+
+                        if(dayDto.getDayType().equals("holiday")){
+                            day.setType(SpecialType.HOLIDAY);
+                        }else{
+                            day.setType(SpecialType.WEEKEND);
+                        }
+                        dayDao.updateDay(day);
                     }
                 }
-
-                SpecialDay specialDay = new SpecialDay();
-                // Sets day's calendar
-                specialDay.setCalendar(calendar);
-
-                // Sets day's date
-                specialDay.setDayDate(dayDate);
-
-                // Sets day's type
-                if(dayDto.getDayType().equals("holiday")){
-                    specialDay.setType(SpecialType.HOLIDAY);
-                }else{
-                    specialDay.setType(SpecialType.WEEKEND);
-                }
-                specialDayDao.createSpecialDay(specialDay);
             }
         }
         if(!calendarFound){
@@ -73,10 +64,4 @@ public class SpecialDayServiceImp implements SpecialDayService {
         }
 
     }
-
-    @Override
-    public List<SpecialDay> getSpecialDayList(Team team){
-        return specialDayDao.getSpecialDayList(team);
-    }
-
 }

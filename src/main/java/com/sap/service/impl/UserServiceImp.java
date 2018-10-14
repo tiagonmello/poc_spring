@@ -1,6 +1,7 @@
 package com.sap.service.impl;
 
 import com.sap.Dao.UserDao;
+import com.sap.models.Day;
 import com.sap.models.Role;
 import com.sap.models.Team;
 import com.sap.models.User;
@@ -47,8 +48,8 @@ public class UserServiceImp implements UserService {
         userDao.createUser(user);
 
         // For every registered date of the user's team, creates default events for the user
-        for(Date eventDate : teamCalendarService.getDateList(user.getTeam()))
-            eventService.createDefaultEvent(user, eventDate);
+        for(Day day : teamCalendarService.getAllDays(user.getTeam()))
+            eventService.createDefaultEvent(user, day.getDayDate());
     }
 
     @Override
