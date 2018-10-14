@@ -24,8 +24,28 @@ public class Day {
     @JoinColumn(name = "TEAM_CALENDAR_ID")
     private TeamCalendar calendar;
 
+    private Integer dayLimit;
+
+    private Integer lateLimit;
+
     @OneToMany(mappedBy = "day", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Event> events;
+
+    public Integer getDayLimit() {
+        return dayLimit;
+    }
+
+    public void setDayLimit(Integer dayLimit) {
+        this.dayLimit = dayLimit;
+    }
+
+    public Integer getLateLimit() {
+        return lateLimit;
+    }
+
+    public void setLateLimit(Integer lateLimit) {
+        this.lateLimit = lateLimit;
+    }
 
     public TeamCalendar getCalendar() {
         return calendar;

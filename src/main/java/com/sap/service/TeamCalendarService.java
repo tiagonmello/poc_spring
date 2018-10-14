@@ -18,4 +18,5 @@ public interface TeamCalendarService {
 
     List<Day> getAllDays(Team team);
 
+    TeamCalendar getCalendarById(Integer calendarId);
 }
