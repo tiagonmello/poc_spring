@@ -173,6 +173,7 @@
                         <th>End Date</th>
                         <th>People/day</th>
                         <th>People/late</th>
+                        <th>Edit</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -183,6 +184,11 @@
                         <td><fmt:formatDate value="${calendar.endDate}" pattern="dd-MM-yyyy"/></td>
                         <td>${calendar.dayLimit}</td>
                         <td>${calendar.lateLimit}</td>
+                        <td>
+                            <form action="/owner/teamCalendar/${calendar.id}" method="get">
+                                <button type="submit">Edit</button>
+                            </form>
+                        </td>
                         </tr>
                     </c:forEach>
                     </tbody>
