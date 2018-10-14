@@ -61,34 +61,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${dateList}" var="date">
-                        <fmt:formatDate var="currentDate" value="${date}" pattern="yyyy-MM-dd" />
-                        <c:set var="holiday" value=""/>
-                        <c:set var="weekend" value=""/>
-                        <c:forEach items="${specialDayList}" var="specialDay">
-                            <fmt:formatDate var="specialDate" value="${specialDay.dayDate}" pattern="yyyy-MM-dd" />
-                            <c:if test="${currentDate == specialDate && specialDay.type eq 'HOLIDAY'}">
-                                <c:set var="holiday" value="yes"/>
-                            </c:if>
-                            <c:if test="${currentDate == specialDate && specialDay.type eq 'WEEKEND'}">
-                                <c:set var="weekend" value="yes"/>
-                            </c:if>
-                        </c:forEach>
-                        </tr>
-                        <c:if test="${holiday == 'yes'}">
+                    <c:forEach items="${daysList}" var="day">
+                        <tr>
+                        <c:if test="${day.type eq 'HOLIDAY'}">
                             <td style="background-color: lightblue;">
-                                <fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/>
+                                <fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/>
                                 <br>Holiday
                             </td>
                         </c:if>
-                        <c:if test="${weekend == 'yes'}">
+                        <c:if test="${day.type eq 'WEEKEND'}">
                             <td style="background-color: lightcoral;">
-                                <fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/>
+                                <fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/>
                                 <br>Weekend
                             </td>
                         </c:if>
-                        <c:if test="${holiday != 'yes' && weekend != 'yes'}">
-                            <td><fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/></td>
+                        <c:if test="${day.type eq 'NORMAL'}">
+                            <td><fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/></td>
                         </c:if>
                         <form modelAttribute="event" action="/member/addEvent" name="addEvent" method="post">
                             <td>
@@ -99,16 +87,16 @@
                                 </select>
                             </td>
 
-                            <c:if test="${holiday == 'yes' || weekend == 'yes'}">
+                            <c:if test="${day.type eq 'HOLIDAY' || day.type eq 'WEEKEND'}">
                                 <td><input type="checkbox" name="dayAvailability" value="checked"/></td>
                             </c:if>
-                            <c:if test="${holiday != 'yes' && weekend != 'yes'}">
+                            <c:if test="${day.type eq 'NORMAL'}">
                                 <td><input type="checkbox" name="dayAvailability" value="checked" disabled checked/></td>
                                 <input type="hidden" name="dayAvailability" value="checked"/>
                             </c:if>
 
                             <td><button type="submit">Save</button></td>
-                            <input type="hidden" value="<fmt:formatDate value="${date}" pattern="dd-MM-yyyy"/>" name="eventDate" />
+                            <input type="hidden" value="<fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/>" name="eventDate" />
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         </form>
                         </tr>
@@ -132,34 +120,21 @@
                     </thead>
                     <tbody>
                     <c:forEach items="${eventList}" var="event">
-                        <fmt:formatDate var="currentDate" value="${event.eventDate}" pattern="yyyy-MM-dd" />
-                        <c:set var="holiday" value=""/>
-                        <c:set var="weekend" value=""/>
-                        <c:forEach items="${specialDayList}" var="specialDay">
-                            <fmt:formatDate var="specialDate" value="${specialDay.dayDate}" pattern="yyyy-MM-dd" />
-                            <c:if test="${currentDate == specialDate && specialDay.type eq 'HOLIDAY'}">
-                                <c:set var="holiday" value="yes"/>
-                            </c:if>
-                            <c:if test="${currentDate == specialDate && specialDay.type eq 'WEEKEND'}">
-                                <c:set var="weekend" value="yes"/>
-                            </c:if>
-                        </c:forEach>
-
                         <tr>
-                            <c:if test="${holiday == 'yes'}">
+                            <c:if test="${event.day.type eq 'HOLIDAY'}">
                                 <td style="background-color: lightblue">
-                                    <fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/>
+                                    <fmt:formatDate value="${event.day.dayDate}" pattern="dd-MM-yyyy"/>
                                     <br>Holiday
                                 </td>
                             </c:if>
-                            <c:if test="${weekend == 'yes'}">
+                            <c:if test="${event.day.type eq 'WEEKEND'}">
                                 <td style="background-color: lightcoral">
-                                    <fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/>
+                                    <fmt:formatDate value="${event.day.dayDate}" pattern="dd-MM-yyyy"/>
                                     <br>Weekend
                                 </td>
                             </c:if>
-                            <c:if test="${holiday != 'yes' && weekend != 'yes'}">
-                                <td><fmt:formatDate value="${event.eventDate}" pattern="dd-MM-yyyy"/></td>
+                            <c:if test="${event.day.type eq 'NORMAL'}">
+                                <td><fmt:formatDate value="${event.day.dayDate}" pattern="dd-MM-yyyy"/></td>
                             </c:if>
                             <td>
                                 <c:if test="${event.shift eq 'ANY'}">

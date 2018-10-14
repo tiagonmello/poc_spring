@@ -108,7 +108,7 @@
         <fieldset>
             <legend>Add a new team calendar</legend>
             <div>
-                <form id="addCalendar" modelAttribute="teamCalendar" name="addCalendar" method="post">
+                <form id="addCalendar" modelAttribute="teamCalendarDto" name="addCalendar" method="post">
                     <table>
                         <tr>
                             <td align="right">Start date:</td>
