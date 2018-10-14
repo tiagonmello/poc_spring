@@ -2,8 +2,8 @@ package com.sap.controllers;
 
 import com.sap.MyUserPrincipal;
 import com.sap.dtos.DayDto;
+import com.sap.dtos.TeamCalendarDto;
 import com.sap.models.Team;
-import com.sap.models.TeamCalendar;
 import com.sap.models.User;
 import com.sap.service.SpecialDayService;
 import com.sap.service.TeamCalendarService;
@@ -42,13 +42,13 @@ public class Rest {
     }
 
     @RequestMapping("/owner/addCalendar")
-    public boolean ownerCreateCalendar(TeamCalendar teamCalendar){
+    public boolean ownerCreateCalendar(TeamCalendarDto teamCalendarDto){
         // Retrieves logged user team
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Team loggedUserTeam = principal.getUser().getTeam();
 
         try{
-            teamCalendarService.createTeamCalendar(teamCalendar, loggedUserTeam);
+            teamCalendarService.createTeamCalendar(teamCalendarDto, loggedUserTeam);
             return true;
         }catch (IllegalArgumentException e){
             return false;

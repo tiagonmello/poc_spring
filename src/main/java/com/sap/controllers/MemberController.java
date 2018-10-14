@@ -34,8 +34,7 @@ public class MemberController {
         model.addAttribute("user",loggedUser);
         model.addAttribute("event",new Event());
         model.addAttribute("calendarList",teamCalendarService.getTeamCalendarList(loggedUser.getTeam()));
-        model.addAttribute("specialDayList",specialDayService.getSpecialDayList(loggedUser.getTeam()));
-        model.addAttribute("dateList",teamCalendarService.getDateList(loggedUser.getTeam()));
+        model.addAttribute("daysList",teamCalendarService.getAllDays(loggedUser.getTeam()));
         model.addAttribute("eventList",eventService.getEventsByUser(loggedUser.getUserName()));
         return "memberPage";
     }
