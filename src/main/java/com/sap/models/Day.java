@@ -28,6 +28,10 @@ public class Day {
 
     private Integer lateLimit;
 
+    private Integer currentDay;
+
+    private Integer currentLate;
+
     @OneToMany(mappedBy = "day", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Event> events;
 
@@ -85,5 +89,21 @@ public class Day {
 
     public void setEvents(List<Event> events) {
         this.events = events;
+    }
+
+    public Integer getCurrentDay() {
+        return currentDay;
+    }
+
+    public void setCurrentDay(Integer currentDay) {
+        this.currentDay = currentDay;
+    }
+
+    public Integer getCurrentLate() {
+        return currentLate;
+    }
+
+    public void setCurrentLate(Integer currentLate) {
+        this.currentLate = currentLate;
     }
 }
