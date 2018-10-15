@@ -20,6 +20,13 @@
 <body>
 <fieldset>
     <legend>Calendar ${teamCalendar.id}</legend>
+    <div style="float: none">
+        <b>Default people/day:</b> ${teamCalendar.dayLimit}
+    </div>
+    <div style="float: none">
+        <b>Default people/late:</b> ${teamCalendar.lateLimit}
+    </div>
+    <br>
     <div>
         <table class="dataTable" >
             <thead>
@@ -27,6 +34,9 @@
                 <th>Date</th>
                 <th>People/Day</th>
                 <th>People/Late</th>
+                <th>Edit day</th>
+                <th>Edit late</th>
+                <th>Save</th>
             </tr>
             </thead>
             <tbody>
@@ -49,7 +59,7 @@
                     </c:if>
                     <td>
                         <c:if test="${day.dayLimit == 0}">
-                            <div>Undefined</div>
+                            <div>Default</div>
                         </c:if>
                         <c:if test="${day.dayLimit != 0}">
                             <div style="color: darkgoldenrod">${day.dayLimit}</div>
@@ -57,12 +67,19 @@
                     </td>
                     <td>
                         <c:if test="${day.lateLimit == 0}">
-                            <div>Undefined</div>
+                            <div>Default</div>
                         </c:if>
                         <c:if test="${day.lateLimit != 0}">
                             <div style="color: darkgoldenrod">${day.lateLimit}</div>
                         </c:if>
                     </td>
+                    <form modelAttribute="day" action="/owner/editDay" name="editDay" method="post">
+                        <td><input type="number" name="dayLimit" min="0" style="width: 50px" required/></td>
+                        <td><input type="number" name="lateLimit" min="0" style="width: 50px" required/></td>
+                        <td><button type="submit">Save</button></td>
+                        <input type="hidden" value="${day.id}" name="id"/>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    </form>
                 </tr>
             </c:forEach>
             </tbody>

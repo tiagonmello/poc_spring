@@ -9,10 +9,7 @@ import com.sap.service.TeamCalendarService;
 import com.sap.service.UserService;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class TeamCalendarServiceImp implements TeamCalendarService {
 
@@ -92,7 +89,6 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
 
     @Override
     public List<Day> getAllDays(Team team){
-
         // Returns all dates of the days of all calendars of the received team
         return dayDao.getDayList(team);
     }

@@ -37,6 +37,9 @@
     <bean name="DayDao" class="com.sap.Dao.impl.DayDaoImp">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <bean name="dayService" class="com.sap.service.impl.DayServiceImp">
+    </bean>
+
     <bean name="specialDayService" class="com.sap.service.impl.SpecialDayServiceImp">
     </bean>
 

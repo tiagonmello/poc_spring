@@ -11,5 +11,7 @@ public interface DayDao {
 
     void  updateDay(Day day);
 
+    Day getDayById(Integer id);
+
     List<Day> getDayList(Team team);
 }

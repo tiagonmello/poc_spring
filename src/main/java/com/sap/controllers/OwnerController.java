@@ -5,6 +5,7 @@ import com.sap.dtos.DayDto;
 import com.sap.dtos.TeamCalendarDto;
 import com.sap.models.Day;
 import com.sap.models.User;
+import com.sap.service.DayService;
 import com.sap.service.EventService;
 import com.sap.service.TeamCalendarService;
 import com.sap.service.UserService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class OwnerController {
@@ -27,6 +29,9 @@ public class OwnerController {
 
     @Resource
     private EventService eventService;
+
+    @Resource
+    private DayService dayService;
 
     @RequestMapping(value = "/owner/homepage")
     public String ownerHomepage(Model model, User user){
@@ -88,5 +93,13 @@ public class OwnerController {
         model.addAttribute("day", new Day());
         model.addAttribute("teamCalendar",teamCalendarService.getCalendarById(calendarId));
         return "editTeamCalendar";
+    }
+
+    @RequestMapping(value = "/owner/editDay")
+    public String editDay(Day day, HttpServletRequest request){
+        dayService.updateDayLimits(day.getId(), day.getDayLimit(), day.getLateLimit());
+
+        String referer = request.getHeader("Referer");
+        return "redirect:"+ referer;
     }
 }

@@ -27,4 +27,8 @@ public class DayDaoImp extends HibernateDaoSupport implements DayDao {
         return (List<Day>) getHibernateTemplate().find("from com.sap.models.Day as day where day.calendar.team.id='"+team.getId().toString()+"'");
     }
 
+    @Override
+    public Day getDayById(Integer id){
+        return (Day) getHibernateTemplate().find("from com.sap.models.Day as day where day.id='"+id+"'").get(0);
+    }
 }
