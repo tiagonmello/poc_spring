@@ -38,6 +38,11 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
                 throw new IllegalArgumentException("Calendar dates overlapping with another calendar!");
         }
 
+        // Day people limit plus late people limit must equal the team members quantity
+        if(teamCalendarDto.getDayLimit() + teamCalendarDto.getLateLimit() != userService.getUsersByTeam(team).size() - 1){
+            throw new IllegalArgumentException("People limits don't match team members quantity");
+        }
+
         // Sets team calendar data and creates the calendar
         TeamCalendar teamCalendar = new TeamCalendar();
         teamCalendar.setDayLimit(teamCalendarDto.getDayLimit());
