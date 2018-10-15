@@ -95,7 +95,11 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
 
     @Override
     public TeamCalendar getCalendarById(Integer calendarId){
-        return teamCalendarDao.getCalendarById(calendarId);
+        TeamCalendar teamCalendar = teamCalendarDao.getCalendarById(calendarId);
+
+        // Returns the calendar sorted by day date
+        teamCalendar.getDays().sort(Comparator.comparing(Day::getDayDate));
+        return teamCalendar;
     }
 
     @Override
