@@ -26,6 +26,12 @@
     <div style="float: none">
         <b>Default people/late:</b> ${teamCalendar.lateLimit}
     </div>
+    <div style="float: none">
+        <b>Default people per special day:</b> ${teamCalendar.specialDayLimit}
+    </div>
+    <div style="float: none">
+        <b>Default people per special late:</b> ${teamCalendar.specialLateLimit}
+    </div>
     <br>
     <div>
         <table class="dataTable" >
