@@ -64,19 +64,29 @@
                         <td><fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/></td>
                     </c:if>
                     <td>
-                        <c:if test="${day.dayLimit == 0}">
-                            <div>${day.currentDay}/${day.calendar.dayLimit}</div>
+                        <c:if test="${day.type eq 'NORMAL'}">
+                            <c:if test="${day.dayLimit == 0}">
+                                <div>${day.currentDay}/${day.calendar.dayLimit}</div>
+                            </c:if>
+                            <c:if test="${day.dayLimit != 0}">
+                                <div style="color: darkgoldenrod">${day.currentDay}/${day.dayLimit}</div>
+                            </c:if>
                         </c:if>
-                        <c:if test="${day.dayLimit != 0}">
-                            <div style="color: darkgoldenrod">${day.currentDay}/${day.dayLimit}</div>
+                        <c:if test="${day.type ne 'NORMAL'}">
+                            <div>${day.currentDay}/${day.calendar.specialDayLimit}</div>
                         </c:if>
                     </td>
                     <td>
-                        <c:if test="${day.lateLimit == 0}">
-                            <div>${day.currentLate}/${day.calendar.lateLimit}</div>
+                        <c:if test="${day.type eq 'NORMAL'}">
+                            <c:if test="${day.lateLimit == 0}">
+                                <div>${day.currentLate}/${day.calendar.lateLimit}</div>
+                            </c:if>
+                            <c:if test="${day.lateLimit != 0}">
+                                <div style="color: darkgoldenrod">${day.currentLate}/${day.lateLimit}</div>
+                            </c:if>
                         </c:if>
-                        <c:if test="${day.lateLimit != 0}">
-                            <div style="color: darkgoldenrod">${day.currentLate}/${day.lateLimit}</div>
+                        <c:if test="${day.type ne 'NORMAL'}">
+                            <div>${day.currentLate}/${day.calendar.specialLateLimit}</div>
                         </c:if>
                     </td>
                     <form modelAttribute="day" action="/owner/editDay" name="editDay" method="post">

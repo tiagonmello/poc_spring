@@ -3,10 +3,7 @@ package com.sap.service.impl;
 import com.sap.Dao.DayDao;
 import com.sap.Dao.EventDao;
 import com.sap.dtos.EventDto;
-import com.sap.models.Day;
-import com.sap.models.Event;
-import com.sap.models.Shift;
-import com.sap.models.User;
+import com.sap.models.*;
 import com.sap.service.EventService;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,41 +53,48 @@ public class EventServiceImp implements EventService {
 
         // Checks if there is allocation slots for this date
         if(event.getShift() == Shift.DAY){
-            // Tests if it should use the day limit or the calendar limit (fallback)
-            if(event.getDay().getDayLimit() == 0){
-                limit = event.getDay().getCalendar().getDayLimit();
+
+            // If it is a special day
+            if(!event.getDay().getType().equals(SpecialType.NORMAL)){
+                limit = event.getDay().getCalendar().getSpecialDayLimit();
             }else{
-                limit = event.getDay().getDayLimit();
+                // Tests if it should use the day limit or the calendar limit (fallback)
+                if(event.getDay().getDayLimit() == 0){
+                    limit = event.getDay().getCalendar().getDayLimit();
+                }else{
+                    limit = event.getDay().getDayLimit();
+                }
             }
 
             if(limit == event.getDay().getCurrentDay()){
                 throw new IllegalArgumentException("No slots left for day shift on this date");
             }
             // Allocates the day shift
-            if(event.getDay().getCurrentDay() == null) event.getDay().setCurrentDay(0);
             event.getDay().setCurrentDay(event.getDay().getCurrentDay() + 1);
 
         }else if(event.getShift() == Shift.LATE){
-            // Tests if it should use the day limit or the calendar limit (fallback)
-            if(event.getDay().getDayLimit() == 0){
-                limit = event.getDay().getCalendar().getLateLimit();
-            }else{
-                limit = event.getDay().getLateLimit();
-            }
 
+            // If it is a special late
+            if(!event.getDay().getType().equals(SpecialType.NORMAL)){
+                limit = event.getDay().getCalendar().getSpecialLateLimit();
+            }else {
+                // Tests if it should use the day limit or the calendar limit (fallback)
+                if (event.getDay().getDayLimit() == 0) {
+                    limit = event.getDay().getCalendar().getLateLimit();
+                } else {
+                    limit = event.getDay().getLateLimit();
+                }
+            }
             if(limit == event.getDay().getCurrentLate()){
                 throw new IllegalArgumentException("No slots left for late shift on this date");
             }
             // Allocates the late shift
-            if(event.getDay().getCurrentLate() == null) event.getDay().setCurrentLate(0);
             event.getDay().setCurrentLate(event.getDay().getCurrentLate() + 1);
         }
-
         dayDao.updateDay(event.getDay());
 
         // Updates event
         eventDao.updateEvent(event);
-
     }
 
     @Override

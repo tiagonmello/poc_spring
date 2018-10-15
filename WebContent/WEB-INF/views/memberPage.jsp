@@ -158,19 +158,29 @@
                                 </c:if>
                             </td>
                             <td>
-                                <c:if test="${event.day.dayLimit == 0}">
-                                    <div>${event.day.currentDay}/${event.day.calendar.dayLimit}</div>
+                                <c:if test="${event.day.type eq 'NORMAL'}">
+                                    <c:if test="${event.day.dayLimit == 0}">
+                                        <div>${event.day.currentDay}/${event.day.calendar.dayLimit}</div>
+                                    </c:if>
+                                    <c:if test="${event.day.dayLimit != 0}">
+                                        <div style="color: darkgoldenrod">${event.day.currentDay}/${event.day.dayLimit}</div>
+                                    </c:if>
                                 </c:if>
-                                <c:if test="${event.day.dayLimit != 0}">
-                                    <div style="color: darkgoldenrod">${event.day.currentDay}/${event.day.dayLimit}</div>
+                                <c:if test="${event.day.type ne 'NORMAL'}">
+                                    <div>${event.day.currentDay}/${event.day.calendar.specialDayLimit}</div>
                                 </c:if>
                             </td>
                             <td>
-                                <c:if test="${event.day.lateLimit == 0}">
-                                    <div>${event.day.currentLate}/${event.day.calendar.lateLimit}</div>
+                                <c:if test="${event.day.type eq 'NORMAL'}">
+                                    <c:if test="${event.day.lateLimit == 0}">
+                                        <div>${event.day.currentLate}/${event.day.calendar.lateLimit}</div>
+                                    </c:if>
+                                    <c:if test="${event.day.lateLimit != 0}">
+                                        <div style="color: darkgoldenrod">${event.day.currentLate}/${event.day.lateLimit}</div>
+                                    </c:if>
                                 </c:if>
-                                <c:if test="${event.day.lateLimit != 0}">
-                                    <div style="color: darkgoldenrod">${event.day.currentLate}/${event.day.lateLimit}</div>
+                                <c:if test="${event.day.type ne 'NORMAL'}">
+                                    <div>${event.day.currentDay}/${event.day.calendar.specialLateLimit}</div>
                                 </c:if>
                             </td>
                         </tr>
