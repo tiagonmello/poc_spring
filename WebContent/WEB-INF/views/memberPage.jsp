@@ -116,6 +116,8 @@
                         <th>Date</th>
                         <th>Shift</th>
                         <th>Available?</th>
+                        <th>Day</th>
+                        <th>Late</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -153,6 +155,22 @@
                                 </c:if>
                                 <c:if test="${not event.dayAvailability}">
                                     <div style="color: red">No</div>
+                                </c:if>
+                            </td>
+                            <td>
+                                <c:if test="${event.day.dayLimit == 0}">
+                                    <div>${event.day.currentDay}/${event.day.calendar.dayLimit}</div>
+                                </c:if>
+                                <c:if test="${event.day.dayLimit != 0}">
+                                    <div style="color: darkgoldenrod">${event.day.currentDay}/${event.day.dayLimit}</div>
+                                </c:if>
+                            </td>
+                            <td>
+                                <c:if test="${event.day.lateLimit == 0}">
+                                    <div>${event.day.currentLate}/${event.day.calendar.lateLimit}</div>
+                                </c:if>
+                                <c:if test="${event.day.lateLimit != 0}">
+                                    <div style="color: darkgoldenrod">${event.day.currentLate}/${event.day.lateLimit}</div>
                                 </c:if>
                             </td>
                         </tr>

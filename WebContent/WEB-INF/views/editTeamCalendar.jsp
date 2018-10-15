@@ -65,18 +65,18 @@
                     </c:if>
                     <td>
                         <c:if test="${day.dayLimit == 0}">
-                            <div>Default</div>
+                            <div>${day.currentDay}/${day.calendar.dayLimit}</div>
                         </c:if>
                         <c:if test="${day.dayLimit != 0}">
-                            <div style="color: darkgoldenrod">${day.dayLimit}</div>
+                            <div style="color: darkgoldenrod">${day.currentDay}/${day.dayLimit}</div>
                         </c:if>
                     </td>
                     <td>
                         <c:if test="${day.lateLimit == 0}">
-                            <div>Default</div>
+                            <div>${day.currentLate}/${day.calendar.lateLimit}</div>
                         </c:if>
                         <c:if test="${day.lateLimit != 0}">
-                            <div style="color: darkgoldenrod">${day.lateLimit}</div>
+                            <div style="color: darkgoldenrod">${day.currentLate}/${day.lateLimit}</div>
                         </c:if>
                     </td>
                     <form modelAttribute="day" action="/owner/editDay" name="editDay" method="post">

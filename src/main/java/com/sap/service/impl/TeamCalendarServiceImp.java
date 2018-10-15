@@ -60,6 +60,8 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
             day.setCalendar(teamCalendar);
             day.setDayLimit(0);
             day.setLateLimit(0);
+            day.setCurrentDay(0);
+            day.setCurrentLate(0);
             dayDao.createDay(day);
         }
 
@@ -95,6 +97,7 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
     @Override
     public List<Day> getAllDays(Team team){
         // Returns all dates of the days of all calendars of the received team
+        // SORT
         return dayDao.getDayList(team);
     }
 
