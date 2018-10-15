@@ -59,7 +59,6 @@
                     <tr>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Role</th>
                         <th>Delete</th>
                         <th>Edit</th>
                         <th>Shifts</th>
@@ -70,7 +69,6 @@
                         </tr>
                         <td>${user.userName}</td>
                         <td>${user.email}</td>
-                        <td>${user.role.name}</td>
                         <c:if test="${user.role.name == 'ROLE_MEMBER'}">
                             <td>
                                 <form modelAttribute="user" action="/owner/deleteMember" name="deleteUser" method="post">
