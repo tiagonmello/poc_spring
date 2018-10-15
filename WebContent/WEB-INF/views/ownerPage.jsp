@@ -173,7 +173,7 @@
                         <th>End Date</th>
                         <th>People/day</th>
                         <th>People/late</th>
-                        <th>Edit</th>
+                        <th>Manage</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -186,7 +186,7 @@
                         <td>${calendar.lateLimit}</td>
                         <td>
                             <form action="/owner/teamCalendar/${calendar.id}" method="get">
-                                <button type="submit">Edit</button>
+                                <button type="submit">Manage</button>
                             </form>
                         </td>
                         </tr>
