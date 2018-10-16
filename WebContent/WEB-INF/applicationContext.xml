@@ -34,10 +34,16 @@
     <bean name="eventService" class="com.sap.service.impl.EventServiceImp">
     </bean>
 
-    <bean name="DayDao" class="com.sap.Dao.impl.DayDaoImp">
+    <bean name="dayDao" class="com.sap.Dao.impl.DayDaoImp">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <bean name="dayService" class="com.sap.service.impl.DayServiceImp">
+    </bean>
+
+    <bean name="notificationDao" class="com.sap.Dao.impl.NotificationDaoImp">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean name="notificationService" class="com.sap.service.impl.NotificationServiceImp">
     </bean>
 
     <bean name="specialDayService" class="com.sap.service.impl.SpecialDayServiceImp">

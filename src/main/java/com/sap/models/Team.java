@@ -20,6 +20,9 @@ public class Team {
     private List<User> members;
 
     @OneToMany(mappedBy = "team", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Notification> notifications;
+
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TeamCalendar> calendars;
 
     public List<TeamCalendar> getCalendars() {
