@@ -26,7 +26,6 @@ public class EventServiceImp implements EventService {
     public void createEvent(EventDto eventDto, User user) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date eventDate = new Date();
-        Integer limit;
 
         // Formats received date
         try {
@@ -52,40 +51,17 @@ public class EventServiceImp implements EventService {
         this.setEventShifts(eventDto, event);
 
         // Checks if there is allocation slots for this date
-        if(event.getShift() == Shift.DAY){
+        if(event.getShift() == Shift.DAY || event.getShift() == Shift.ANY_DAY){
 
-            // If it is a special day
-            if(!event.getDay().getType().equals(SpecialType.NORMAL)){
-                limit = event.getDay().getCalendar().getSpecialDayLimit();
-            }else{
-                // Tests if it should use the day limit or the calendar limit (fallback)
-                if(event.getDay().getDayLimit() == 0){
-                    limit = event.getDay().getCalendar().getDayLimit();
-                }else{
-                    limit = event.getDay().getDayLimit();
-                }
-            }
-
-            if(limit == event.getDay().getCurrentDay()){
+            if(getDayLimit(event) == event.getDay().getCurrentDay()){
                 throw new IllegalArgumentException("No slots left for day shift on this date");
             }
             // Allocates the day shift
             event.getDay().setCurrentDay(event.getDay().getCurrentDay() + 1);
 
-        }else if(event.getShift() == Shift.LATE){
+        }else if(event.getShift() == Shift.LATE || event.getShift() == Shift.ANY_LATE){
 
-            // If it is a special late
-            if(!event.getDay().getType().equals(SpecialType.NORMAL)){
-                limit = event.getDay().getCalendar().getSpecialLateLimit();
-            }else {
-                // Tests if it should use the day limit or the calendar limit (fallback)
-                if (event.getDay().getDayLimit() == 0) {
-                    limit = event.getDay().getCalendar().getLateLimit();
-                } else {
-                    limit = event.getDay().getLateLimit();
-                }
-            }
-            if(limit == event.getDay().getCurrentLate()){
+            if(getLateLimit(event) == event.getDay().getCurrentLate()){
                 throw new IllegalArgumentException("No slots left for late shift on this date");
             }
             // Allocates the late shift
@@ -103,13 +79,23 @@ public class EventServiceImp implements EventService {
             return;
 
         Event event = new Event();
-        event.setShift(Shift.ANY);
 
         // Sets the day with the same date of the event
         List<Day> dayList = dayDao.getDayList(user.getTeam());
         for(Day day : dayList){
             if(day.getDayDate().compareTo(eventDate) == 0){
                 event.setDay(day);
+
+                // Sets the better shift, the one with most slots available
+                if(getDayLimit(event) - day.getCurrentDay() > getLateLimit(event) - day.getCurrentLate()){
+                    event.setShift(Shift.ANY_DAY);
+                    day.setCurrentDay(day.getCurrentDay() + 1);
+                }else{
+                    event.setShift(Shift.ANY_LATE);
+                    day.setCurrentLate(day.getCurrentLate() + 1);
+                }
+                // Updates shift allocation
+                dayDao.updateDay(day);
                 break;
             }
         }
@@ -117,15 +103,18 @@ public class EventServiceImp implements EventService {
         event.setDayAvailability(true);
         event.setUser(user);
         eventDao.createEvent(event);
+
     }
 
     private void setEventShifts(@NotNull EventDto eventDto, Event event){
         // Deallocates previous shift
         switch(event.getShift()){
             case DAY:
+            case ANY_DAY:
                 event.getDay().setCurrentDay(event.getDay().getCurrentDay() - 1);
                 break;
             case LATE:
+            case ANY_LATE:
                 event.getDay().setCurrentLate(event.getDay().getCurrentLate() - 1);
                 break;
         }
@@ -134,13 +123,12 @@ public class EventServiceImp implements EventService {
         switch(eventDto.getShift()){
             case "day":
                 event.setShift(Shift.DAY);
-
                 break;
             case "late":
                 event.setShift(Shift.LATE);
                 break;
             case "any":
-                event.setShift(Shift.ANY);
+                event.setShift(Shift.ANY_DAY);
                 break;
         }
         // Sets day availability
@@ -158,4 +146,27 @@ public class EventServiceImp implements EventService {
         return eventList;
     }
 
+    public Integer getDayLimit(Event event){
+        // If it is a special day
+        if(!event.getDay().getType().equals(SpecialType.NORMAL)){
+            return event.getDay().getCalendar().getSpecialDayLimit();
+        }
+        // Tests if it should use the day limit or the calendar limit (fallback)
+        if(event.getDay().getDayLimit() == 0){
+            return event.getDay().getCalendar().getDayLimit();
+        }
+        return event.getDay().getDayLimit();
+    }
+
+    public Integer getLateLimit(Event event){
+        // If it is a special day
+        if(!event.getDay().getType().equals(SpecialType.NORMAL)){
+            return event.getDay().getCalendar().getSpecialLateLimit();
+        }
+        // Tests if it should use the day limit or the calendar limit (fallback)
+        if(event.getDay().getLateLimit() == 0){
+            return event.getDay().getCalendar().getLateLimit();
+        }
+        return event.getDay().getLateLimit();
+    }
 }

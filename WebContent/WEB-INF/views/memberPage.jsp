@@ -139,8 +139,11 @@
                                 <td><fmt:formatDate value="${event.day.dayDate}" pattern="dd-MM-yyyy"/></td>
                             </c:if>
                             <td>
-                                <c:if test="${event.shift eq 'ANY'}">
-                                    <div>Any</div>
+                                <c:if test="${event.shift eq 'ANY_DAY'}">
+                                    <div>Any - Day</div>
+                                </c:if>
+                                <c:if test="${event.shift eq 'ANY_LATE'}">
+                                    <div>Any - Late</div>
                                 </c:if>
                                 <c:if test="${event.shift eq 'DAY'}">
                                     <div style="color: darkgoldenrod">Day</div>
