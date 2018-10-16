@@ -196,6 +196,11 @@
     </div>
 </div>
 <div>
+    <form action="/owner/notifications" method="get">
+        <button type="submit">Manage notifications</button>
+    </form>
+</div>
+<div>
     <form action="/logout" method="get">
         <button type="submit">Logout</button>
     </form>
