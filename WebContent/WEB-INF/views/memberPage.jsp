@@ -180,7 +180,7 @@
                                     </c:if>
                                 </c:if>
                                 <c:if test="${event.day.type ne 'NORMAL'}">
-                                    <div>${event.day.currentDay}/${event.day.calendar.specialLateLimit}</div>
+                                    <div>${event.day.currentLate}/${event.day.calendar.specialLateLimit}</div>
                                 </c:if>
                             </td>
                         </tr>
