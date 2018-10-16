@@ -110,27 +110,27 @@
                     <table>
                         <tr>
                             <td align="right">Start date:</td>
-                            <td align="left"><input id="startDate" type="date" name="startDate" required></td>
+                            <td align="left"><input id="startDate" type="date" name="startDate" style="width: 140px" required></td>
                         </tr>
                         <tr>
                             <td align="right">End date:</td>
-                            <td align="left"><input id="endDate" type="date" name="endDate" required></td>
+                            <td align="left"><input id="endDate" type="date" name="endDate" style="width: 140px" required></td>
                         </tr>
                         <tr>
                             <td align="right">People per day:</td>
-                            <td align="left"><input id="peopleDay" type="number" name="dayLimit" required></td>
+                            <td align="left"><input id="peopleDay" type="number" name="dayLimit" style="width: 50px" required></td>
                         </tr>
                         <tr>
                             <td align="right">People per late:</td>
-                            <td align="left"><input id="peopleLate" type="number" name="lateLimit" required></td>
+                            <td align="left"><input id="peopleLate" type="number" name="lateLimit" style="width: 50px" required></td>
                         </tr>
                         <tr>
                             <td align="right">People per special day:</td>
-                            <td align="left"><input id="peopleSpecialDay" type="number" name="specialDayLimit" required></td>
+                            <td align="left"><input id="peopleSpecialDay" type="number" name="specialDayLimit" style="width: 50px" required></td>
                         </tr>
                         <tr>
                             <td align="right">People per special late:</td>
-                            <td align="left"><input id="peopleSpecialLate" type="number" name="specialLateLimit" required></td>
+                            <td align="left"><input id="peopleSpecialLate" type="number" name="specialLateLimit" style="width: 50px" required></td>
                         </tr>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         <tr><td></td><td align="right"><button id="saveCalendar" type="submit">Save</button></td></tr>
