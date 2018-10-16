@@ -2,6 +2,7 @@ package com.sap.Dao.impl;
 
 import com.sap.Dao.EventDao;
 import com.sap.models.Event;
+import com.sap.models.Team;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,5 +34,12 @@ public class EventDaoImp extends HibernateDaoSupport implements EventDao {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = formatter.format(date);
         return (Event) getHibernateTemplate().find("from com.sap.models.Event as e where e.user.userName='"+username+"' and e.day.dayDate like '"+formattedDate+"%'").get(0);
+    }
+
+    @Override
+    public List<Event> getEventsByDateAndTeam(Date date, Team team) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = formatter.format(date);
+        return (List<Event>) getHibernateTemplate().find("from com.sap.models.Event as e where e.user.team.id='"+team.getId().toString()+"' and e.day.dayDate like '"+formattedDate+"%'");
     }
 }
