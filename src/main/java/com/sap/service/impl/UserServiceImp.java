@@ -11,7 +11,6 @@ import com.sap.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 public class UserServiceImp implements UserService {
