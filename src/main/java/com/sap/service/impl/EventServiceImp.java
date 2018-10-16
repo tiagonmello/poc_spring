@@ -20,12 +20,16 @@ public class EventServiceImp implements EventService {
     private EventDao eventDao;
 
     @Resource
+    private EventDao eventAllocationDao;
+
+    @Resource
     private DayDao dayDao;
 
     @Override
     public void createEvent(EventDto eventDto, User user) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date eventDate = new Date();
+        boolean reallocatedAnyShift = false;
 
         // Formats received date
         try {
@@ -54,16 +58,53 @@ public class EventServiceImp implements EventService {
         if(event.getShift() == Shift.DAY || event.getShift() == Shift.ANY_DAY){
 
             if(getDayLimit(event) == event.getDay().getCurrentDay()){
-                throw new IllegalArgumentException("No slots left for day shift on this date");
+
+                // Checks if it is possible to change one "ANY_DAY" to "ANY_LATE" of other user, then it would be possible to allocate this DAY shift
+                for(Event allocationEvent : eventDao.getEventsByDateAndTeam(eventDate, event.getUser().getTeam())){
+                    // If its shift is ANY_DAY, changes to ANY_LATE
+                    if(allocationEvent.getShift().compareTo(Shift.ANY_DAY) == 0){
+
+                        this.setLateShift(allocationEvent);
+
+                        event.getDay().setCurrentDay(event.getDay().getCurrentDay() - 1);
+                        event.getDay().setCurrentLate(event.getDay().getCurrentLate() + 1);
+                        reallocatedAnyShift = true;
+                        break;
+                    }
+                }
+                // If could not reallocate, throws exception
+                if(!reallocatedAnyShift){
+                    throw new IllegalArgumentException("No slots left for day shift on this date");
+                }
             }
+
             // Allocates the day shift
             event.getDay().setCurrentDay(event.getDay().getCurrentDay() + 1);
 
         }else if(event.getShift() == Shift.LATE || event.getShift() == Shift.ANY_LATE){
 
-            if(getLateLimit(event) == event.getDay().getCurrentLate()){
-                throw new IllegalArgumentException("No slots left for late shift on this date");
+            if(getLateLimit(event) == event.getDay().getCurrentLate()) {
+
+                // Checks if it is possible to change one "ANY_LATE" to "ANY_DAY" of other user, then it would be possible to allocate this LATE shift
+                for (Event allocationEvent : eventDao.getEventsByDateAndTeam(eventDate, event.getUser().getTeam())) {
+                    // If its shift is ANY_LATE, changes to ANY_DAY
+                    if (allocationEvent.getShift().compareTo(Shift.ANY_LATE) == 0) {
+
+                        this.setDayShift(allocationEvent);
+
+                        event.getDay().setCurrentLate(event.getDay().getCurrentLate() - 1);
+                        event.getDay().setCurrentDay(event.getDay().getCurrentDay() + 1);
+
+                        reallocatedAnyShift = true;
+                        break;
+                    }
+                }
+                // If could not reallocate, throws exception
+                if (!reallocatedAnyShift) {
+                    throw new IllegalArgumentException("No slots left for late shift on this date");
+                }
             }
+
             // Allocates the late shift
             event.getDay().setCurrentLate(event.getDay().getCurrentLate() + 1);
         }
@@ -128,7 +169,12 @@ public class EventServiceImp implements EventService {
                 event.setShift(Shift.LATE);
                 break;
             case "any":
-                event.setShift(Shift.ANY_DAY);
+                // Sets the better shift
+                if(getDayLimit(event) - event.getDay().getCurrentDay() > getLateLimit(event) - event.getDay().getCurrentLate()){
+                    event.setShift(Shift.ANY_DAY);
+                }else{
+                    event.setShift(Shift.ANY_LATE);
+                }
                 break;
         }
         // Sets day availability
@@ -168,5 +214,15 @@ public class EventServiceImp implements EventService {
             return event.getDay().getCalendar().getLateLimit();
         }
         return event.getDay().getLateLimit();
+    }
+
+    public void setLateShift(Event event){
+        event.setShift(Shift.ANY_LATE);
+        eventAllocationDao.updateEvent(event);
+    }
+
+    public void setDayShift(Event event){
+        event.setShift(Shift.ANY_DAY);
+        eventAllocationDao.updateEvent(event);
     }
 }

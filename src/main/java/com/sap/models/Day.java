@@ -32,7 +32,7 @@ public class Day {
 
     private Integer currentLate;
 
-    @OneToMany(mappedBy = "day", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "day", fetch = FetchType.EAGER)
     private List<Event> events;
 
     public Integer getDayLimit() {
