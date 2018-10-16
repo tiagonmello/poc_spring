@@ -43,6 +43,11 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
             throw new IllegalArgumentException("People limits don't match team members quantity");
         }
 
+        // Special day people limit must not be greater than team members quantity
+        if(teamCalendarDto.getSpecialDayLimit() + teamCalendarDto.getSpecialLateLimit() <= userService.getUsersByTeam(team).size() - 1){
+            throw new IllegalArgumentException("Special days limits don't match team members quantity");
+        }
+
         // Sets team calendar data and creates the calendar
         TeamCalendar teamCalendar = new TeamCalendar();
         teamCalendar.setDayLimit(teamCalendarDto.getDayLimit());

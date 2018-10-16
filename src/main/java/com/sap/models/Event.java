@@ -22,13 +22,13 @@ public class Event {
 
     private Shift shift;
 
-    private boolean dayAvailability;
+    private Boolean dayAvailability;
 
-    public boolean isDayAvailability() {
+    public Boolean getDayAvailability() {
         return dayAvailability;
     }
 
-    public void setDayAvailability(boolean dayAvailability) {
+    public void setDayAvailability(Boolean dayAvailability) {
         this.dayAvailability = dayAvailability;
     }
 
