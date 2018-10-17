@@ -49,24 +49,13 @@ public class TeamCalendarServiceImp implements TeamCalendarService {
         }
 
         // Sets team calendar data and creates the calendar
-        TeamCalendar teamCalendar = new TeamCalendar();
-        teamCalendar.setDayLimit(teamCalendarDto.getDayLimit());
-        teamCalendar.setLateLimit(teamCalendarDto.getLateLimit());
-        teamCalendar.setSpecialDayLimit(teamCalendarDto.getSpecialDayLimit());
-        teamCalendar.setSpecialLateLimit(teamCalendarDto.getSpecialLateLimit());
-        teamCalendar.setTeam(team);
+        TeamCalendar teamCalendar = new TeamCalendar(teamCalendarDto.getDayLimit(), teamCalendarDto.getLateLimit(),
+                                                     teamCalendarDto.getSpecialDayLimit(), teamCalendarDto.getSpecialLateLimit(), team);
         teamCalendarDao.createTeamCalendar(teamCalendar);
 
         // Creates normal days for every date of the calendar
         for(Date dayDate : this.getDateList(teamCalendarDto)){
-            Day day = new Day();
-            day.setDayDate(dayDate);
-            day.setType(SpecialType.NORMAL);
-            day.setCalendar(teamCalendar);
-            day.setDayLimit(0);
-            day.setLateLimit(0);
-            day.setCurrentDay(0);
-            day.setCurrentLate(0);
+            Day day = new Day(dayDate, SpecialType.NORMAL, teamCalendar, 0, 0, 0, 0);
             dayDao.createDay(day);
         }
 

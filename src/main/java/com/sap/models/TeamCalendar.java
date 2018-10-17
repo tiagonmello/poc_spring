@@ -11,6 +11,16 @@ import java.util.List;
 @Table(name="TEAM_CALENDAR")
 public class TeamCalendar {
 
+    public TeamCalendar(Integer dayLimit, Integer lateLimit, Integer specialDayLimit, Integer specialLateLimit, Team team) {
+        this.dayLimit = dayLimit;
+        this.lateLimit = lateLimit;
+        this.specialDayLimit = specialDayLimit;
+        this.specialLateLimit = specialLateLimit;
+        this.team = team;
+    }
+
+    public TeamCalendar(){}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TEAM_CALENDAR_ID")

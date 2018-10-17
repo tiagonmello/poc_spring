@@ -10,6 +10,18 @@ import java.util.List;
 @Table(name="DAY")
 public class Day {
 
+    public Day(Date dayDate, SpecialType type, TeamCalendar calendar, Integer dayLimit, Integer lateLimit, Integer currentDay, Integer currentLate) {
+        this.dayDate = dayDate;
+        this.type = type;
+        this.calendar = calendar;
+        this.dayLimit = dayLimit;
+        this.lateLimit = lateLimit;
+        this.currentDay = currentDay;
+        this.currentLate = currentLate;
+    }
+
+    public Day() {}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DAY_ID")
