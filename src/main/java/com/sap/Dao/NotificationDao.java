@@ -1,7 +1,6 @@
 package com.sap.Dao;
 
-import com.sap.models.Notification;
-import com.sap.models.Team;
+import com.sap.models.*;
 
 import java.util.List;
 
@@ -11,8 +10,8 @@ public interface NotificationDao {
 
     void deleteNotification(Notification notification);
 
-    List<Notification> getAllNotifications();
+    List<Notification> getShiftNotificationsByTeam(Team team);
 
-    List<Notification> getNotificationsByTeam(Team team);
+    List<Notification> getTextNotificationsByTeam(Team team);
 
 }

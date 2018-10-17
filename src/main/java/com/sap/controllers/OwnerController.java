@@ -2,10 +2,10 @@ package com.sap.controllers;
 
 import com.sap.MyUserPrincipal;
 import com.sap.dtos.DayDto;
+import com.sap.dtos.EventDto;
 import com.sap.dtos.TeamCalendarDto;
 import com.sap.models.*;
 import com.sap.service.*;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -106,9 +106,11 @@ public class OwnerController {
     @RequestMapping(value = "/owner/notifications")
     public String manageNotifications(Model model){
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("notifications", notificationService.getNotificationsByTeam(principal.getUser().getTeam()));
+        model.addAttribute("textNotifications", notificationService.getTextNotificationsByTeam(principal.getUser().getTeam()));
+        model.addAttribute("shiftNotifications", notificationService.getShiftNotificationsByTeam(principal.getUser().getTeam()));
         model.addAttribute("team", principal.getUser().getTeam());
-        model.addAttribute("textNote", new ShiftNote());
+        model.addAttribute("textNote", new TextNote());
+        model.addAttribute("shiftNote", new EventDto());
         return "notificationManagement";
     }
 
@@ -118,6 +120,14 @@ public class OwnerController {
         notification.setTeam(principal.getUser().getTeam());
 
         notificationService.createTextNote(notification);
+
+        return "redirect:/owner/notifications";
+    }
+
+    @RequestMapping(value = "/owner/addShiftNote")
+    public String addShiftNote(EventDto notification){
+        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        notificationService.createShiftNote(notification, principal.getUser().getTeam());
 
         return "redirect:/owner/notifications";
     }

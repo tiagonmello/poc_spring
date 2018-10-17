@@ -1,5 +1,6 @@
 package com.sap.service;
 
+import com.sap.dtos.EventDto;
 import com.sap.models.Notification;
 import com.sap.models.Team;
 import com.sap.models.TextNote;
@@ -10,10 +11,12 @@ public interface NotificationService {
 
     void createTextNote(TextNote notification);
 
+    void createShiftNote(EventDto notification, Team team);
+
     void deleteTextNote(TextNote notification);
 
-    List<Notification> getAllNotifications();
+    List<Notification> getShiftNotificationsByTeam(Team team);
 
-    List<Notification> getNotificationsByTeam(Team team);
+    List<Notification> getTextNotificationsByTeam(Team team);
 
 }

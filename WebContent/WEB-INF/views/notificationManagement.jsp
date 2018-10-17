@@ -50,10 +50,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${notifications}" var="notification">
+                    <c:forEach items="${textNotifications}" var="notification">
                         <tr>
                             <td>
-                                    ${notification.text}
+                                ${notification.text}
                             </td>
                             <form modelAttribute="textNote" action="/owner/deleteNotification" name="deleteNote" method="post">
                                 <td>
@@ -73,11 +73,11 @@
         <fieldset>
             <legend>Send shift notification:</legend>
             <div>
-                <form modelAttribute="textNote" name="textNote" action="/owner/addTextNote" method="post">
+                <form modelAttribute="shiftNote" name="shiftNote" action="/owner/addShiftNote" method="post">
                     <table>
                         <tr>
                             <td align="right">Date:</td>
-                            <td align="left"><input type="date" name="date" required></td>
+                            <td align="left"><input type="date" name="eventDate" required></td>
                         </tr>
                         <tr>
                             <td align="right">Shift:</td>
@@ -99,13 +99,20 @@
                     <tr>
                         <th>Date</th>
                         <th>Shift</th>
+                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${notifications}" var="notification">
+                    <c:forEach items="${shiftNotifications}" var="notification">
                         <tr>
+                            <td><fmt:formatDate value="${notification.dayDate}" pattern="dd-MM-yyyy"/></td>
                             <td>
-
+                                <c:if test="${notification.shift eq 'DAY'}">
+                                    <div style="color: darkgoldenrod">Day</div>
+                                </c:if>
+                                <c:if test="${notification.shift eq 'LATE'}">
+                                    <div style="color: darkblue">Late</div>
+                                </c:if>
                             </td>
                             <form modelAttribute="textNote" action="/owner/deleteNotification" name="deleteNote" method="post">
                                 <td>

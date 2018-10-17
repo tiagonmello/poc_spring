@@ -23,12 +23,12 @@ public class NotificationDaoImp extends HibernateDaoSupport implements Notificat
     }
 
     @Override
-    public List<Notification> getAllNotifications(){
-        return (List<Notification>) getHibernateTemplate().find("from com.sap.models.Notification as n");
+    public List<Notification> getTextNotificationsByTeam(Team team){
+        return (List<Notification>) getHibernateTemplate().find("from com.sap.models.Notification as n where n.team.id='"+team.getId().toString()+"' and n.text != null");
     }
 
     @Override
-    public List<Notification> getNotificationsByTeam(Team team){
-        return (List<Notification>) getHibernateTemplate().find("from com.sap.models.Notification as n where n.team.id='"+team.getId().toString()+"'");
+    public List<Notification> getShiftNotificationsByTeam(Team team){
+        return (List<Notification>) getHibernateTemplate().find("from com.sap.models.Notification as n where n.team.id='"+team.getId().toString()+"' and n.text = null");
     }
 }

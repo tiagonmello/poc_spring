@@ -36,7 +36,7 @@
                     </thead>
                     <tbody>
                     <c:forEach items="${calendarList}" var="calendar">
-                        </tr>
+                        <tr>
                         <td>${calendar.id}</td>
                         <td><fmt:formatDate value="${calendar.startDate}" pattern="dd-MM-yyyy"/></td>
                         <td><fmt:formatDate value="${calendar.endDate}" pattern="dd-MM-yyyy"/></td>
@@ -116,10 +116,17 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${notifications}" var="notification">
+                    <c:forEach items="${textNotifications}" var="notification">
                         <tr>
                             <td>
-                                    ${notification.text}
+                                ${notification.text}
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    <c:forEach items="${shiftNotifications}" var="notification">
+                        <tr>
+                            <td>
+                                <fmt:formatDate value="${notification.dayDate}" pattern="dd-MM-yyyy"/> - ${notification.shift}
                             </td>
                         </tr>
                     </c:forEach>

@@ -36,7 +36,8 @@ public class MemberController {
         model.addAttribute("calendarList",teamCalendarService.getTeamCalendarList(loggedUser.getTeam()));
         model.addAttribute("daysList",teamCalendarService.getAllDays(loggedUser.getTeam()));
         model.addAttribute("eventList",eventService.getEventsByUser(loggedUser.getUserName()));
-        model.addAttribute("notifications", notificationService.getNotificationsByTeam(loggedUser.getTeam()));
+        model.addAttribute("textNotifications", notificationService.getTextNotificationsByTeam(loggedUser.getTeam()));
+        model.addAttribute("shiftNotifications", notificationService.getShiftNotificationsByTeam(loggedUser.getTeam()));
         return "memberPage";
     }
 
