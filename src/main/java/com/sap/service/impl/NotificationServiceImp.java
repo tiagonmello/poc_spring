@@ -53,7 +53,7 @@ public class NotificationServiceImp implements NotificationService {
     }
 
     @Override
-    public void deleteTextNote(TextNote notification){
+    public void deleteNotification(Notification notification){
         notificationDao.deleteNotification(notification);
     }
 

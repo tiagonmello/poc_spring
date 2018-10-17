@@ -15,6 +15,16 @@ public class EventDto {
 
     private String dayAvailability;
 
+    private Integer notificationId;
+
+    public Integer getNotificationId() {
+        return notificationId;
+    }
+
+    public void setNotificationId(Integer notificationId) {
+        this.notificationId = notificationId;
+    }
+
     public String getDayAvailability() {
         return dayAvailability;
     }

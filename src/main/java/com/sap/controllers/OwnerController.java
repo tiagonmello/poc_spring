@@ -133,9 +133,9 @@ public class OwnerController {
     }
 
     @RequestMapping(value = "/owner/deleteNotification")
-    public String deleteTextNote(TextNote notification){
+    public String deleteNotification(ShiftNote notification){
 
-        notificationService.deleteTextNote(notification);
+        notificationService.deleteNotification(notification);
 
         return "redirect:/owner/notifications";
     }

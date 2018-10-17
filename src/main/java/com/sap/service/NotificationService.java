@@ -13,7 +13,7 @@ public interface NotificationService {
 
     void createShiftNote(EventDto notification, Team team);
 
-    void deleteTextNote(TextNote notification);
+    void deleteNotification(Notification notification);
 
     List<Notification> getShiftNotificationsByTeam(Team team);
 

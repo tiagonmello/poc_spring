@@ -3,6 +3,7 @@ package com.sap.controllers;
 import com.sap.MyUserPrincipal;
 import com.sap.dtos.EventDto;
 import com.sap.models.Event;
+import com.sap.models.ShiftNote;
 import com.sap.models.User;
 import com.sap.service.EventService;
 import com.sap.service.NotificationService;
@@ -33,6 +34,7 @@ public class MemberController {
 
         model.addAttribute("user",loggedUser);
         model.addAttribute("event",new Event());
+        model.addAttribute("notificationAction",new EventDto());
         model.addAttribute("calendarList",teamCalendarService.getTeamCalendarList(loggedUser.getTeam()));
         model.addAttribute("daysList",teamCalendarService.getAllDays(loggedUser.getTeam()));
         model.addAttribute("eventList",eventService.getEventsByUser(loggedUser.getUserName()));
@@ -54,6 +56,23 @@ public class MemberController {
         return "redirect:/member/homepage";
     }
 
+    @RequestMapping(value = "/member/notificationAction")
+    public String memberAction(EventDto event){
+        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedUser = principal.getUser();
+
+        try{
+            eventService.createEvent(event, loggedUser);
+
+            // Deletes the notification if it was successfully accepted
+            ShiftNote shiftNote = new ShiftNote();
+            shiftNote.setId(event.getNotificationId());
+            notificationService.deleteNotification(shiftNote);
+        }catch(IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        return "redirect:/member/homepage";
+    }
 }
 
 

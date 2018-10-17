@@ -112,7 +112,8 @@
                 <table class="dataTable" >
                     <thead>
                     <tr>
-                        <th>Notifications</th>
+                        <th>Information</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -128,6 +129,16 @@
                             <td>
                                 <fmt:formatDate value="${notification.dayDate}" pattern="dd-MM-yyyy"/> - ${notification.shift}
                             </td>
+                            <form modelAttribute="notificationAction" action="/member/notificationAction" name="addShift" method="post">
+                                <td>
+                                    <input type="hidden" value="<fmt:formatDate value="${notification.dayDate}" pattern="dd-MM-yyyy"/>" name="eventDate" />
+                                    <input type="hidden" value="${notification.shift}" name="shift" />
+                                    <input type="hidden" value="${notification.id}" name="notificationId" />
+                                    <input type="hidden" value="checked" name="dayAvailability" />
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                    <button type="submit">Accept</button>
+                                </td>
+                            </form>
                         </tr>
                     </c:forEach>
                     </tbody>

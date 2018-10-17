@@ -163,12 +163,15 @@ public class EventServiceImp implements EventService {
         // Sets shift
         switch(eventDto.getShift()){
             case "day":
+            case "DAY":
                 event.setShift(Shift.DAY);
                 break;
             case "late":
+            case "LATE":
                 event.setShift(Shift.LATE);
                 break;
             case "any":
+            case "ANY":
                 // Sets the better shift
                 if(getDayLimit(event) - event.getDay().getCurrentDay() > getLateLimit(event) - event.getDay().getCurrentLate()){
                     event.setShift(Shift.ANY_DAY);
