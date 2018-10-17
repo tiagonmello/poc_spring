@@ -13,12 +13,12 @@ public class NotificationServiceImp implements NotificationService {
     private NotificationDao notificationDao;
 
     @Override
-    public void createNotification(Notification notification){
+    public void createTextNote(TextNote notification){
         notificationDao.createNotification(notification);
     }
 
     @Override
-    public void deleteNotification(Notification notification){
+    public void deleteTextNote(TextNote notification){
         notificationDao.deleteNotification(notification);
     }
 

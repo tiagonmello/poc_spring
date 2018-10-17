@@ -2,14 +2,15 @@ package com.sap.service;
 
 import com.sap.models.Notification;
 import com.sap.models.Team;
+import com.sap.models.TextNote;
 
 import java.util.List;
 
 public interface NotificationService {
 
-    void createNotification(Notification notification);
+    void createTextNote(TextNote notification);
 
-    void deleteNotification(Notification notification);
+    void deleteTextNote(TextNote notification);
 
     List<Notification> getAllNotifications();
 

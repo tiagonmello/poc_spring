@@ -3,9 +3,7 @@ package com.sap.controllers;
 import com.sap.MyUserPrincipal;
 import com.sap.dtos.DayDto;
 import com.sap.dtos.TeamCalendarDto;
-import com.sap.models.Day;
-import com.sap.models.Notification;
-import com.sap.models.User;
+import com.sap.models.*;
 import com.sap.service.*;
 import org.aspectj.weaver.ast.Not;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -110,24 +108,24 @@ public class OwnerController {
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("notifications", notificationService.getNotificationsByTeam(principal.getUser().getTeam()));
         model.addAttribute("team", principal.getUser().getTeam());
-        model.addAttribute("textNote", new Notification());
+        model.addAttribute("textNote", new ShiftNote());
         return "notificationManagement";
     }
 
     @RequestMapping(value = "/owner/addTextNote")
-    public String addTextNote(Notification notification){
+    public String addTextNote(TextNote notification){
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         notification.setTeam(principal.getUser().getTeam());
 
-        notificationService.createNotification(notification);
+        notificationService.createTextNote(notification);
 
         return "redirect:/owner/notifications";
     }
 
     @RequestMapping(value = "/owner/deleteNotification")
-    public String deleteTextNote(Notification notification){
+    public String deleteTextNote(TextNote notification){
 
-        notificationService.deleteNotification(notification);
+        notificationService.deleteTextNote(notification);
 
         return "redirect:/owner/notifications";
     }
