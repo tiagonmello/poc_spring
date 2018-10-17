@@ -4,6 +4,7 @@ import com.sap.Dao.NotificationDao;
 import com.sap.dtos.EventDto;
 import com.sap.models.*;
 import com.sap.service.NotificationService;
+import com.sap.service.TeamCalendarService;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
@@ -15,6 +16,9 @@ public class NotificationServiceImp implements NotificationService {
 
     @Resource
     private NotificationDao notificationDao;
+
+    @Resource
+    private TeamCalendarService teamCalendarService;
 
     @Override
     public void createTextNote(TextNote notification){
@@ -35,6 +39,16 @@ public class NotificationServiceImp implements NotificationService {
         }catch(ParseException e){
             e.printStackTrace();
         }
+
+        // The received date must be registered in one of the team calendars
+        boolean foundDate = false;
+        for(Day day :teamCalendarService.getAllDays(team)) {
+            if(day.getDayDate().compareTo(shiftNote.getDayDate()) == 0){
+                foundDate = true;
+                break;
+            }
+        }
+        if(!foundDate) throw new IllegalArgumentException("Date out of bounds");
 
         // Sets shift
         switch(notification.getShift()){

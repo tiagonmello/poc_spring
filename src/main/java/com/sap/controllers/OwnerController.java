@@ -127,7 +127,12 @@ public class OwnerController {
     @RequestMapping(value = "/owner/addShiftNote")
     public String addShiftNote(EventDto notification){
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        notificationService.createShiftNote(notification, principal.getUser().getTeam());
+
+        try{
+            notificationService.createShiftNote(notification, principal.getUser().getTeam());
+        }catch(IllegalArgumentException e){
+            e.printStackTrace();
+        }
 
         return "redirect:/owner/notifications";
     }
