@@ -21,8 +21,10 @@
 <div>
     <h1>Team member page - Logged as <security:authentication property="principal.username"/> - Member of Team ${user.team.id} - Your owner is ${user.team.owner.userName}</h1>
 </div>
+<div class="columns">
+    <div class="left">
 <fieldset>
-    <legend><b>Available calendars:</b></legend>
+    <legend><b>Available calendars</b></legend>
     <div>
         <table class="dataTable" >
             <thead>
@@ -45,11 +47,8 @@
     </div>
 </fieldset>
 <br>
-<div class="columns">
-    <div class="left">
-
         <fieldset>
-            <legend><b>Shift allocation:</b></legend>
+            <legend><b>Shift allocation</b></legend>
             <div>
                 <table class="dataTable" >
                     <thead>
@@ -108,7 +107,29 @@
     </div>
     <div class="right">
         <fieldset>
-            <legend>Current allocated shifts:</legend>
+            <legend>Notifications</legend>
+            <div>
+                <table class="dataTable" >
+                    <thead>
+                    <tr>
+                        <th>Notifications</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${notifications}" var="notification">
+                        <tr>
+                            <td>
+                                ${notification.text}
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+        <br>
+        <fieldset>
+            <legend>Current allocated shifts</legend>
             <div>
                 <table class="dataTable" >
                     <thead>

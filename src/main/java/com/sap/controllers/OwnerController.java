@@ -4,11 +4,10 @@ import com.sap.MyUserPrincipal;
 import com.sap.dtos.DayDto;
 import com.sap.dtos.TeamCalendarDto;
 import com.sap.models.Day;
+import com.sap.models.Notification;
 import com.sap.models.User;
-import com.sap.service.DayService;
-import com.sap.service.EventService;
-import com.sap.service.TeamCalendarService;
-import com.sap.service.UserService;
+import com.sap.service.*;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +31,9 @@ public class OwnerController {
 
     @Resource
     private DayService dayService;
+
+    @Resource
+    private NotificationService notificationService;
 
     @RequestMapping(value = "/owner/homepage")
     public String ownerHomepage(Model model, User user){
@@ -101,5 +103,32 @@ public class OwnerController {
 
         String referer = request.getHeader("Referer");
         return "redirect:"+ referer;
+    }
+
+    @RequestMapping(value = "/owner/notifications")
+    public String manageNotifications(Model model){
+        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("notifications", notificationService.getNotificationsByTeam(principal.getUser().getTeam()));
+        model.addAttribute("team", principal.getUser().getTeam());
+        model.addAttribute("textNote", new Notification());
+        return "notificationManagement";
+    }
+
+    @RequestMapping(value = "/owner/addTextNote")
+    public String addTextNote(Notification notification){
+        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        notification.setTeam(principal.getUser().getTeam());
+
+        notificationService.createNotification(notification);
+
+        return "redirect:/owner/notifications";
+    }
+
+    @RequestMapping(value = "/owner/deleteNotification")
+    public String deleteTextNote(Notification notification){
+
+        notificationService.deleteNotification(notification);
+
+        return "redirect:/owner/notifications";
     }
 }

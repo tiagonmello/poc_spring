@@ -70,25 +70,25 @@
                         <td>${user.userName}</td>
                         <td>${user.email}</td>
                         <c:if test="${user.role.name == 'ROLE_MEMBER'}">
-                            <td>
-                                <form modelAttribute="user" action="/owner/deleteMember" name="deleteUser" method="post">
+                             <form modelAttribute="user" action="/owner/deleteMember" name="deleteUser" method="post">
+                                 <td>
                                     <input type="hidden" value="${user.userName}" name="userName" />
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                     <button type="submit">Delete</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form modelAttribute="user" action="/owner/editMember" name="editUser" method="post">
+                                 </td>
+                             </form>
+                            <form modelAttribute="user" action="/owner/editMember" name="editUser" method="post">
+                                <td>
                                     <input type="hidden" value="${user.userName}" name="userName" />
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                     <button type="submit">Edit</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="/owner/calendar/${user.userName}" method="get">
+                                </td>
+                            </form>
+                            <form action="/owner/calendar/${user.userName}" method="get">
+                                <td>
                                     <button type="submit">Calendar</button>
-                                </form>
-                            </td>
+                                </td>
+                            </form>
                         </c:if>
                         <c:if test="${user.role.name != 'ROLE_MEMBER'}">
                             <td></td>
@@ -182,11 +182,11 @@
                         <td><fmt:formatDate value="${calendar.endDate}" pattern="dd-MM-yyyy"/></td>
                         <td>${calendar.dayLimit}</td>
                         <td>${calendar.lateLimit}</td>
-                        <td>
-                            <form action="/owner/teamCalendar/${calendar.id}" method="get">
+                        <form action="/owner/teamCalendar/${calendar.id}" method="get">
+                            <td>
                                 <button type="submit">Manage</button>
-                            </form>
-                        </td>
+                            </td>
+                        </form>
                         </tr>
                     </c:forEach>
                     </tbody>

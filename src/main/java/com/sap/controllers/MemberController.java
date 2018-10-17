@@ -5,6 +5,7 @@ import com.sap.dtos.EventDto;
 import com.sap.models.Event;
 import com.sap.models.User;
 import com.sap.service.EventService;
+import com.sap.service.NotificationService;
 import com.sap.service.TeamCalendarService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class MemberController {
     @Resource
     private EventService eventService;
 
+    @Resource
+    private NotificationService notificationService;
+
     @RequestMapping(value = "/member/homepage")
     public String memberHomepage(Model model){
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -32,6 +36,7 @@ public class MemberController {
         model.addAttribute("calendarList",teamCalendarService.getTeamCalendarList(loggedUser.getTeam()));
         model.addAttribute("daysList",teamCalendarService.getAllDays(loggedUser.getTeam()));
         model.addAttribute("eventList",eventService.getEventsByUser(loggedUser.getUserName()));
+        model.addAttribute("notifications", notificationService.getNotificationsByTeam(loggedUser.getTeam()));
         return "memberPage";
     }
 
