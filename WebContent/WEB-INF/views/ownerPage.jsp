@@ -70,13 +70,13 @@
                         <td>${user.userName}</td>
                         <td>${user.email}</td>
                         <c:if test="${user.role.name == 'ROLE_MEMBER'}">
-                             <form modelAttribute="user" action="/owner/deleteMember" name="deleteUser" method="post">
-                                 <td>
+                            <form modelAttribute="user" action="/owner/deleteMember" name="deleteUser" method="post">
+                                <td>
                                     <input type="hidden" value="${user.userName}" name="userName" />
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                     <button type="submit">Delete</button>
-                                 </td>
-                             </form>
+                                </td>
+                            </form>
                             <form modelAttribute="user" action="/owner/editMember" name="editUser" method="post">
                                 <td>
                                     <input type="hidden" value="${user.userName}" name="userName" />

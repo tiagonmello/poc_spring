@@ -23,30 +23,30 @@
 </div>
 <div class="columns">
     <div class="left">
-<fieldset>
-    <legend><b>Available calendars</b></legend>
-    <div>
-        <table class="dataTable" >
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${calendarList}" var="calendar">
-                </tr>
-                <td>${calendar.id}</td>
-                <td><fmt:formatDate value="${calendar.startDate}" pattern="dd-MM-yyyy"/></td>
-                <td><fmt:formatDate value="${calendar.endDate}" pattern="dd-MM-yyyy"/></td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</fieldset>
-<br>
+        <fieldset>
+            <legend><b>Available calendars</b></legend>
+            <div>
+                <table class="dataTable" >
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${calendarList}" var="calendar">
+                        </tr>
+                        <td>${calendar.id}</td>
+                        <td><fmt:formatDate value="${calendar.startDate}" pattern="dd-MM-yyyy"/></td>
+                        <td><fmt:formatDate value="${calendar.endDate}" pattern="dd-MM-yyyy"/></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+        <br>
         <fieldset>
             <legend><b>Shift allocation</b></legend>
             <div>
@@ -62,42 +62,42 @@
                     <tbody>
                     <c:forEach items="${daysList}" var="day">
                         <tr>
-                        <c:if test="${day.type eq 'HOLIDAY'}">
-                            <td style="background-color: lightblue;">
-                                <fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/>
-                                <br>Holiday
-                            </td>
-                        </c:if>
-                        <c:if test="${day.type eq 'WEEKEND'}">
-                            <td style="background-color: lightcoral;">
-                                <fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/>
-                                <br>Weekend
-                            </td>
-                        </c:if>
-                        <c:if test="${day.type eq 'NORMAL'}">
-                            <td><fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/></td>
-                        </c:if>
-                        <form modelAttribute="event" action="/member/addEvent" name="addEvent" method="post">
-                            <td>
-                                <select name="shift">
-                                    <option value="any">Any</option>
-                                    <option value="day">Day</option>
-                                    <option value="late">Late</option>
-                                </select>
-                            </td>
-
-                            <c:if test="${day.type eq 'HOLIDAY' || day.type eq 'WEEKEND'}">
-                                <td><input type="checkbox" name="dayAvailability" value="checked"/></td>
+                            <c:if test="${day.type eq 'HOLIDAY'}">
+                                <td style="background-color: lightblue;">
+                                    <fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/>
+                                    <br>Holiday
+                                </td>
+                            </c:if>
+                            <c:if test="${day.type eq 'WEEKEND'}">
+                                <td style="background-color: lightcoral;">
+                                    <fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/>
+                                    <br>Weekend
+                                </td>
                             </c:if>
                             <c:if test="${day.type eq 'NORMAL'}">
-                                <td><input type="checkbox" name="dayAvailability" value="checked" disabled checked/></td>
-                                <input type="hidden" name="dayAvailability" value="checked"/>
+                                <td><fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/></td>
                             </c:if>
+                            <form modelAttribute="event" action="/member/addEvent" name="addEvent" method="post">
+                                <td>
+                                    <select name="shift">
+                                        <option value="any">Any</option>
+                                        <option value="day">Day</option>
+                                        <option value="late">Late</option>
+                                    </select>
+                                </td>
 
-                            <td><button type="submit">Save</button></td>
-                            <input type="hidden" value="<fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/>" name="eventDate" />
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                        </form>
+                                <c:if test="${day.type eq 'HOLIDAY' || day.type eq 'WEEKEND'}">
+                                    <td><input type="checkbox" name="dayAvailability" value="checked"/></td>
+                                </c:if>
+                                <c:if test="${day.type eq 'NORMAL'}">
+                                    <td><input type="checkbox" name="dayAvailability" value="checked" disabled checked/></td>
+                                    <input type="hidden" name="dayAvailability" value="checked"/>
+                                </c:if>
+
+                                <td><button type="submit">Save</button></td>
+                                <input type="hidden" value="<fmt:formatDate value="${day.dayDate}" pattern="dd-MM-yyyy"/>" name="eventDate" />
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            </form>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -119,7 +119,7 @@
                     <c:forEach items="${notifications}" var="notification">
                         <tr>
                             <td>
-                                ${notification.text}
+                                    ${notification.text}
                             </td>
                         </tr>
                     </c:forEach>
