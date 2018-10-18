@@ -196,17 +196,28 @@
     </div>
 </div>
 <div>
-    <form action="/owner/notifications" method="get">
-        <button type="submit">Manage notifications</button>
-    </form>
+    <div style="float: left">
+        <form action="/owner/notifications" method="get">
+            <button type="submit">Calendar overview</button>
+        </form>
+    </div>
+    <div>
+        &nbsp;
+    <div style="float: left">
+        <form action="/owner/notifications" method="get">
+            <button type="submit">Manage notifications</button>
+        </form>
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div style="float: right;">
+        <form action="/logout" method="get">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
 </div>
-<div>
-    <form action="/logout" method="get">
-        <button type="submit">Logout</button>
-    </form>
-</div>
-<script
-        src="http://code.jquery.com/jquery-3.3.1.min.js"
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
 <script src="<c:url value="/resources/js/ownerPageScripts.js" />"></script>
