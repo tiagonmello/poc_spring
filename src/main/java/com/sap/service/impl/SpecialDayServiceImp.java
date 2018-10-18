@@ -1,6 +1,7 @@
 package com.sap.service.impl;
 
 import com.sap.Dao.DayDao;
+import com.sap.Dao.EventDao;
 import com.sap.dtos.DayDto;
 import com.sap.models.*;
 import com.sap.service.SpecialDayService;
@@ -19,6 +20,12 @@ public class SpecialDayServiceImp implements SpecialDayService {
 
     @Resource
     private DayDao dayDao;
+
+    @Resource
+    private EventDao eventDao;
+
+    @Resource
+    private EventDao eventDeleteDao;
 
     @Override
     public void addSpecialDay(DayDto dayDto, Team team){
@@ -49,12 +56,24 @@ public class SpecialDayServiceImp implements SpecialDayService {
                         if(!day.getType().equals(SpecialType.NORMAL))
                             throw new IllegalArgumentException("Already registered special day on this date");
 
+                        // Updates day
                         if(dayDto.getDayType().equals("holiday")){
                             day.setType(SpecialType.HOLIDAY);
                         }else{
                             day.setType(SpecialType.WEEKEND);
                         }
+                        day.setCurrentDay(0);
+                        day.setCurrentLate(0);
                         dayDao.updateDay(day);
+
+                        // Delete already registered events of this date
+                        for(Event registeredEvent : eventDao.getEventsByDateAndTeam(day.getDayDate(),team)){
+                            Event deleteEvent = new Event();
+                            deleteEvent.setId(registeredEvent.getId());
+                            eventDeleteDao.deleteEvent(deleteEvent);
+                        }
+
+                        break;
                     }
                 }
             }

@@ -25,6 +25,12 @@ public class EventDaoImp extends HibernateDaoSupport implements EventDao {
     }
 
     @Override
+    @Transactional
+    public void deleteEvent(Event event){
+        getHibernateTemplate().delete(event);
+    }
+
+    @Override
     public List<Event> getEventsByUser(String username) {
         return (List<Event>) getHibernateTemplate().find("from com.sap.models.Event as e where e.user.userName='"+username+"'");
     }

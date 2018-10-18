@@ -46,6 +46,17 @@ public class EventServiceImp implements EventService {
             e.printStackTrace();
         }
 
+        // If it is a new event, creates the event before updating
+        if(event.getId() == null){
+            this.createDefaultEvent(user, eventDate);
+            try {
+                event = eventDao.getEventByDateAndUser(eventDate, user.getUserName());
+            }catch (IndexOutOfBoundsException e){
+                e.printStackTrace();
+                throw new IllegalArgumentException("Holiday full");
+            }
+        }
+
         // If the shift is already registered
         if(event.getShift().toString().toLowerCase().compareTo(eventDto.getShift()) == 0){
             return;
@@ -129,9 +140,15 @@ public class EventServiceImp implements EventService {
 
                 // Sets the better shift, the one with most slots available
                 if(getDayLimit(event) - day.getCurrentDay() > getLateLimit(event) - day.getCurrentLate()){
+                    if(getDayLimit(event) == day.getCurrentDay()){
+                        return;
+                    }
                     event.setShift(Shift.ANY_DAY);
                     day.setCurrentDay(day.getCurrentDay() + 1);
                 }else{
+                    if(getLateLimit(event) == day.getCurrentLate()){
+                        return;
+                    }
                     event.setShift(Shift.ANY_LATE);
                     day.setCurrentLate(day.getCurrentLate() + 1);
                 }

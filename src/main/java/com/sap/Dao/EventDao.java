@@ -12,6 +12,8 @@ public interface EventDao {
 
     void updateEvent(Event event);
 
+    void deleteEvent(Event event);
+
     public List<Event> getEventsByUser(String username);
 
     public Event getEventByDateAndUser(Date date, String username);
