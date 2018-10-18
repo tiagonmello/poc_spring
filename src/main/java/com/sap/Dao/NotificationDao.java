@@ -10,7 +10,7 @@ public interface NotificationDao {
 
     void deleteNotification(Notification notification);
 
-    List<Notification> getShiftNotificationsByTeam(Team team);
+    List<ShiftNote> getShiftNotificationsByTeam(Team team);
 
     List<Notification> getTextNotificationsByTeam(Team team);
 

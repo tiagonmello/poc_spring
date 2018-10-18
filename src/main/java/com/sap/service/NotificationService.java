@@ -2,6 +2,7 @@ package com.sap.service;
 
 import com.sap.dtos.EventDto;
 import com.sap.models.Notification;
+import com.sap.models.ShiftNote;
 import com.sap.models.Team;
 import com.sap.models.TextNote;
 
@@ -15,7 +16,7 @@ public interface NotificationService {
 
     void deleteNotification(Notification notification);
 
-    List<Notification> getShiftNotificationsByTeam(Team team);
+    List<ShiftNote> getShiftNotificationsByTeam(Team team);
 
     List<Notification> getTextNotificationsByTeam(Team team);
 

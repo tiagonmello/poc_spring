@@ -9,6 +9,8 @@ import com.sap.service.TeamCalendarService;
 import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -72,8 +74,10 @@ public class NotificationServiceImp implements NotificationService {
     }
 
     @Override
-    public List<Notification> getShiftNotificationsByTeam(Team team){
-        return notificationDao.getShiftNotificationsByTeam(team);
+    public List<ShiftNote> getShiftNotificationsByTeam(Team team){
+        List<ShiftNote> notificationList = notificationDao.getShiftNotificationsByTeam(team);
+        notificationList.sort(Comparator.comparing(ShiftNote::getDayDate));
+        return notificationList;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.sap.Dao.impl;
 
 import com.sap.Dao.NotificationDao;
 import com.sap.models.Notification;
+import com.sap.models.ShiftNote;
 import com.sap.models.Team;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +29,7 @@ public class NotificationDaoImp extends HibernateDaoSupport implements Notificat
     }
 
     @Override
-    public List<Notification> getShiftNotificationsByTeam(Team team){
-        return (List<Notification>) getHibernateTemplate().find("from com.sap.models.Notification as n where n.team.id='"+team.getId().toString()+"' and n.text = null");
+    public List<ShiftNote> getShiftNotificationsByTeam(Team team){
+        return (List<ShiftNote>) getHibernateTemplate().find("from com.sap.models.ShiftNote as n where n.team.id='"+team.getId().toString()+"'");
     }
 }
