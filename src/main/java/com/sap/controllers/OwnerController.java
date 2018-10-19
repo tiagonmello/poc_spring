@@ -144,4 +144,12 @@ public class OwnerController {
 
         return "redirect:/owner/notifications";
     }
+
+    @RequestMapping(value = "/owner/calendarOverview")
+    public String calendarOverview(Model model){
+        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        model.addAttribute("eventList", eventService.getEventsByTeam(principal.getUser().getTeam()));
+        return "overview";
+    }
 }

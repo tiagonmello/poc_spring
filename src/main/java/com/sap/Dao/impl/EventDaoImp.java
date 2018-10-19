@@ -7,6 +7,7 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +33,9 @@ public class EventDaoImp extends HibernateDaoSupport implements EventDao {
 
     @Override
     public List<Event> getEventsByUser(String username) {
-        return (List<Event>) getHibernateTemplate().find("from com.sap.models.Event as e where e.user.userName='"+username+"'");
+        List<Event> eventList = (List<Event>) getHibernateTemplate().find("from com.sap.models.Event as e where e.user.userName='"+username+"'");
+        eventList.sort(Comparator.comparing(Event::getEventDate));
+        return eventList;
     }
 
     @Override

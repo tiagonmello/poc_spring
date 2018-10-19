@@ -197,12 +197,13 @@
 </div>
 <div>
     <div style="float: left">
-        <form action="/owner/notifications" method="get">
+        <form action="/owner/calendarOverview" method="get">
             <button type="submit">Calendar overview</button>
         </form>
     </div>
     <div>
         &nbsp;
+    </div>
     <div style="float: left">
         <form action="/owner/notifications" method="get">
             <button type="submit">Manage notifications</button>
