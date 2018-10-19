@@ -5,11 +5,13 @@ import com.sap.Dao.EventDao;
 import com.sap.dtos.EventDto;
 import com.sap.models.*;
 import com.sap.service.EventService;
+import com.sap.service.UserService;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,9 @@ public class EventServiceImp implements EventService {
 
     @Resource
     private DayDao dayDao;
+
+    @Resource
+    private UserService userService;
 
     @Override
     public void createEvent(EventDto eventDto, User user) {
@@ -209,6 +214,19 @@ public class EventServiceImp implements EventService {
         // Returns event list sorted by date
         List<Event> eventList = eventDao.getEventsByUser(username);
         eventList.sort(Comparator.comparing(Event::getEventDate));
+        return eventList;
+    }
+
+    public List<List<Event>> getEventsByTeam(Team team) {
+        // A list containing all event listed by user
+        List<List<Event>> eventList = new ArrayList<>();
+
+        for(User user : userService.getUsersByTeam(team)){
+            if(user.getRole().getName().equals("ROLE_OWNER")) continue;
+
+            eventList.add(eventDao.getEventsByUser(user.getUserName()));
+        }
+
         return eventList;
     }
 
