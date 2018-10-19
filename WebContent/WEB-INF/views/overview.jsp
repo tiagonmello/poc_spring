@@ -18,54 +18,68 @@
     <title>Calendar overview</title>
 </head>
 <body>
-<fieldset style="width: 1200px">
-    <legend>Team Calendar Overview</legend>
-    <div>
-        <table class="dataTable">
-            <thead>
-            <tr>
-                <th/>
-                <c:forEach items="${eventList[0]}" var="event">
-                    <c:if test="${event.day.type eq 'HOLIDAY'}">
-                        <th style="background-color: lightblue">
-                            <fmt:formatDate value="${event.day.dayDate}" pattern="dd-MM-yyyy"/>
-                        </th>
-                    </c:if>
-                    <c:if test="${event.day.type eq 'WEEKEND'}">
-                        <th style="background-color: lightcoral">
-                            <fmt:formatDate value="${event.dayDate}" pattern="dd-MM-yyyy"/>
-                        </th>
-                    </c:if>
-                    <c:if test="${event.day.type eq 'NORMAL'}">
-                        <th><fmt:formatDate value="${event.day.dayDate}" pattern="dd-MM-yyyy"/></th>
-                    </c:if>
-                </c:forEach>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${eventList}" var="events">
-                </tr>
-                    <td>${events[0].user.userName}</td>
-                    <c:forEach items="${events}" var="event">
-                        <td>
-                            <c:if test="${event.shift eq 'ANY_DAY' || event.shift eq 'DAY'}">
-                                <div style="color: darkgoldenrod">Day</div>
+<div class="mainContainer">
+    <div class="content">
+        <fieldset style="width: 1200px">
+            <legend>Team Calendar Overview</legend>
+            <div style="text-align: center">
+                <table class="dataTable">
+                    <thead>
+                    <tr>
+                        <th/>
+                        <c:forEach items="${eventList[0]}" var="event">
+                            <c:if test="${event.day.type eq 'HOLIDAY'}">
+                                <th style="background-color: lightblue">
+                                    <fmt:formatDate value="${event.day.dayDate}" pattern="dd-MM-yyyy"/>
+                                </th>
                             </c:if>
-                            <c:if test="${event.shift eq 'ANY_LATE' || event.shift eq 'LATE'}">
-                                <div style="color: darkblue">Late</div>
+                            <c:if test="${event.day.type eq 'WEEKEND'}">
+                                <th style="background-color: lightcoral">
+                                    <fmt:formatDate value="${event.dayDate}" pattern="dd-MM-yyyy"/>
+                                </th>
                             </c:if>
-                        </td>
+                            <c:if test="${event.day.type eq 'NORMAL'}">
+                                <th><fmt:formatDate value="${event.day.dayDate}" pattern="dd-MM-yyyy"/></th>
+                            </c:if>
+                        </c:forEach>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${eventList}" var="events">
+                        </tr>
+                        <td>${events[0].user.userName}</td>
+                        <c:forEach items="${events}" var="event">
+                            <td>
+                                <c:if test="${event.shift eq 'ANY_DAY' || event.shift eq 'DAY'}">
+                                    <c:if test="${event.dayAvailability}">
+                                        <div style="color: darkgoldenrod">Day</div>
+                                    </c:if>
+                                    <c:if test="${not event.dayAvailability}">
+                                        <div style="color: red">Day</div>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="${event.shift eq 'ANY_LATE' || event.shift eq 'LATE'}">
+                                    <c:if test="${event.dayAvailability}">
+                                        <div style="color: darkblue">Late</div>
+                                    </c:if>
+                                    <c:if test="${not event.dayAvailability}">
+                                        <div style="color: red">Late</div>
+                                    </c:if>
+                                </c:if>
+                            </td>
+                        </c:forEach>
+                        </tr>
                     </c:forEach>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+        <div>
+            <form action="/owner/homepage" method="get">
+                <button type="submit">Back</button>
+            </form>
+        </div>
     </div>
-</fieldset>
-<div>
-    <form action="/owner/homepage" method="get">
-        <button type="submit">Back</button>
-    </form>
 </div>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
