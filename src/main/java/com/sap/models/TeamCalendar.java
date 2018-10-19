@@ -1,7 +1,5 @@
 package com.sap.models;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.Comparator;
 import java.util.Date;

@@ -1,6 +1,8 @@
 package com.sap.Dao;
 
-import com.sap.models.*;
+import com.sap.models.Notification;
+import com.sap.models.ShiftNote;
+import com.sap.models.Team;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package com.sap.models;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="TEXT_NOTIFICATION")
