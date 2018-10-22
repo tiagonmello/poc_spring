@@ -127,6 +127,7 @@
                             <td>
                                 ${notification.text}
                             </td>
+                            <td></td>
                         </tr>
                     </c:forEach>
                     <c:forEach items="${shiftNotifications}" var="notification">
