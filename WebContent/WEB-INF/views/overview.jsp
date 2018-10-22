@@ -26,7 +26,12 @@
                 <table class="dataTable">
                     <thead>
                     <tr>
-                        <th/>
+                        <c:if test="${empty eventList}">
+                            <b>No calendars registered</b>
+                        </c:if>
+                        <c:if test="${not empty eventList}">
+                            <th/>
+                        </c:if>
                         <c:forEach items="${eventList[0]}" var="event">
                             <c:if test="${event.day.type eq 'HOLIDAY'}">
                                 <th style="background-color: lightblue">
