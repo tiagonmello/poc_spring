@@ -44,10 +44,15 @@
             <div>
                 <table class="dataTable" >
                     <thead>
-                    <tr>
-                        <th>Notifications</th>
-                        <th>Delete</th>
-                    </tr>
+                    <c:if test="${empty textNotifications}">
+                        <b>No notifications</b>
+                    </c:if>
+                    <c:if test="${not empty textNotifications}">
+                        <tr>
+                            <th>Notifications</th>
+                            <th>Delete</th>
+                        </tr>
+                    </c:if>
                     </thead>
                     <tbody>
                     <c:forEach items="${textNotifications}" var="notification">
@@ -96,11 +101,16 @@
             <div>
                 <table class="dataTable" >
                     <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Shift</th>
-                        <th>Delete</th>
-                    </tr>
+                    <c:if test="${empty shiftNotifications}">
+                        <b>No notifications</b>
+                    </c:if>
+                    <c:if test="${not empty shiftNotifications}">
+                        <tr>
+                            <th>Date</th>
+                            <th>Shift</th>
+                            <th>Delete</th>
+                        </tr>
+                    </c:if>
                     </thead>
                     <tbody>
                     <c:forEach items="${shiftNotifications}" var="notification">

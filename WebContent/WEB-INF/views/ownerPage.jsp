@@ -165,14 +165,19 @@
             <div>
                 <table class="dataTable" >
                     <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>People/day</th>
-                        <th>People/late</th>
-                        <th>Manage</th>
-                    </tr>
+                    <c:if test="${empty calendarList}">
+                        <b>No calendar registered</b>
+                    </c:if>
+                    <c:if test="${not empty calendarList}">
+                        <tr>
+                            <th>ID</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>People/day</th>
+                            <th>People/late</th>
+                            <th>Manage</th>
+                        </tr>
+                    </c:if>
                     </thead>
                     <tbody>
                     <c:forEach items="${calendarList}" var="calendar">

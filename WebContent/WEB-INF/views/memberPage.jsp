@@ -111,10 +111,15 @@
             <div>
                 <table class="dataTable" >
                     <thead>
-                    <tr>
-                        <th>Information</th>
-                        <th>Action</th>
-                    </tr>
+                    <c:if test="${empty textNotifications && empty shiftNotifications}">
+                        <b>No notifications</b>
+                    </c:if>
+                    <c:if test="${not empty textNotifications || not empty shiftNotifications}">
+                        <tr>
+                            <th>Information</th>
+                            <th>Action</th>
+                        </tr>
+                    </c:if>
                     </thead>
                     <tbody>
                     <c:forEach items="${textNotifications}" var="notification">
